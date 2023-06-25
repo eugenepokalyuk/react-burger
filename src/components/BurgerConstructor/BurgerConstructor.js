@@ -3,12 +3,12 @@ import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktiku
 import BurgerConstructorStyles from './BurgerConstructor.module.css';
 import BasketData from '../../utils/basket.json';
 import Modal from '../Modal/Modal';
+import PropTypes from 'prop-types';
 
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 
 
 const BurgerConstructor = () => {
-
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOrderClick = () => {
@@ -111,5 +111,19 @@ function calculateTotalPrice(items) {
   const totalPrice = items.reduce((sum, item) => sum + item.price, 0);
   return totalPrice + firstBunPrice + lastBunPrice;
 }
+
+BurgerConstructor.propTypes = {
+  // Пропсы
+};
+
+BasketBody.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default BurgerConstructor;

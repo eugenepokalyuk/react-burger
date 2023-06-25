@@ -3,6 +3,7 @@ import BurgerIngredientsStyles from './BurgerIngredients.module.css';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientsData from '../../utils/data.json';
 import Modal from '../Modal/Modal';
+import PropTypes from 'prop-types';
 
 const nutrientLabels = [
   { label: 'Калории, ккал', value: 'calories' },
@@ -151,5 +152,15 @@ class BurgerIngredients extends React.Component {
     );
   }
 }
+
+BurgerIngredients.propTypes = {
+  current: PropTypes.string,
+  bunRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  mainsRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  saucesRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  basket: PropTypes.arrayOf(PropTypes.object),
+  isModalOpen: PropTypes.bool,
+  selectedIngredient: PropTypes.object
+};
 
 export default BurgerIngredients;
