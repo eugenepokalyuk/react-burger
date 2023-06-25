@@ -1,0 +1,33 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    max-width: 720px;
+    background-color: #1C1C21;
+    padding: 70px 100px;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* не получается сделать адекватно, при разых размерах модального окна или окна браузера меняет расположение */
+.modalCloseButton svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+}

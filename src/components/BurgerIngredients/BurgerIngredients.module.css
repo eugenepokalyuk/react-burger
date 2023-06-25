@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+}
+
+.cardItem {
+    width: 272px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.cardItem img {
+    width: 250px;
+    height: auto;
+    transition: 0.5s;
+}
+
+.cardItem>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardItem:hover {
+    color: #8585AD;
+}
+
+.cardItem:hover img {
+    scale: 1.2;
+}
+
+.cardItem p,
+.cardItem .CurrencyIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scrollable {
+    max-height: 65vh;
+    /* max-height: 70vh; */
+    overflow: auto;
+}
+
+.scrollable {
+    /* плашка-бегунок и фон */
+    scrollbar-color: #8685ad #2f2f37;
+    /* margin: 10px; */
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    /* плашка-бегунок */
+    background: #8685ad;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    /* фон */
+    background: #2f2f37;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.textLeft {
+    text-align: left;
+}

@@ -1,0 +1,57 @@
+[
+    {
+        "text": "Соус традиционный галактический",
+        "price": 30,
+        "thumbnail": "https://code.s3.yandex.net/react/code/sauce-03.png"
+    },
+    {
+        "text": "Мясо бессмертных моллюсков Protostomia",
+        "price": 300,
+        "thumbnail": "https://code.s3.yandex.net/react/code/meat-02.png"
+    },
+    {
+        "text": "Плоды Фалленианского дерева",
+        "price": 80,
+        "thumbnail": "https://code.s3.yandex.net/react/code/sp_1.png"
+    },
+    {
+        "text": "Хрустящие минеральные кольца",
+        "price": 80,
+        "thumbnail": "https://code.s3.yandex.net/react/code/mineral_rings.png"
+    },
+    {
+        "text": "Хрустящие минеральные кольца",
+        "price": 80,
+        "thumbnail": "https://code.s3.yandex.net/react/code/mineral_rings.png"
+    },
+    {
+        "text": "Мясо бессмертных моллюсков Protostomia",
+        "price": 300,
+        "thumbnail": "https://code.s3.yandex.net/react/code/meat-02.png"
+    },
+    {
+        "text": "Мясо бессмертных моллюсков Protostomia",
+        "price": 300,
+        "thumbnail": "https://code.s3.yandex.net/react/code/meat-02.png"
+    },
+    {
+        "text": "Хрустящие минеральные кольца",
+        "price": 80,
+        "thumbnail": "https://code.s3.yandex.net/react/code/mineral_rings.png"
+    },
+    {
+        "text": "Хрустящие минеральные кольца",
+        "price": 80,
+        "thumbnail": "https://code.s3.yandex.net/react/code/mineral_rings.png"
+    },
+    {
+        "text": "Мясо бессмертных моллюсков Protostomia",
+        "price": 300,
+        "thumbnail": "https://code.s3.yandex.net/react/code/meat-02.png"
+    },
+    {
+        "text": "Мясо бессмертных моллюсков Protostomia",
+        "price": 300,
+        "thumbnail": "https://code.s3.yandex.net/react/code/meat-02.png"
+    }
+]

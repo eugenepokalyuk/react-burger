@@ -1,0 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+/* Выровнять идеально по центру не получилось =( */
+.logo {
+  display: flex;
+  position: absolute;
+  left: 40%;
+}
+
+.header {
+  margin: 0 auto;
+  background: #1c1c21;
+}
+
+.title {
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 500;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+}
+
+.list li > a {
+  display: flex;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  padding: 16px 20px;
+  color: #8585ad;
+  border: 1px solid transparent;
+}
+
+/* В будущем тут будут настоящие стили */
+.link:hover{
+  border: 1px dashed blue;
+  color: #F2F2F3;
+}
+
+.link:hover > svg{
+  fill: #F2F2F3;
+}
+.active svg,
+.active {
+  color: #F2F2F3;
+  fill: #F2F2F3;
+}
