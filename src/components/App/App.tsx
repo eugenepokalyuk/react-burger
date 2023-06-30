@@ -5,18 +5,16 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 
-class App extends React.Component {
-  render() {
-    return (
-      <>
-        <AppHeader />
-        <main className={AppStyles.container}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
-      </>
-    );
-  }
-}
+const App = () => {
+  return (
+    <>
+      <AppHeader />
+      <main className={AppStyles.container}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+    </>
+  );
+};
 
 export default App;

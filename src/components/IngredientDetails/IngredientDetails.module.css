@@ -1,0 +1,34 @@
+.cardItem {
+    width: 272px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.cardItem img {
+    width: 250px;
+    height: auto;
+    transition: 0.5s;
+}
+
+.cardItem>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardItem:hover {
+    color: #8585AD;
+}
+
+.cardItem:hover img {
+    scale: 1.2;
+}
+
+.cardItem p,
+.cardItem .CurrencyIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
