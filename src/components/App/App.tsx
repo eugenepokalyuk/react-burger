@@ -1,5 +1,5 @@
 import React from 'react';
-import AppStyles from './App.module.css';
+import styles from './App.module.css';
 // Импортируем компоненты
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <main className={AppStyles.container}>
+      <main className={styles.container}>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>

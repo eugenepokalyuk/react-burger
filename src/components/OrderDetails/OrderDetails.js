@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import OrderDetailsStyles from './OrderDetails.module.css';
+import styles from './OrderDetails.module.css';
 import PropTypes from 'prop-types';
 
 const OrderDetails = ({ items }) => {
@@ -16,20 +16,20 @@ const OrderDetails = ({ items }) => {
           text="Краторная булка N-200i (верх)"
           price={firstBunPrice}
           thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          extraClass={OrderDetailsStyles.constructorElement}
+          extraClass={styles.constructorElement}
         />
       </div>
 
-      <div className={OrderDetailsStyles.scrollable}>
-        <div className={OrderDetailsStyles.scrollableContent}>
+      <div className={styles.scrollable}>
+        <div className={styles.scrollableContent}>
           {items.map((item, index) => (
-            <div className={`${OrderDetailsStyles.DragableItem} mr-2`} key={index}>
+            <div className={`${styles.DragableItem} mr-2`} key={index}>
               <DragIcon type="primary" />
               <ConstructorElement
                 text={item.text}
                 price={item.price}
                 thumbnail={item.thumbnail}
-                extraClass={OrderDetailsStyles.constructorElement}
+                extraClass={styles.constructorElement}
               />
             </div>
           ))}
@@ -43,7 +43,7 @@ const OrderDetails = ({ items }) => {
           text="Краторная булка N-200i (низ)"
           price={lastBunPrice}
           thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-          extraClass={OrderDetailsStyles.constructorElement}
+          extraClass={styles.constructorElement}
         />
       </div>
     </>

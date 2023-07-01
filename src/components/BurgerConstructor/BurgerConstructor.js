@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerConstructorStyles from './BurgerConstructor.module.css';
+import styles from './BurgerConstructor.module.css';
 import BasketData from '../../utils/basket.json';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
@@ -19,14 +19,14 @@ const BurgerConstructor = () => {
   };
 
   return (
-    <section className={`${BurgerConstructorStyles.container} mt-25`}>
+    <section className={`${styles.container} mt-25`}>
       <div>
-        <div className={BurgerConstructorStyles.flexContainer} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div className={styles.flexContainer} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <OrderDetails items={BasketData} />
         </div>
 
-        <div className={`${BurgerConstructorStyles.infoContainer} mt-10`}>
-          <div className={`${BurgerConstructorStyles.infoContainerItem} mr-10`}>
+        <div className={`${styles.infoContainer} mt-10`}>
+          <div className={`${styles.infoContainerItem} mr-10`}>
             <p className='text text_type_digits-medium mr-2'>{calculateTotalPrice(BasketData)}</p>
             <CurrencyIcon type="primary" />
           </div>
@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className={`${BurgerConstructorStyles.textShadows} text text_type_digits-large mb-8`}>034536</h2>
+        <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`}>034536</h2>
         <p className='text text_type_main-medium'>идентификатор заказа</p>
         <div className='mb-15 mt-15'>
           <img src={CheckMarkIconImage} alt="Знак закрытия окна" />

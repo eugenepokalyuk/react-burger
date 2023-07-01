@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import BurgerIngredientsStyles from './BurgerIngredients.module.css';
+import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import IngredientItem from '../IngredientDetails/IngredientDetails';
@@ -61,7 +61,7 @@ const BurgerIngredients = () => {
   };
 
   return (
-    <section className={BurgerIngredientsStyles.container}>
+    <section className={styles.container}>
       <h1 className='text text_type_main-large mb-5 mt-10'>Соберите бургер</h1>
 
       <div style={{ display: 'flex' }}>
@@ -76,7 +76,7 @@ const BurgerIngredients = () => {
         </Tab>
       </div>
 
-      <div className={`${BurgerIngredientsStyles.scrollable} mt-10`}>
+      <div className={`${styles.scrollable} mt-10`}>
         <h2 className='text text_type_main-medium mb-6' ref={bunRef}>Булки</h2>
         {Array.isArray(ingredientsData) &&
           ingredientsData
@@ -128,7 +128,7 @@ const BurgerIngredients = () => {
             </div>
             <div>
               <p className='text text_type_main-medium mb-8'>{selectedIngredient.name}</p>
-              <div className={`${BurgerIngredientsStyles.flex} text_color_inactive`}>
+              <div className={`${styles.flex} text_color_inactive`}>
                 {nutrientLabels.map((nutrient) => (
                   <div key={nutrient.label}>
                     <p className='text text_type_main-default text_color_inactive'>{nutrient.label}</p>
