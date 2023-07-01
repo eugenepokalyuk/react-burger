@@ -4,6 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import IngredientItem from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
+import { fetchIngredientsData } from '../../utils/api';
 
 const nutrientLabels = [
   { label: 'Калории, ккал', value: 'calories' },
@@ -11,8 +12,6 @@ const nutrientLabels = [
   { label: 'Жиры, г', value: 'fat' },
   { label: 'Углеводы, г', value: 'carbohydrates' },
 ];
-
-const ApiUrlPath = 'https://norma.nomoreparties.space/api';
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('Булки');
@@ -25,22 +24,16 @@ const BurgerIngredients = () => {
   const [ingredientsData, setIngredientsData] = useState([]);
 
   useEffect(() => {
-    const fetchIngredientsData = async () => {
+    const getIngredientsData = async () => {
       try {
-        const response = await fetch(`${ApiUrlPath}/ingredients`); // Use the constant here
-
-        if (!response.ok) {
-          throw new Error('Ошибка получения данных');
-        }
-
-        const data = await response.json();
-        setIngredientsData(data.data);
+        const data = await fetchIngredientsData();
+        setIngredientsData(data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchIngredientsData();
+    getIngredientsData();
   }, []);
 
   const handleOrderClick = () => {
