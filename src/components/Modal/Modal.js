@@ -38,7 +38,7 @@ const Modal = ({ isOpen, children, header, onClose }) => {
                     {children}
                 </div>
             </div>
-            <ModalOverlay header={header} />
+            <ModalOverlay />
         </>,
         document.getElementById('root')
     );
