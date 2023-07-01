@@ -5,7 +5,7 @@ import BasketData from '../../utils/basket.json';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
-import OrderDetails from '../OrderDetails/OrderDetails';
+import OrderDetails, { ModalOrderDetails } from '../OrderDetails/OrderDetails';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -37,13 +37,7 @@ const BurgerConstructor = () => {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`}>034536</h2>
-        <p className='text text_type_main-medium'>идентификатор заказа</p>
-        <div className='mb-15 mt-15'>
-          <img src={CheckMarkIconImage} alt="Знак закрытия окна" />
-        </div>
-        <p className='text text_type_main-default mb-2'>Ваш заказ начали готовить</p>
-        <p className='text text_type_main-default text_color_inactive'>Дождитесь готовности на орбитальной станции</p>
+        <ModalOrderDetails orderId="034536" />
       </Modal>
     </section>
   );
