@@ -12,6 +12,8 @@ const nutrientLabels = [
   { label: 'Углеводы, г', value: 'carbohydrates' },
 ];
 
+const ApiUrlPath = 'https://norma.nomoreparties.space/api';
+
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('Булки');
   const bunRef = useRef();
@@ -25,8 +27,7 @@ const BurgerIngredients = () => {
   useEffect(() => {
     const fetchIngredientsData = async () => {
       try {
-        const uri = 'https://norma.nomoreparties.space/api/ingredients';
-        const response = await fetch(uri);
+        const response = await fetch(`${ApiUrlPath}/ingredients`); // Use the constant here
 
         if (!response.ok) {
           throw new Error('Ошибка получения данных');
