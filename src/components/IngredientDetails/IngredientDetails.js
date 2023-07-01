@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientDetails.module.css';
+import PropTypes from 'prop-types'
+import { ingredientPropTypes } from '../../utils/props-types';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const handleClick = () => {
@@ -27,12 +28,7 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
 };
 
 IngredientItem.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  ingredient: ingredientPropTypes.isRequired,
   getIngredientCount: PropTypes.func.isRequired,
   setIsModalOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,
