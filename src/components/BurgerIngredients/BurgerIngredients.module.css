@@ -41,14 +41,11 @@
 
 .scrollable {
     max-height: 65vh;
-    /* max-height: 70vh; */
     overflow: auto;
 }
 
 .scrollable {
-    /* плашка-бегунок и фон */
     scrollbar-color: #8685ad #2f2f37;
-    /* margin: 10px; */
 }
 
 .scrollable::-webkit-scrollbar {
@@ -56,12 +53,10 @@
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-    /* плашка-бегунок */
     background: #8685ad;
 }
 
 .scrollable::-webkit-scrollbar-track {
-    /* фон */
     background: #2f2f37;
 }
 
