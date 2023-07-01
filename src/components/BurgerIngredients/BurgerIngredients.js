@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
@@ -49,6 +49,21 @@ const BurgerIngredients = () => {
     ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const filteredBuns = useMemo(
+    () => ingredientsData.filter((ingredient) => ingredient.type === 'bun'),
+    [ingredientsData]
+  );
+
+  const filteredSauces = useMemo(
+    () => ingredientsData.filter((ingredient) => ingredient.type === 'sauce'),
+    [ingredientsData]
+  );
+
+  const filteredMains = useMemo(
+    () => ingredientsData.filter((ingredient) => ingredient.type === 'main'),
+    [ingredientsData]
+  );
+
   const getIngredientCount = (ingredient) => {
     const ingredientCount = basket.filter((item) => item.text === ingredient.name).length;
     return ingredientCount;
@@ -72,46 +87,37 @@ const BurgerIngredients = () => {
 
       <div className={`${styles.scrollable} mt-10`}>
         <h2 className='text text_type_main-medium mb-6' ref={bunRef}>Булки</h2>
-        {Array.isArray(ingredientsData) &&
-          ingredientsData
-            .filter((ingredient) => ingredient.type === 'bun')
-            .map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={getIngredientCount}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-              />
-            ))}
+        {filteredBuns.map((ingredient) => (
+          <IngredientItem
+            key={ingredient._id}
+            ingredient={ingredient}
+            getIngredientCount={getIngredientCount}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedIngredient={setSelectedIngredient}
+          />
+        ))}
 
         <h2 className='text text_type_main-medium mb-6 mt-10' ref={saucesRef}>Соусы</h2>
-        {Array.isArray(ingredientsData) &&
-          ingredientsData
-            .filter((ingredient) => ingredient.type === 'sauce')
-            .map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={getIngredientCount}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-              />
-            ))}
+        {filteredSauces.map((ingredient) => (
+          <IngredientItem
+            key={ingredient._id}
+            ingredient={ingredient}
+            getIngredientCount={getIngredientCount}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedIngredient={setSelectedIngredient}
+          />
+        ))}
 
         <h2 className='text text_type_main-medium mb-6 mt-10' ref={mainsRef}>Начинки</h2>
-        {Array.isArray(ingredientsData) &&
-          ingredientsData
-            .filter((ingredient) => ingredient.type === 'main')
-            .map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={getIngredientCount}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-              />
-            ))}
+        {filteredMains.map((ingredient) => (
+          <IngredientItem
+            key={ingredient._id}
+            ingredient={ingredient}
+            getIngredientCount={getIngredientCount}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedIngredient={setSelectedIngredient}
+          />
+        ))}
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} header='Детали ингредиента'>
