@@ -1,27 +1,3 @@
-.constructorElement {
-    background: #1C1C21;
-}
-
-.scrollable {
-    overflow-y: scroll;
-    scrollbar-color: #8685ad #2f2f37;
-    max-height: 454px;
-}
-
-.scrollable::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-    background: #8685ad;
-}
-
-.scrollable::-webkit-scrollbar-track {
-    background: #2f2f37;
-}
-
-.scrollableContent {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.textShadows {
+    text-shadow: 0 0 16px rgba(51, 51, 255, .25), 0 0 8px rgba(51, 51, 255, .25), 0 4px 32px rgba(51, 51, 255, .5);
 }

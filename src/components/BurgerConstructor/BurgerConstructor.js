@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import BasketData from '../../utils/basket.json';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
-import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
-import OrderDetails, { ModalOrderDetails } from '../OrderDetails/OrderDetails';
+import OrderDetails from '../OrderDetails/OrderDetails';
+import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredients';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const BurgerConstructor = () => {
     <section className={`${styles.container} mt-25`}>
       <div>
         <div className={styles.flexContainer} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <OrderDetails items={BasketData} />
+          <ConstructorIngredients items={BasketData} />
         </div>
 
         <div className={`${styles.infoContainer} mt-10`}>
@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalOrderDetails orderId="034536" />
+          <OrderDetails orderId="034536" />
       </Modal>
     </section>
   );

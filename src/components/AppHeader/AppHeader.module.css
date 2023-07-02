@@ -5,7 +5,6 @@
   list-style-type: none;
 }
 
-/* Выровнять идеально по центру не получилось =( */
 .logo {
   display: flex;
   position: absolute;
@@ -54,7 +53,6 @@
   border: 1px solid transparent;
 }
 
-/* В будущем тут будут настоящие стили */
 .link:hover{
   border: 1px dashed blue;
   color: #F2F2F3;

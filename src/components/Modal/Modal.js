@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Modal.module.css';
 import ReactDOM from 'react-dom';
@@ -38,7 +38,7 @@ const Modal = ({ isOpen, children, header, onClose }) => {
                     {children}
                 </div>
             </div>
-            <ModalOverlay header={header} />
+            <ModalOverlay />
         </>,
         document.getElementById('root')
     );

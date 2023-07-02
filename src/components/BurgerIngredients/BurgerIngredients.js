@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
@@ -35,10 +35,6 @@ const BurgerIngredients = () => {
 
     getIngredientsData();
   }, []);
-
-  const handleOrderClick = () => {
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setIsModalOpen(false);

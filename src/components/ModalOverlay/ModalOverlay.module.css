@@ -7,6 +7,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background: red */
     background: rgba(0, 0, 0, .6)
 }
