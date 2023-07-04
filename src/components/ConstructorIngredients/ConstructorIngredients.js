@@ -8,16 +8,22 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
   const { burgerIngredients } = useContext(BurgerContext);
   const bunPrice = 20; // Стоимость булки
 
+  const BUN_TYPE = 'bun';
+  const MAIN_TYPE = 'main';
+  const SAUCE_TYPE = 'sauces';
+
   useEffect(() => {
     calculateTotalPrice();
   }, [burgerIngredients]);
 
+  
   const calculateTotalPrice = () => {
-    const nonBunIngredients = burgerIngredients.filter((item) => item.type !== 'bun');
+    const nonBunIngredients = burgerIngredients.filter((item) => item.type !== BUN_TYPE);
     const ingredientsPrice = nonBunIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
     const totalPrice = ingredientsPrice + 2 * bunPrice;
     onIngredientAdd({ price: totalPrice });
   };
+  
 
   const renderBun = (type) => {
     return (
@@ -37,7 +43,7 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
   };
 
   const renderIngredients = () => {
-    const nonBunIngredients = items.filter((item) => item.type !== 'bun');
+    const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     const burgerBasket = nonBunIngredients.map((item, index) => (
       <div className={`${styles.DragableItem} mr-2`} key={index}>
         <DragIcon type="primary" />

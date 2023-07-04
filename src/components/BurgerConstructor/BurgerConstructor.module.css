@@ -18,3 +18,10 @@
     width: 33px;
     height: 33px;
 }
+
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}

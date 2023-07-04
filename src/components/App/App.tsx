@@ -12,7 +12,7 @@ const App = () => {
         <BurgerIngredients />
 
         <BurgerProvider>
-          <BurgerConstructor burgerIngredients={[]}/>
+          <BurgerConstructor burgerIngredients={[]} />
         </BurgerProvider>
 
       </main>
