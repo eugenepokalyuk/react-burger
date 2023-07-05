@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer, useEffect, useMemo } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
@@ -8,26 +8,9 @@ import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredi
 import { BurgerContext } from '../../services/BurgerContext';
 import { fetchIngredientsData, createOrder } from '../../utils/api';
 
-const initialState = {
-  totalPrice: 0,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_TOTAL_PRICE':
-      return {
-        ...state,
-        totalPrice: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
   const [orderId, setOrderId] = useState(null);
 
   // Запрос на ингридиенты
@@ -60,7 +43,7 @@ const BurgerConstructor = () => {
   };
 
   const handleIngredientAdd = (ingredient) => {
-    dispatch({ type: 'SET_TOTAL_PRICE', payload: ingredient.price });
+    // Реализация логики добавления ингредиента
   };
 
   const handleIngredientRemove = (ingredient) => {
