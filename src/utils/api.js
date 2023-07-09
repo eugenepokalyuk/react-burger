@@ -11,7 +11,27 @@ export const fetchIngredientsData = async () => {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw new Error('Ошибка при получении ингредиентов заказа');
+  }
+};
+
+export const createOrder = async (orderData) => {
+  try {
+    const response = await fetch(`${ApiUrlPath}/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Ошибка при создании заказа');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error('Ошибка при создании заказа');
   }
 };

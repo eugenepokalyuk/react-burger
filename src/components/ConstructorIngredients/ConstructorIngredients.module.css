@@ -2,26 +2,39 @@
     background: #1C1C21;
 }
 
-.scrollable {
-    overflow-y: scroll;
-    scrollbar-color: #8685ad #2f2f37;
-    max-height: 454px;
+.scrollableContentWrapper {
+    max-height: 65vh;
+    overflow: auto;
 }
 
-.scrollable::-webkit-scrollbar {
+.scrollableContentWrapper {
+    scrollbar-color: #8685ad #2f2f37;
+}
+
+.scrollableContentWrapper::-webkit-scrollbar {
     width: 8px;
 }
 
-.scrollable::-webkit-scrollbar-thumb {
+.scrollableContentWrapper::-webkit-scrollbar-thumb {
     background: #8685ad;
 }
 
-.scrollable::-webkit-scrollbar-track {
+.scrollableContentWrapper::-webkit-scrollbar-track {
     background: #2f2f37;
 }
 
 .scrollableContent {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px 0px;
+}
+
+.scrollableContent svg:first-child {
+    cursor: grab;
+}
+
+.scrollableContentWrapper {
+    max-height: 454px;
+    overflow-y: auto;
+
 }

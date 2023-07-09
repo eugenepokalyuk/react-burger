@@ -14,6 +14,10 @@ const nutrientLabels = [
 ];
 
 const BurgerIngredients = () => {
+  const BUN_TYPE = 'bun';
+  const MAIN_TYPE = 'main';
+  const SAUCE_TYPE = 'sauce';
+
   const [current, setCurrent] = useState('Булки');
   const bunRef = useRef();
   const mainsRef = useRef();
@@ -29,7 +33,7 @@ const BurgerIngredients = () => {
         const data = await fetchIngredientsData();
         setIngredientsData(data);
       } catch (error) {
-        console.error(error);
+        // Обработка ошибки
       }
     };
 
@@ -46,17 +50,17 @@ const BurgerIngredients = () => {
   };
 
   const filteredBuns = useMemo(
-    () => ingredientsData.filter((ingredient) => ingredient.type === 'bun'),
+    () => ingredientsData.filter((ingredient) => ingredient.type === BUN_TYPE),
     [ingredientsData]
   );
 
   const filteredSauces = useMemo(
-    () => ingredientsData.filter((ingredient) => ingredient.type === 'sauce'),
+    () => ingredientsData.filter((ingredient) => ingredient.type === SAUCE_TYPE),
     [ingredientsData]
   );
 
   const filteredMains = useMemo(
-    () => ingredientsData.filter((ingredient) => ingredient.type === 'main'),
+    () => ingredientsData.filter((ingredient) => ingredient.type === MAIN_TYPE),
     [ingredientsData]
   );
 
@@ -69,7 +73,7 @@ const BurgerIngredients = () => {
     <section className={styles.container}>
       <h1 className='text text_type_main-large mb-5 mt-10'>Соберите бургер</h1>
 
-      <div style={{ display: 'flex' }}>
+      <div className={styles.container_flex}>
         <Tab value="Булки" active={current === 'Булки'} onClick={() => handleTabClick('Булки', bunRef)}>
           Булки
         </Tab>
@@ -116,26 +120,28 @@ const BurgerIngredients = () => {
         ))}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} header='Детали ингредиента'>
-        {selectedIngredient && (
-          <>
-            <div className='mb-4 mt-4'>
-              <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
-            </div>
-            <div>
-              <p className='text text_type_main-medium mb-8'>{selectedIngredient.name}</p>
-              <div className={`${styles.flex} text_color_inactive`}>
-                {nutrientLabels.map((nutrient) => (
-                  <div key={nutrient.label}>
-                    <p className='text text_type_main-default text_color_inactive'>{nutrient.label}</p>
-                    <p className='text text_type_main-default text_color_inactive'>{selectedIngredient[nutrient.value]}</p>
-                  </div>
-                ))}
+      {isModalOpen && (
+        <Modal onClose={closeModal} header='Детали ингредиента'>
+          {selectedIngredient && (
+            <>
+              <div className='mb-4 mt-4'>
+                <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
               </div>
-            </div>
-          </>
-        )}
-      </Modal>
+              <div>
+                <p className='text text_type_main-medium mb-8'>{selectedIngredient.name}</p>
+                <div className={`${styles.flex} text_color_inactive`}>
+                  {nutrientLabels.map((nutrient) => (
+                    <div key={nutrient.label}>
+                      <p className='text text_type_main-default text_color_inactive'>{nutrient.label}</p>
+                      <p className='text text_type_main-default text_color_inactive'>{selectedIngredient[nutrient.value]}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </Modal>
+      )}
     </section>
   );
 };
