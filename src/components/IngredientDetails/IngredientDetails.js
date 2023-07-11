@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { ingredientPropTypes } from '../../utils/props-types';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
+  
   const handleClick = () => {
     setIsModalOpen(true);
     setSelectedIngredient(ingredient);

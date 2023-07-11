@@ -5,18 +5,20 @@ import PropTypes from 'prop-types';
 import IngredientItem from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { fetchIngredientsData } from '../../utils/api';
-
-const nutrientLabels = [
-  { label: 'Калории, ккал', value: 'calories' },
-  { label: 'Белки, г', value: 'proteins' },
-  { label: 'Жиры, г', value: 'fat' },
-  { label: 'Углеводы, г', value: 'carbohydrates' },
-];
+import { useDrag, useDrop } from 'react-dnd';
 
 const BurgerIngredients = () => {
+  //#region [ Initialization of variables ]
   const BUN_TYPE = 'bun';
   const MAIN_TYPE = 'main';
   const SAUCE_TYPE = 'sauce';
+
+  const nutrientLabels = [
+    { label: 'Калории, ккал', value: 'calories' },
+    { label: 'Белки, г', value: 'proteins' },
+    { label: 'Жиры, г', value: 'fat' },
+    { label: 'Углеводы, г', value: 'carbohydrates' },
+  ];
 
   const [current, setCurrent] = useState('Булки');
   const bunRef = useRef();
@@ -26,6 +28,7 @@ const BurgerIngredients = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [ingredientsData, setIngredientsData] = useState([]);
+  //#endregion
 
   useEffect(() => {
     const getIngredientsData = async () => {
