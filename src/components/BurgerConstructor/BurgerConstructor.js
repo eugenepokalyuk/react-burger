@@ -8,12 +8,14 @@ import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredi
 import { BurgerContext } from '../../services/BurgerContext';
 import { fetchIngredientsData, createOrder } from '../../utils/api';
 import { useDrag, useDrop } from 'react-dnd';
+import { selectConstructorIngredients } from '../../services/reducers/ingredients';
+import { useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
   const [orderId, setOrderId] = useState(null);
-
+  const constructorIngredients = useSelector(selectConstructorIngredients);
   // Запрос на ингридиенты
   useEffect(() => {
     const getIngredientsData = async () => {

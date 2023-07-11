@@ -6,8 +6,34 @@ import IngredientItem from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { fetchIngredientsData } from '../../utils/api';
 import { useDrag, useDrop } from 'react-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchIngredientsRequest
+} from '../../services/actions/ingredients';
+
+import {
+  fetchConstructorIngredientsRequest
+} from '../../services/actions/burgerConstructor'
+
+import {
+  selectIngredients,
+  selectConstructorIngredients,
+  selectLoading,
+  selectError,
+} from '../../services/reducers/ingredients';
 
 const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+  const ingredients = useSelector(selectIngredients);
+  const constructorIngredients = useSelector(selectConstructorIngredients);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchIngredientsRequest());
+    dispatch(fetchConstructorIngredientsRequest());
+  }, [dispatch]);
+
   //#region [ Initialization of variables ]
   const BUN_TYPE = 'bun';
   const MAIN_TYPE = 'main';

@@ -4,23 +4,6 @@ import {
     FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE
 } from '../actions/burgerConstructor';
 
-// Экшен для запроса списка ингредиентов для конструктора бургера
-const fetchConstructorIngredientsRequest = () => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
-});
-
-// Экшен для успешного получения списка ингредиентов для конструктора бургера
-const fetchConstructorIngredientsSuccess = (ingredients) => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
-    payload: ingredients,
-});
-
-// Экшен для ошибки при получении списка ингредиентов для конструктора бургера
-const fetchConstructorIngredientsFailure = (error) => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE,
-    payload: error,
-});
-
 const initialState = {
     constructorIngredients: [],
     loading: false,

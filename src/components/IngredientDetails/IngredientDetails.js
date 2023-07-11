@@ -2,10 +2,16 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types'
 import { ingredientPropTypes } from '../../utils/props-types';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
+import { selectViewedIngredient } from '../../services/reducers/currentIngredient'; // ?
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
+  const dispatch = useDispatch();
+  const viewedIngredient = useSelector(selectViewedIngredient);
   
   const handleClick = () => {
+    dispatch(clearViewedIngredient());
+
     setIsModalOpen(true);
     setSelectedIngredient(ingredient);
   };
