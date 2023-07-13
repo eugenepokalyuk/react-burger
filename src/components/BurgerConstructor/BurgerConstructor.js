@@ -9,45 +9,48 @@ import { BurgerContext } from '../../services/BurgerContext';
 import { fetchIngredientsData, createOrder } from '../../utils/api';
 import { useDrag, useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
-import { useSelector } from 'react-redux';
+import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/reducers/burgerConstructor'
+import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
   const [orderId, setOrderId] = useState(null);
   const constructorIngredients = useSelector(selectConstructorIngredients);
+  const burgerContent = useSelector(store => store.burger)
+  const dispatch = useDispatch();
   // Запрос на ингридиенты
   useEffect(() => {
     const getIngredientsData = async () => {
       try {
-        // const data = await fetchIngredientsData();
-        const data = [{
-          "_id": "643d69a5c3f7b9001cfa093f",
-          "name": "Мясо бессмертных моллюсков Protostomia",
-          "type": "main",
-          "proteins": 433,
-          "fat": 244,
-          "carbohydrates": 33,
-          "calories": 420,
-          "price": 1337,
-          "image": "https://code.s3.yandex.net/react/code/meat-02.png",
-          "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-          "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
-          "__v": 0
-        }, {
-          "_id": "643d69a5c3f7b9001cfa0946",
-          "name": "Хрустящие минеральные кольца",
-          "type": "main",
-          "proteins": 808,
-          "fat": 689,
-          "carbohydrates": 609,
-          "calories": 986,
-          "price": 300,
-          "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
-          "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-          "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-          "__v": 0
-        }];
+        const data = await fetchIngredientsData();
+        // const data = [{
+        //   "_id": "643d69a5c3f7b9001cfa093f",
+        //   "name": "Мясо бессмертных моллюсков Protostomia",
+        //   "type": "main",
+        //   "proteins": 433,
+        //   "fat": 244,
+        //   "carbohydrates": 33,
+        //   "calories": 420,
+        //   "price": 1337,
+        //   "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+        //   "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+        //   "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
+        //   "__v": 0
+        // }, {
+        //   "_id": "643d69a5c3f7b9001cfa0946",
+        //   "name": "Хрустящие минеральные кольца",
+        //   "type": "main",
+        //   "proteins": 808,
+        //   "fat": 689,
+        //   "carbohydrates": 609,
+        //   "calories": 986,
+        //   "price": 300,
+        //   "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
+        //   "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
+        //   "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
+        //   "__v": 0
+        // }];
         setBurgerIngredients(data);
       } catch (error) {
         // Обработка ошибки
@@ -56,6 +59,16 @@ const BurgerConstructor = () => {
 
     getIngredientsData();
   }, [setBurgerIngredients]);
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "items",
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: item })
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    })
+  });
 
   const handleOrderClick = async () => {
     try {

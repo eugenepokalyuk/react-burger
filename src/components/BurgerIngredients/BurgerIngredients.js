@@ -10,17 +10,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchIngredientsRequest
 } from '../../services/actions/ingredients';
-
 import {
   fetchConstructorIngredientsRequest
 } from '../../services/actions/burgerConstructor'
-
 import {
   selectIngredients,
   selectConstructorIngredients,
   selectLoading,
   selectError,
 } from '../../services/reducers/ingredients';
+import { addIngredientToConstructor } from '../../services/actions/burgerConstructor';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();

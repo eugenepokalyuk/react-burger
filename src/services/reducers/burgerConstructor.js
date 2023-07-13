@@ -1,7 +1,8 @@
 import {
     FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
     FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
-    FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE
+    FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE,
+    ADD_INGREDIENT_TO_CONSTRUCTOR
 } from '../actions/burgerConstructor';
 
 const initialState = {
@@ -30,6 +31,11 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload,
+            };
+        case ADD_INGREDIENT_TO_CONSTRUCTOR:
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients, action.payload],
             };
         default:
             return state;

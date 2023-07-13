@@ -25,3 +25,9 @@
     gap: 10px;
     align-items: flex-end;
 }
+
+.dropIndicator {
+    border: 2px dashed blue;
+    background-color: lightblue;
+    /* Дополнительные стили по вашему усмотрению */
+  }

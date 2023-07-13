@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import { ingredientPropTypes } from '../../utils/props-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
-import { selectViewedIngredient } from '../../services/reducers/currentIngredient'; // ?
+import { selectViewedIngredient } from '../../services/reducers/currentIngredient';
+import { useDrag, useDrop } from 'react-dnd';
+
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const dispatch = useDispatch();
   const viewedIngredient = useSelector(selectViewedIngredient);
-  
+  const burgerContent = useSelector(store => store.burger)
+
   const handleClick = () => {
     dispatch(clearViewedIngredient());
 
@@ -16,11 +19,20 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
     setSelectedIngredient(ingredient);
   };
 
+  const [{ ingredientOpacity }, dragTarget] = useDrag({
+    type: 'items',
+    item: ingredient ,
+    collect: monitor => ({
+      ingredientOpacity: monitor.isDragging() ? 0.5 : 1
+    })
+  })
+
   return (
     <div
       key={ingredient._id}
       className={`${styles.cardItem} mb-5 mr-6`}
       onClick={handleClick}
+      ref={dragTarget}
     >
       <Counter count={getIngredientCount(ingredient)} size="default" />
       <img src={ingredient.image} alt={ingredient.name} />
