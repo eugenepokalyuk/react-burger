@@ -9,7 +9,7 @@ import { BurgerContext } from '../../services/BurgerContext';
 import { fetchIngredientsData, createOrder } from '../../utils/api';
 import { useDrag, useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
-import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/reducers/burgerConstructor'
+import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/burgerConstructor'
 import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
@@ -23,35 +23,8 @@ const BurgerConstructor = () => {
   useEffect(() => {
     const getIngredientsData = async () => {
       try {
-        const data = await fetchIngredientsData();
-        // const data = [{
-        //   "_id": "643d69a5c3f7b9001cfa093f",
-        //   "name": "Мясо бессмертных моллюсков Protostomia",
-        //   "type": "main",
-        //   "proteins": 433,
-        //   "fat": 244,
-        //   "carbohydrates": 33,
-        //   "calories": 420,
-        //   "price": 1337,
-        //   "image": "https://code.s3.yandex.net/react/code/meat-02.png",
-        //   "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-        //   "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
-        //   "__v": 0
-        // }, {
-        //   "_id": "643d69a5c3f7b9001cfa0946",
-        //   "name": "Хрустящие минеральные кольца",
-        //   "type": "main",
-        //   "proteins": 808,
-        //   "fat": 689,
-        //   "carbohydrates": 609,
-        //   "calories": 986,
-        //   "price": 300,
-        //   "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
-        //   "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
-        //   "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
-        //   "__v": 0
-        // }];
-        setBurgerIngredients(data);
+        // const data = await fetchIngredientsData();
+        // setBurgerIngredients(data);
       } catch (error) {
         // Обработка ошибки
       }
@@ -99,7 +72,7 @@ const BurgerConstructor = () => {
 
   return (
     <section className={`${styles.container} mt-25`}>
-      <div>
+      <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
         <div className={styles.flexContainer}>
           <ConstructorIngredients
             items={burgerIngredients}
@@ -118,6 +91,7 @@ const BurgerConstructor = () => {
           </Button>
         </div>
       </div>
+      
       {isModalOpen && (
         <Modal onClose={closeModal}>
           {orderId ? (

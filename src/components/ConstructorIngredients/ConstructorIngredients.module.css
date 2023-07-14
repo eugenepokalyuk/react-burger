@@ -36,5 +36,8 @@
 .scrollableContentWrapper {
     max-height: 454px;
     overflow-y: auto;
+}
 
+.dragableItem {
+    cursor: copy;
 }

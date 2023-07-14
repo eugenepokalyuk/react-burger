@@ -16,6 +16,8 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
     calculateTotalPrice();
   }, [burgerIngredients]);
 
+  console.log('burgerIngredients', burgerIngredients)
+
 
   const calculateTotalPrice = () => {
     const nonBunIngredients = burgerIngredients.filter((item) => item.type !== BUN_TYPE);
@@ -43,9 +45,13 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
   };
 
   const renderIngredients = () => {
+    // ВНУТРИ МЕНЮ
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     const burgerBasket = nonBunIngredients.map((item, index) => (
-      <div className={`${styles.DragableItem} mr-4`} key={index}>
+      <div
+        key={index}
+        className={`${styles.dragableItem} mr-4`}
+      >
         <DragIcon type="primary" />
         <ConstructorElement
           text={item.name}

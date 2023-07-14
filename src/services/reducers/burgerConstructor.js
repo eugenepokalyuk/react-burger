@@ -6,12 +6,14 @@ import {
 } from '../actions/burgerConstructor';
 
 const initialState = {
-    constructorIngredients: [],
+    ingredients: [],
     loading: false,
     error: null,
 };
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
+    console.log('state', state);
+    console.log('action', action);
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {
@@ -22,7 +24,7 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
         case FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS:
             return {
                 ...state,
-                constructorIngredients: action.payload,
+                ingredients: action.payload,
                 loading: false,
                 error: null,
             };
@@ -33,10 +35,13 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case ADD_INGREDIENT_TO_CONSTRUCTOR:
-            return {
-                ...state,
-                constructorIngredients: [...state.constructorIngredients, action.payload],
-            };
+            return action.content.type === 'bun' 
+                ? {...state, bun: {...action.content}} 
+                : {...state, ingredients: [...state.ingredients, {...action.content}]}
+            // return {
+                // ...state,
+                // ingredients: [...state.ingredients, action.payload],
+            // };
         default:
             return state;
     }

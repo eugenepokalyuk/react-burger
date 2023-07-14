@@ -28,6 +28,6 @@
 
 .dropIndicator {
     border: 2px dashed blue;
-    background-color: lightblue;
+    /* background-color: lightblue; */
     /* Дополнительные стили по вашему усмотрению */
   }
