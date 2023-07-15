@@ -14,6 +14,7 @@ const initialState = {
 export const constructorIngredientsReducer = (state = initialState, action) => {
     console.log('state', state);
     console.log('action', action);
+
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {
@@ -35,13 +36,9 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
                 error: action.payload,
             };
         case ADD_INGREDIENT_TO_CONSTRUCTOR:
-            return action.content.type === 'bun' 
-                ? {...state, bun: {...action.content}} 
-                : {...state, ingredients: [...state.ingredients, {...action.content}]}
-            // return {
-                // ...state,
-                // ingredients: [...state.ingredients, action.payload],
-            // };
+            return action.content.type === 'bun'
+                ? { ...state, bun: action.content }
+                : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.content] : [action.content] }
         default:
             return state;
     }

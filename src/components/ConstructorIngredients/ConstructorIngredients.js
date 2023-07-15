@@ -12,20 +12,16 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
   // const MAIN_TYPE = 'main';
   // const SAUCE_TYPE = 'sauces';
 
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [burgerIngredients]);
+  // useEffect(() => {
+  //   calculateTotalPrice();
+  // }, [burgerIngredients]);
 
-  console.log('burgerIngredients', burgerIngredients)
-
-
-  const calculateTotalPrice = () => {
-    const nonBunIngredients = burgerIngredients.filter((item) => item.type !== BUN_TYPE);
-    const ingredientsPrice = nonBunIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
-    const totalPrice = ingredientsPrice + 2 * bunPrice;
-    onIngredientAdd({ price: totalPrice });
-  };
-
+  // const calculateTotalPrice = () => {
+    // const nonBunIngredients = burgerIngredients.filter((item) => item.type !== BUN_TYPE);
+    // const ingredientsPrice = nonBunIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
+    // const totalPrice = ingredientsPrice + 2 * bunPrice;
+    // onIngredientAdd({ price: totalPrice });
+  // };
 
   const renderBun = (type) => {
     return (

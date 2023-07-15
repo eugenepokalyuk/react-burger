@@ -19,7 +19,7 @@ import {
   selectLoading,
   selectError,
 } from '../../services/reducers/ingredients';
-import { addIngredientToConstructor } from '../../services/actions/burgerConstructor';
+import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/burgerConstructor';
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,16 @@ const BurgerIngredients = () => {
     dispatch(fetchIngredientsRequest());
     dispatch(fetchConstructorIngredientsRequest());
   }, [dispatch]);
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "items",
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: { ...item } });
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    })
+  });
 
   //#region [ Initialization of variables ]
   const BUN_TYPE = 'bun';

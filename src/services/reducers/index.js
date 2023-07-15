@@ -6,7 +6,7 @@ import { orderDetailsReducer } from './orderDetails';
 
 const rootReducer = combineReducers({
   constructorIngredients: constructorIngredientsReducer,
-  burgerIngredients: constructorIngredientsReducer, // Список ингредиентов в текущем конструкторе бургера
+  // burgerIngredients: constructorIngredientsReducer, // Список ингредиентов в текущем конструкторе бургера
   viewedIngredient: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
   order: orderDetailsReducer, // Объект созданного заказа

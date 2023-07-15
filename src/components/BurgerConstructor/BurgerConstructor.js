@@ -8,30 +8,39 @@ import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredi
 import { BurgerContext } from '../../services/BurgerContext';
 import { fetchIngredientsData, createOrder } from '../../utils/api';
 import { useDrag, useDrop } from 'react-dnd';
-import { selectConstructorIngredients } from '../../services/reducers/ingredients';
+import { selectConstructorIngredients, selectIngredients } from '../../services/reducers/ingredients';
 import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/burgerConstructor'
 import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
+  // const [burgerIngredients, setBurgerIngredients] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const constructorIngredients = useSelector(selectConstructorIngredients);
-  const burgerContent = useSelector(store => store.burger)
+  const ingredients = useSelector(selectIngredients);
+  const burgerContent = useSelector(store => store.burger);
   const dispatch = useDispatch();
   // Запрос на ингридиенты
-  useEffect(() => {
+  useEffect((ingredients) => {
+    
+    console.log('constructorIngredients', constructorIngredients)
+    console.log('ingredients', ingredients)
+    console.log('burgerContent', burgerContent)
+
     const getIngredientsData = async () => {
       try {
         // const data = await fetchIngredientsData();
         // setBurgerIngredients(data);
+        const data = constructorIngredients.ingredients;
+        setBurgerIngredients(data);
       } catch (error) {
         // Обработка ошибки
       }
     };
 
     getIngredientsData();
-  }, [setBurgerIngredients]);
+  }, [constructorIngredients]);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "items",
@@ -60,6 +69,7 @@ const BurgerConstructor = () => {
 
   const handleIngredientAdd = (ingredient) => {
     // Реализация логики добавления ингредиента
+    dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: ingredient })
   };
 
   const handleIngredientRemove = (ingredient) => {
