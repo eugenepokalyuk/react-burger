@@ -39,5 +39,15 @@
 }
 
 .dragableItem {
-    cursor: copy;
+    cursor: grab;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.itemWidth {
+    background: transparent;
+    width: 100%;
 }

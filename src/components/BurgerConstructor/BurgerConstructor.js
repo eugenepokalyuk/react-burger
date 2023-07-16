@@ -12,7 +12,7 @@ import { selectConstructorIngredients, selectIngredients } from '../../services/
 import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/burgerConstructor'
 import { useDispatch, useSelector } from 'react-redux';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (ingredientElement) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
   // const [burgerIngredients, setBurgerIngredients] = useState([]);
@@ -21,19 +21,29 @@ const BurgerConstructor = () => {
   const ingredients = useSelector(selectIngredients);
   const burgerContent = useSelector(store => store.burger);
   const dispatch = useDispatch();
-  // Запрос на ингридиенты
-  useEffect((ingredients) => {
-    
-    console.log('constructorIngredients', constructorIngredients)
-    console.log('ingredients', ingredients)
-    console.log('burgerContent', burgerContent)
 
+
+
+  // Запрос на ингридиенты
+  // useEffect((ingredients) => {
+  //   const getIngredientsData = async () => {
+  //     try {
+  //       const data = await fetchIngredientsData();
+  //       setBurgerIngredients(data);
+  //     } catch (error) {
+  //       // Обработка ошибки
+  //     }
+  //   };
+
+  //   getIngredientsData();
+  // }, [constructorIngredients]);
+
+  useEffect((ingredients) => {
     const getIngredientsData = async () => {
       try {
         // const data = await fetchIngredientsData();
-        // setBurgerIngredients(data);
-        const data = constructorIngredients.ingredients;
-        setBurgerIngredients(data);
+        const data = ingredientElement.burgerIngredients.ingredients;
+        setBurgerIngredients(data.lenght === 0 ? null : data);
       } catch (error) {
         // Обработка ошибки
       }
@@ -101,7 +111,7 @@ const BurgerConstructor = () => {
           </Button>
         </div>
       </div>
-      
+
       {isModalOpen && (
         <Modal onClose={closeModal}>
           {orderId ? (

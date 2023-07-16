@@ -13,8 +13,6 @@ const initialState = {
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
     console.log('state', state);
-    console.log('action', action);
-
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {

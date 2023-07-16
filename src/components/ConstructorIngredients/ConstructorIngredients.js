@@ -64,7 +64,7 @@ const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) 
   return (
     <>
       {renderBun('top')}
-      <div className={styles.scrollable}>
+      <div className={`${styles.scrollable} ${styles.itemWidth}`}>
         <div className={styles.scrollableContentWrapper}>
           <div className={styles.scrollableContent}>
             {renderIngredients()}
