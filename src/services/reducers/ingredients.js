@@ -14,6 +14,7 @@ export const selectIngredients = (state) => state.ingredients;
 export const selectConstructorIngredients = (state) => state.constructorIngredients;
 export const selectLoading = (state) => state.loading;
 export const selectError = (state) => state.error;
+export const selectIngredientsLoading = (state) => state.ingredients.loading;
 
 export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {

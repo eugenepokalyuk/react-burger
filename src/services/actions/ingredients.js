@@ -9,10 +9,16 @@ export const fetchIngredientsRequest = () => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-export const fetchIngredientsSuccess = (ingredients) => ({
+// export const fetchIngredientsSuccess = (ingredients) => ({
+//     type: FETCH_INGREDIENTS_SUCCESS,
+//     payload: ingredients,
+// });
+
+export const fetchIngredientsSuccess = (data) => ({
     type: FETCH_INGREDIENTS_SUCCESS,
-    payload: ingredients,
+    payload: data,
 });
+
 
 export const fetchIngredientsFailure = (error) => ({
     type: FETCH_INGREDIENTS_FAILURE,
@@ -26,17 +32,17 @@ export function getIngredients() {
         });
 
         fetchIngredientsData()
-            .then(res => {
+            .then((res) => {
+                dispatch(fetchIngredientsSuccess(res.data));
                 dispatch({
-                    type: FETCH_INGREDIENTS_SUCCESS,
-                    data: res
-                });
-                dispatch({
-                    type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST
+                    type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
                 });
             })
-            .catch((e) => dispatch({
-                type: FETCH_INGREDIENTS_FAILURE
-            }));
+            .catch((e) =>
+                dispatch({
+                    type: FETCH_INGREDIENTS_FAILURE,
+                })
+            );
+
     }
 };

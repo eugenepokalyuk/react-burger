@@ -9,9 +9,9 @@ import { useDrag, useDrop } from 'react-dnd';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const dispatch = useDispatch();
-  const viewedIngredient = useSelector(selectViewedIngredient);
-  const burgerContent = useSelector(store => store.burger)
-
+  // const viewedIngredient = useSelector(selectViewedIngredient);
+  // const burgerContent = useSelector(store => store.burger)
+  console.log('getIngredientCount', dispatch(getIngredientCount))
   const handleClick = () => {
     dispatch(clearViewedIngredient());
 
@@ -21,7 +21,7 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
 
   const [{ ingredientOpacity }, dragTarget] = useDrag({
     type: 'items',
-    item: ingredient ,
+    item: ingredient,
     collect: monitor => ({
       ingredientOpacity: monitor.isDragging() ? 0.5 : 1
     })
@@ -46,7 +46,12 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
 };
 
 IngredientItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
+  ingredient: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   getIngredientCount: PropTypes.func.isRequired,
   setIsModalOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,

@@ -1,8 +1,12 @@
 import {
     FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
     FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
-    FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE,
-    ADD_INGREDIENT_TO_CONSTRUCTOR
+    FETCH_CONSTRUCTOR_INGREDIENTS_ERROR,
+    ADD_INGREDIENT_TO_CONSTRUCTOR,
+
+    REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+    MOVE_INGREDIENT_IN_CONSTRUCTOR,
+    SET_BUN
 } from '../actions/burgerConstructor';
 
 const initialState = {
@@ -12,7 +16,6 @@ const initialState = {
 };
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
-    console.log('state', state);
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {
@@ -27,7 +30,7 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
                 loading: false,
                 error: null,
             };
-        case FETCH_CONSTRUCTOR_INGREDIENTS_FAILURE:
+        case FETCH_CONSTRUCTOR_INGREDIENTS_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -37,6 +40,38 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             return action.content.type === 'bun'
                 ? { ...state, bun: action.content }
                 : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.content] : [action.content] }
+        case REMOVE_INGREDIENT_FROM_CONSTRUCTOR:
+            // Либо для нахождения индекса использовать метод findIndex
+            const index = state.ingredients.findIndex(item => item._id === action.key);
+            if (index !== -1) {
+                const updatedIngredients = [...state.ingredients];
+                updatedIngredients.splice(index, 1);
+                return {
+                    ...state,
+                    ingredients: updatedIngredients,
+                };
+            }
+            return state;
+        case MOVE_INGREDIENT_IN_CONSTRUCTOR:
+            const { dragIndex, hoverIndex } = action.payload;
+            const updatedIngredients = [...state.ingredients];
+            const draggedItem = updatedIngredients[dragIndex];
+
+            updatedIngredients.splice(dragIndex, 1);
+            updatedIngredients.splice(hoverIndex, 0, draggedItem);
+
+            return {
+                ...state,
+                ingredients: updatedIngredients,
+            };
+        case SET_BUN:
+            return {
+                ...state,
+                bun: {
+                    ...action.payload,
+                    image: action.payload.image_large, // Обновляем поле image_large вместо image
+                }
+            };
         default:
             return state;
     }
