@@ -1,4 +1,4 @@
-const ApiUrlPath = 'https://norma.nomoreparties.space/api/error';
+const ApiUrlPath = 'https://norma.nomoreparties.space/api';
 
 const checkResponse = (res) => res.ok ? res.json() : res.json()
   .then((err) => Promise.reject(err));
