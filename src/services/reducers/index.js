@@ -7,7 +7,6 @@ import { ingredientCounterReducer } from './ingredientCounter';
 
 const rootReducer = combineReducers({
   constructorIngredients: constructorIngredientsReducer,
-  // burgerIngredients: constructorIngredientsReducer, // Список ингредиентов в текущем конструкторе бургера
   ingredientCounter: ingredientCounterReducer,
   viewedIngredient: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
