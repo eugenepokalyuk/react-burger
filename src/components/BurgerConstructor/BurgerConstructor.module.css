@@ -24,10 +24,20 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-end;
+
+    min-height: 436px;
+    /* height: 50vh; */
+    /* border: 2px dashed blue; */
+    /* padding: 20px; */
 }
 
 .dropIndicator {
     border: 2px dashed blue;
+    /* background: #ff69b410; */
     /* background-color: lightblue; */
     /* Дополнительные стили по вашему усмотрению */
-  }
+}
+
+button {
+    cursor: crosshair;
+}
