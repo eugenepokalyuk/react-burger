@@ -9,7 +9,6 @@ const initialState = {
     loading: false,
     error: null,
   },
-  burgerIngredients: [], // Начальное значение списка ингредиентов в текущем конструкторе бургера
   viewedIngredient: {
     viewedIngredient: null, // Начальное значение просматриваемого ингредиента
   },

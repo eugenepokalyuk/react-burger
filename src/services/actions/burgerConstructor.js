@@ -9,19 +9,18 @@ export const MOVE_INGREDIENT_IN_CONSTRUCTOR = 'MOVE_INGREDIENT_IN_CONSTRUCTOR';
 export const SET_BUN = 'SET_BUN';
 export const UPDATE_INGREDIENT_COUNT = 'UPDATE_INGREDIENT_COUNT';
 
-
 export const fetchConstructorIngredientsRequest = () => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
+  type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
 });
 
 export const fetchConstructorIngredientsSuccess = (ingredients) => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
-    payload: ingredients,
+  type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
+  payload: ingredients,
 });
 
 export const fetchConstructorIngredientsFailure = (error) => ({
-    type: FETCH_CONSTRUCTOR_INGREDIENTS_ERROR,
-    payload: error,
+  type: FETCH_CONSTRUCTOR_INGREDIENTS_ERROR,
+  payload: error,
 });
 
 export const addIngredientToConstructor = (ingredient) => ({
@@ -30,8 +29,8 @@ export const addIngredientToConstructor = (ingredient) => ({
 });
 
 export const removeIngredientFromConstructor = (ingredient) => ({
-    type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
-    payload: ingredient,
+  type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+  payload: ingredient,
 });
 
 export const updateIngredientCount = (ingredientId, count) => {

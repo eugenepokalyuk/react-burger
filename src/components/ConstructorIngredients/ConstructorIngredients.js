@@ -56,7 +56,7 @@ const ConstructorIngredients = ({ items }) => {
           <div className={`${styles.bunItem}`}>
             <div className='mr-4'>
               <p className={`text text_type_main-medium ml-10`}>
-                  {'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'}
+                {'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'}
               </p>
             </div>
           </div>
@@ -104,12 +104,11 @@ const ConstructorIngredients = ({ items }) => {
     }
   };
 
-
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     return nonBunIngredients.map((item, index) => (
       <div
-        key={uuidv4()}
+        key={item.uniqueId}
         className={`${styles.dragableItem} mr-4`}
       >
         <DropTarget id={item._id} index={index} itemType={item.type} onMove={handleMove}>
@@ -161,6 +160,7 @@ const ConstructorIngredients = ({ items }) => {
 };
 
 ConstructorIngredients.propTypes = {
+  // uniqueId: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(ingredientType).isRequired,
   ingredientElementBun: PropTypes.object,
 };

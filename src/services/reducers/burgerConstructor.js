@@ -36,10 +36,14 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload,
             };
+
         case ADD_INGREDIENT_TO_CONSTRUCTOR:
-            return action.content.type === 'bun'
-                ? { ...state, bun: action.content }
-                : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.content] : [action.content] }
+        return action.payload.type === 'bun'
+            ? { ...state, bun: action.payload }
+            : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.payload] : [action.payload] }
+        // return action.content.type === 'bun'
+        //     ? { ...state, bun: action.content }
+        //     : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.content] : [action.content] }
         case REMOVE_INGREDIENT_FROM_CONSTRUCTOR:
             // Либо для нахождения индекса использовать метод findIndex
             const index = state.ingredients.findIndex(item => item._id === action.key);

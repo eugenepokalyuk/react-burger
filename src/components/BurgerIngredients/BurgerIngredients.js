@@ -17,6 +17,7 @@ import {
   selectConstructorIngredients,
 } from '../../services/reducers/ingredients';
 import { ADD_INGREDIENT_TO_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor';
+import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
@@ -52,7 +53,8 @@ const BurgerIngredients = () => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
-      dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: { ...item } });
+      // dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: { ...item } });
+      dispatch(addIngredientToConstructor(item));
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
