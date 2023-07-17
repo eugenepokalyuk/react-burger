@@ -9,16 +9,10 @@ export const fetchIngredientsRequest = () => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-// export const fetchIngredientsSuccess = (ingredients) => ({
-//     type: FETCH_INGREDIENTS_SUCCESS,
-//     payload: ingredients,
-// });
-
 export const fetchIngredientsSuccess = (data) => ({
     type: FETCH_INGREDIENTS_SUCCESS,
     payload: data,
 });
-
 
 export const fetchIngredientsFailure = (error) => ({
     type: FETCH_INGREDIENTS_FAILURE,
@@ -28,12 +22,12 @@ export const fetchIngredientsFailure = (error) => ({
 export function getIngredients() {
     return function (dispatch) {
         dispatch({
-            type: FETCH_INGREDIENTS_REQUEST
+            type: FETCH_INGREDIENTS_REQUEST,
         });
 
         fetchIngredientsData()
             .then((res) => {
-                dispatch(fetchIngredientsSuccess(res.data));
+                dispatch(fetchIngredientsSuccess(res.data)); // Добавлено передача данных в экшен
                 dispatch({
                     type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
                 });
@@ -43,6 +37,5 @@ export function getIngredients() {
                     type: FETCH_INGREDIENTS_FAILURE,
                 })
             );
-
-    }
-};
+    };
+}
