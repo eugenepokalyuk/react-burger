@@ -128,13 +128,6 @@ const BurgerIngredients = () => {
     [ingredientsData]
   );
 
-  // Инит булки по умолчанию
-  useEffect(() => {
-    if (filteredBuns.length > 0 && !constructorIngredients.bun) {
-      dispatch({ type: SET_BUN, payload: filteredBuns[0] });
-    }
-  }, [filteredBuns, constructorIngredients.bun, dispatch]);
-
   const filteredSauces = useMemo(
     () => ingredientsData.filter((ingredient) => ingredient.type === SAUCE_TYPE),
     [ingredientsData]
@@ -241,7 +234,7 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-  ingredientsData: PropTypes.array.isRequired,
+  ingredientsData: PropTypes.object.isRequired,
 };
 
 export default BurgerIngredients;
