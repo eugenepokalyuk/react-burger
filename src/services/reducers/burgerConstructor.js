@@ -16,6 +16,7 @@ const initialState = {
 };
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
+    
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {

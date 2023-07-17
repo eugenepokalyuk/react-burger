@@ -24,8 +24,8 @@ export const fetchConstructorIngredientsFailure = (error) => ({
 });
 
 export const addIngredientToConstructor = (ingredient) => ({
-    type: ADD_INGREDIENT_TO_CONSTRUCTOR,
-    payload: {ingredient, uniqueId: uuidv4()}
+  type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+  payload: { ...ingredient, uniqueId: uuidv4() }
 });
 
 export const removeIngredientFromConstructor = (ingredient) => ({
