@@ -4,6 +4,8 @@ import styles from './ConstructorIngredients.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
 import { useDrag, useDrop } from 'react-dnd';
+import { v4 as uuidv4 } from 'uuid';
+import { ingredientType } from '../../utils/types';
 
 const DragHandle = ({ id, index, children }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -44,35 +46,35 @@ const DropTarget = ({ id, index, itemType, onMove, children }) => {
 const ConstructorIngredients = ({ items }) => {
   const dispatch = useDispatch();
   const BUN_TYPE = 'bun';
-  const selectedBun = useSelector(store => store.constructorIngredients.bun);
+  const ingredientElement = useSelector(store => store.constructorIngredients.ingredients);
+  const ingredientElementBun = useSelector(store => store.constructorIngredients.bun);
 
   const renderBun = (type) => {
     return (
-      selectedBun === undefined
-        ? <div className={`${styles.bunItem}`}>
-          <div className='mr-4'>
-            <ConstructorElement
-              type={type}
-              isLocked={true}
-              text={`Краторная булка N-200i (${type === 'top' ? 'верх' : 'низ'})`}
-              price={1255}
-              thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-              extraClass={styles.constructorElement}
-            />
+      ingredientElementBun === undefined
+        ? (
+          <div className={`${styles.bunItem}`}>
+            <div className='mr-4'>
+              <p className={`text text_type_main-medium ml-10`}>
+                  {'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'}
+              </p>
+            </div>
           </div>
-        </div>
-        : <div className={`${styles.bunItem}`}>
-          <div className='mr-4'>
-            <ConstructorElement
-              type={type}
-              isLocked={true}
-              text={`${selectedBun.name} (${type === 'top' ? 'верх' : 'низ'})`}
-              price={selectedBun.price}
-              thumbnail={selectedBun.image}
-              extraClass={styles.constructorElement}
-            />
+        )
+        : (
+          <div className={`${styles.bunItem}`}>
+            <div className='mr-4'>
+              <ConstructorElement
+                type={type}
+                isLocked={true}
+                text={`${ingredientElementBun.name} (${type === 'top' ? 'верх' : 'низ'})`}
+                price={ingredientElementBun.price}
+                thumbnail={ingredientElementBun.image}
+                extraClass={styles.constructorElement}
+              />
+            </div>
           </div>
-        </div>
+        )
     );
   };
 
@@ -107,7 +109,7 @@ const ConstructorIngredients = ({ items }) => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     return nonBunIngredients.map((item, index) => (
       <div
-        key={index}
+        key={uuidv4()}
         className={`${styles.dragableItem} mr-4`}
       >
         <DropTarget id={item._id} index={index} itemType={item.type} onMove={handleMove}>
@@ -128,28 +130,39 @@ const ConstructorIngredients = ({ items }) => {
 
   return (
     <>
-      {renderBun('top')}
-      <div className={`${styles.scrollable} ${styles.itemWidth}`}>
-        <div className={styles.scrollableContentWrapper}>
-          <div className={styles.scrollableContent}>
-            {renderIngredients()}
+      {ingredientElementBun === undefined
+        ?
+        <>
+          {renderBun('null')}
+          <div className={`${styles.scrollable} ${styles.itemWidth}`}>
+            <div className={styles.scrollableContentWrapper}>
+              <div className={styles.scrollableContent}>
+                {renderIngredients()}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {renderBun('bottom')}
+        </>
+        :
+        <>
+          {renderBun('top')}
+          <div className={`${styles.scrollable} ${styles.itemWidth}`}>
+            <div className={styles.scrollableContentWrapper}>
+              <div className={styles.scrollableContent}>
+                {renderIngredients()}
+              </div>
+            </div>
+          </div>
+          {renderBun('bottom')}
+        </>
+      }
+
     </>
   );
 };
 
 ConstructorIngredients.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  selectedBun: PropTypes.object,
+  items: PropTypes.arrayOf(ingredientType).isRequired,
+  ingredientElementBun: PropTypes.object,
 };
 
 export default ConstructorIngredients;
