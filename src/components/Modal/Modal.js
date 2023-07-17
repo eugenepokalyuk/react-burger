@@ -32,14 +32,13 @@ const Modal = ({ children, header, onClose }) => {
           {children}
         </div>
       </div>
-      <ModalOverlay />
+      <ModalOverlay onClose={onClose} />
     </>,
     document.getElementById('root')
   );
 };
 
 Modal.propTypes = {
-  // isOpen: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
