@@ -4,7 +4,6 @@
 
 .scrollableContentWrapper {
     max-height: 65vh;
-    overflow: auto;
 }
 
 .scrollableContentWrapper {
@@ -36,5 +35,18 @@
 .scrollableContentWrapper {
     max-height: 454px;
     overflow-y: auto;
+}
 
+.dragableItem {
+    cursor: grab;
+
+    /* display: flex; */
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.itemWidth {
+    background: transparent;
+    width: 100%;
 }

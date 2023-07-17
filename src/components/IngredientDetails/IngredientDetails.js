@@ -1,19 +1,34 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types'
-import { ingredientPropTypes } from '../../utils/props-types';
+import { useDispatch } from 'react-redux';
+import { clearViewedIngredient } from '../../services/actions/currentIngredient';
+import { useDrag } from 'react-dnd';
+import { ingredientType } from '../../utils/types';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
+  const dispatch = useDispatch();
   const handleClick = () => {
+    dispatch(clearViewedIngredient());
+
     setIsModalOpen(true);
     setSelectedIngredient(ingredient);
   };
+
+  const [{ ingredientOpacity }, dragTarget] = useDrag({
+    type: 'items',
+    item: ingredient,
+    collect: monitor => ({
+      ingredientOpacity: monitor.isDragging() ? 0.5 : 1
+    })
+  })
 
   return (
     <div
       key={ingredient._id}
       className={`${styles.cardItem} mb-5 mr-6`}
       onClick={handleClick}
+      ref={dragTarget}
     >
       <Counter count={getIngredientCount(ingredient)} size="default" />
       <img src={ingredient.image} alt={ingredient.name} />
@@ -27,7 +42,7 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
 };
 
 IngredientItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
+  ingredient: ingredientType.isRequired,
   getIngredientCount: PropTypes.func.isRequired,
   setIsModalOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,

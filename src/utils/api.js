@@ -1,37 +1,40 @@
 const ApiUrlPath = 'https://norma.nomoreparties.space/api';
 
-export const fetchIngredientsData = async () => {
-  try {
-    const response = await fetch(`${ApiUrlPath}/ingredients`);
-
-    if (!response.ok) {
-      throw new Error('Ошибка получения данных');
-    }
-
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    throw new Error('Ошибка при получении ингредиентов заказа');
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res.json().then((err) => Promise.reject(err));
   }
 };
 
-export const createOrder = async (orderData) => {
-  try {
-    const response = await fetch(`${ApiUrlPath}/orders`, {
+function request(endpoint, options) {
+  const url = `${ApiUrlPath}${endpoint}`;
+  return fetch(url, options).then(checkResponse);
+}
+
+export const fetchIngredientsData = () => {
+  const endpoint = '/ingredients';
+  return request(endpoint, {})
+    .then((res) => {
+      if (res?.success) return res.data;
+      return Promise.reject(res);
+    });
+}
+
+export const createOrder = (orderData) => {
+  const endpoint = '/orders';
+  return request(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(orderData),
-    });
-
-    if (!response.ok) {
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
       throw new Error('Ошибка при создании заказа');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error('Ошибка при создании заказа');
-  }
+    });
 };

@@ -6,8 +6,6 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import PropTypes from 'prop-types';
 
 const Modal = ({ children, header, onClose }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
   const onKeyDown = (event) => {
     if (event.key === "Escape") {
       onClose();
@@ -20,15 +18,6 @@ const Modal = ({ children, header, onClose }) => {
       document.removeEventListener('keydown', onKeyDown, false);
     };
   }, []);
-
-  const closeModal = () => {
-    setIsOpen(false);
-    onClose();
-  };
-
-  if (!isOpen) {
-    return null;
-  }
 
   return ReactDOM.createPortal(
     <>
@@ -43,14 +32,13 @@ const Modal = ({ children, header, onClose }) => {
           {children}
         </div>
       </div>
-      <ModalOverlay />
+      <ModalOverlay onClose={onClose} />
     </>,
     document.getElementById('root')
   );
 };
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

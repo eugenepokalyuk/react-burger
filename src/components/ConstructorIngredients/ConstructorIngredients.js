@@ -1,89 +1,167 @@
-import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ConstructorIngredients.module.css';
-import { BurgerContext } from '../../services/BurgerContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
+import { useDrag, useDrop } from 'react-dnd';
+import { v4 as uuidv4 } from 'uuid';
+import { ingredientType } from '../../utils/types';
 
-const ConstructorIngredients = ({ items, onIngredientAdd, onIngredientRemove }) => {
-  const { burgerIngredients } = useContext(BurgerContext);
-  const bunPrice = 20; // Стоимость булки
+const DragHandle = ({ id, index, children }) => {
+  const [{ isDragging }, drag] = useDrag({
+    type: 'ingredient',
+    item: { id, index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
+  return (
+    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      {children}
+    </div>
+  );
+};
+
+const DropTarget = ({ id, index, itemType, onMove, children }) => {
+  const [, drop] = useDrop({
+    accept: 'ingredient',
+    hover(item) {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+
+      onMove(dragIndex, hoverIndex, item.type);
+      item.index = hoverIndex;
+    },
+  });
+
+  return <div ref={drop}>{children}</div>;
+};
+
+
+const ConstructorIngredients = ({ items }) => {
+  const dispatch = useDispatch();
   const BUN_TYPE = 'bun';
-  const MAIN_TYPE = 'main';
-  const SAUCE_TYPE = 'sauces';
-
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [burgerIngredients]);
-
-  
-  const calculateTotalPrice = () => {
-    const nonBunIngredients = burgerIngredients.filter((item) => item.type !== BUN_TYPE);
-    const ingredientsPrice = nonBunIngredients.reduce((acc, ingredient) => acc + ingredient.price, 0);
-    const totalPrice = ingredientsPrice + 2 * bunPrice;
-    onIngredientAdd({ price: totalPrice });
-  };
-  
+  const ingredientElement = useSelector(store => store.constructorIngredients.ingredients);
+  const ingredientElementBun = useSelector(store => store.constructorIngredients.bun);
 
   const renderBun = (type) => {
     return (
-      <div className={`${styles.bunItem} mb-2`}>
-        <div className='mr-4'>
-          <ConstructorElement
-            type={type}
-            isLocked={true}
-            text={`Краторная булка N-200i (${type === 'top' ? 'верх' : 'низ'})`}
-            price={bunPrice}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
-            extraClass={styles.constructorElement}
-          />
-        </div>
-      </div>
+      ingredientElementBun === undefined
+        ? (
+          <div className={`${styles.bunItem}`}>
+            <div className='mr-4'>
+              <p className={`text text_type_main-medium ml-10`}>
+                {'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'}
+              </p>
+            </div>
+          </div>
+        )
+        : (
+          <div className={`${styles.bunItem}`}>
+            <div className='mr-4'>
+              <ConstructorElement
+                type={type}
+                isLocked={true}
+                text={`${ingredientElementBun.name} (${type === 'top' ? 'верх' : 'низ'})`}
+                price={ingredientElementBun.price}
+                thumbnail={ingredientElementBun.image}
+                extraClass={styles.constructorElement}
+              />
+            </div>
+          </div>
+        )
     );
+  };
+
+  const handleDelete = (e, item) => {
+    dispatch({
+      type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+      key: item._id
+    })
+  }
+
+  const handleMove = (dragIndex, hoverIndex, itemType) => {
+    if (itemType === BUN_TYPE) {
+      const draggedBun = items[dragIndex];
+      const hoverBun = items[hoverIndex];
+
+      if (draggedBun && hoverBun && draggedBun.type === BUN_TYPE && hoverBun.type === BUN_TYPE) {
+        dispatch({
+          type: SET_BUN,
+          payload: draggedBun,
+        });
+      }
+    } else {
+      dispatch({
+        type: MOVE_INGREDIENT_IN_CONSTRUCTOR,
+        payload: { dragIndex, hoverIndex },
+      });
+    }
   };
 
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
-    const burgerBasket = nonBunIngredients.map((item, index) => (
-      <div className={`${styles.DragableItem} mr-2`} key={index}>
-        <DragIcon type="primary" />
-        <ConstructorElement
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-          extraClass={styles.constructorElement}
-        />
+    return nonBunIngredients.map((item, index) => (
+      <div
+        key={item.uniqueId}
+        className={`${styles.dragableItem} mr-4`}
+      >
+        <DropTarget id={item._id} index={index} itemType={item.type} onMove={handleMove}>
+          <DragHandle id={item._id} index={index}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
+              extraClass={styles.constructorElement}
+              handleClose={e => handleDelete(e, item)}
+            />
+          </DragHandle>
+        </DropTarget>
       </div>
     ));
-
-    return burgerBasket;
   };
 
   return (
     <>
-      {renderBun('top')}
-      <div className={styles.scrollable}>
-        <div className={styles.scrollableContentWrapper}>
-          <div className={styles.scrollableContent}>
-            {renderIngredients()}
+      {ingredientElementBun === undefined
+        ?
+        <>
+          {renderBun('null')}
+          <div className={`${styles.scrollable} ${styles.itemWidth}`}>
+            <div className={styles.scrollableContentWrapper}>
+              <div className={styles.scrollableContent}>
+                {renderIngredients()}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      {renderBun('bottom')}
+        </>
+        :
+        <>
+          {renderBun('top')}
+          <div className={`${styles.scrollable} ${styles.itemWidth}`}>
+            <div className={styles.scrollableContentWrapper}>
+              <div className={styles.scrollableContent}>
+                {renderIngredients()}
+              </div>
+            </div>
+          </div>
+          {renderBun('bottom')}
+        </>
+      }
+
     </>
   );
 };
 
 ConstructorIngredients.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onIngredientAdd: PropTypes.func.isRequired,
-  onIngredientRemove: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(ingredientType).isRequired,
+  ingredientElementBun: PropTypes.object,
 };
 
 export default ConstructorIngredients;

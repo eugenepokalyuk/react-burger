@@ -1,8 +1,20 @@
+import React, { useEffect } from 'react';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 import styles from './OrderDetails.module.css';
 import PropTypes from 'prop-types';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrderNumberRequest, updateOrderNumber } from '../../services/actions/orderDetails';
+import { selectOrderNumber } from '../../services/reducers/orderDetails';
+
 const OrderDetails = ({ orderId }) => {
+  const dispatch = useDispatch();
+  const orderNumber = useSelector(selectOrderNumber);
+
+  useEffect(() => {
+    dispatch(fetchOrderNumberRequest());
+  }, [dispatch]);
+  
   return (
     <>
       <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`}>
