@@ -1,17 +1,13 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types'
-import { ingredientPropTypes } from '../../utils/props-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
-import { selectViewedIngredient } from '../../services/reducers/currentIngredient';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
+import { clearViewedIngredient } from '../../services/actions/currentIngredient';
+import { useDrag } from 'react-dnd';
+import { ingredientType } from '../../utils/types';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const dispatch = useDispatch();
-  // const viewedIngredient = useSelector(selectViewedIngredient);
-  // const burgerContent = useSelector(store => store.burger)
-  console.log('getIngredientCount', dispatch(getIngredientCount))
   const handleClick = () => {
     dispatch(clearViewedIngredient());
 
@@ -46,12 +42,7 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
 };
 
 IngredientItem.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  ingredient: ingredientType.isRequired,
   getIngredientCount: PropTypes.func.isRequired,
   setIsModalOpen: PropTypes.func.isRequired,
   setSelectedIngredient: PropTypes.func.isRequired,
