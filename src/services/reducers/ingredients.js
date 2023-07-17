@@ -10,11 +10,11 @@ const initialState = {
     error: null,
 };
 
-export const selectIngredients = (state) => state.ingredients;
+export const selectIngredients = (state) => state;
 export const selectConstructorIngredients = (state) => state.constructorIngredients;
 export const selectLoading = (state) => state.loading;
 export const selectError = (state) => state.error;
-export const selectIngredientsLoading = (state) => state.ingredients.loading;
+export const selectIngredientsLoading = (state) => state.loading;
 
 export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
