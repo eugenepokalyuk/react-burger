@@ -160,7 +160,6 @@ const ConstructorIngredients = ({ items }) => {
 };
 
 ConstructorIngredients.propTypes = {
-  // uniqueId: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(ingredientType).isRequired,
   ingredientElementBun: PropTypes.object,
 };
