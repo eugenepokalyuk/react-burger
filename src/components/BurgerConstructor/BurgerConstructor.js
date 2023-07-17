@@ -67,7 +67,6 @@ const BurgerConstructor = () => {
     setModalOpen(false);
   };
 
-
   const handleIngredientAdd = (ingredient) => {
     // Реализация логики добавления ингредиента
     dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: ingredient });
@@ -79,7 +78,7 @@ const BurgerConstructor = () => {
   };
 
   const totalPrice = useMemo(() => {
-    const bunPrice = ingredientElementBun ? ingredientElementBun.price : 1255;
+    const bunPrice = ingredientElementBun ? ingredientElementBun.price : 0;
 
     const ingredientsPrice = burgerIngredients.reduce((total, ingredient) => {
       return total + ingredient.price;
@@ -102,7 +101,8 @@ const BurgerConstructor = () => {
             <p className='text text_type_digits-medium mr-2'>{totalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
-          <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
+
+          <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={ingredientElement === undefined || ingredientElementBun === undefined ? true : false}>
             Оформить заказ
           </Button>
         </div>
