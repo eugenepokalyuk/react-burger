@@ -17,6 +17,7 @@ import {
   selectConstructorIngredients,
 } from '../../services/reducers/ingredients';
 import { ADD_INGREDIENT_TO_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor';
+
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const constructorIngredients = useSelector(selectConstructorIngredients);
