@@ -8,7 +8,6 @@ import { BurgerContext } from '../../services/BurgerContext';
 import { createOrder } from '../../utils/api';
 import { useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
-import { ADD_INGREDIENT_TO_CONSTRUCTOR } from '../../services/actions/burgerConstructor'
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
@@ -37,8 +36,7 @@ const BurgerConstructor = () => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
-      dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: item })
-      // dispatch(addIngredientToConstructor(item))
+      dispatch(addIngredientToConstructor(item))
     },
     collect: monitor => ({
       isHover: monitor.isOver(),
@@ -71,13 +69,11 @@ const BurgerConstructor = () => {
 
   const handleIngredientAdd = (ingredient) => {
     // Реализация логики добавления ингредиента
-    // dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: ingredient });
     dispatch(addIngredientToConstructor(ingredient))
   };
 
   const handleIngredientRemove = (ingredient) => {
     // Реализация логики удаления ингредиента
-    // dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: ingredient });
     dispatch(addIngredientToConstructor(ingredient))
   };
 

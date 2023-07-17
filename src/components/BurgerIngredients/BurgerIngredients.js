@@ -16,7 +16,6 @@ import {
 import {
   selectConstructorIngredients,
 } from '../../services/reducers/ingredients';
-import { ADD_INGREDIENT_TO_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor';
 import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
 
 const BurgerIngredients = () => {
@@ -30,7 +29,7 @@ const BurgerIngredients = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [ingredientsData, setIngredientsData] = useState([]);
-  const [activeTab, setActiveTab] = useState('Булки'); // Добавлено объявление и инициализация activeTab
+  const [activeTab, setActiveTab] = useState('Булки');
 
   useEffect(() => {
     const getIngredientsData = async () => {
@@ -53,7 +52,6 @@ const BurgerIngredients = () => {
   const [{ isHover }, dropTarget] = useDrop({
     accept: "items",
     drop(item) {
-      // dispatch({ type: ADD_INGREDIENT_TO_CONSTRUCTOR, content: { ...item } });
       dispatch(addIngredientToConstructor(item));
     },
     collect: monitor => ({

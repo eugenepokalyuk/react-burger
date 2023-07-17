@@ -16,7 +16,7 @@ const initialState = {
 };
 
 export const constructorIngredientsReducer = (state = initialState, action) => {
-    
+
     switch (action.type) {
         case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
             return {
@@ -39,12 +39,9 @@ export const constructorIngredientsReducer = (state = initialState, action) => {
             };
 
         case ADD_INGREDIENT_TO_CONSTRUCTOR:
-        return action.payload.type === 'bun'
-            ? { ...state, bun: action.payload }
-            : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.payload] : [action.payload] }
-        // return action.content.type === 'bun'
-        //     ? { ...state, bun: action.content }
-        //     : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.content] : [action.content] }
+            return action.payload.type === 'bun'
+                ? { ...state, bun: action.payload }
+                : { ...state, ingredients: state.ingredients ? [...state.ingredients, action.payload] : [action.payload] }
         case REMOVE_INGREDIENT_FROM_CONSTRUCTOR:
             // Либо для нахождения индекса использовать метод findIndex
             const index = state.ingredients.findIndex(item => item._id === action.key);
