@@ -1,0 +1,22 @@
+.wrapper {
+    background-image: url("../../images/notFound.png");
+    width: 100vw;
+    height: 90vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container {
+    padding: var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--container-padding) * 2);
+}
+
+.content {
+    margin: auto;
+}
+
+.link {
+    color: var(--color-title);
+}

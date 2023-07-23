@@ -1,5 +1,5 @@
 import styles from './AppHeader.module.css';
-
+import { Link } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
@@ -8,29 +8,37 @@ const AppHeader = () => {
       <nav className={styles.nav}>
         <ul className={styles.list}>
           <li>
-            <a href="/#" className={`${styles.link} ${styles.capitalize} ${styles.active}`}>
+            <Link to='/' className={styles.link}>
+              {/* <a href="/#" className={`${styles.link} ${styles.capitalize} ${styles.active}`}> */}
               <BurgerIcon type="secondary" />
               <p className='text text_type_main-default ml-2'>Конструктор</p>
-            </a>
+              {/* </a> */}
+            </Link>
           </li>
           <li className='ml-2'>
-            <a href="/#" className={`${styles.link} ${styles.capitalize}`}>
+            <Link to='/profile' className={styles.link}>
+              {/* <a href="/#" className={`${styles.link} ${styles.capitalize}`}> */}
               <ListIcon type="secondary" />
               <p className='text text_type_main-default text_color_inactiv ml-2'>Лента заказов</p>
-            </a>
+              {/* </a> */}
+            </Link>
           </li>
         </ul>
         <div className={styles.logo}>
-          <a href="/#">
+          <Link to='/'>
+            {/* <a href="/#"> */}
             <Logo />
-          </a>
+            {/* </a> */}
+          </Link>
         </div>
         <ul>
           <li className='ml-2'>
-            <a href="/#" className={`${styles.link} ${styles.capitalize}`}>
+            <Link to='/login' className={styles.link}>
+              {/* <a href="/#" className={`${styles.link} ${styles.capitalize}`}> */}
               <ProfileIcon type="secondary" />
               <p className='text text_type_main-default text_color_inactiv ml-2'>Личный кабинет</p>
-            </a>
+              {/* </a> */}
+            </Link>
           </li>
         </ul>
       </nav>

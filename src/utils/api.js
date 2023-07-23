@@ -38,3 +38,9 @@ export const createOrder = (orderData) => {
       throw new Error('Ошибка при создании заказа');
     });
 };
+
+export const resetPassword = () => {};
+export const sendPassword = () => {};
+export const createUser = () => {};
+export const signIn = () => {};
+export const signOut = () => {};

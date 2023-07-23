@@ -1,0 +1,15 @@
+.wrapper {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+.link {
+    color: var(--color-title);
+}
