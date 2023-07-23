@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './LoginPage.module.css';
+import { signIn } from '../../utils/api';
 
 export function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        signIn(email, password)
+            .then(res => {
+                console.log('LoginPage res', res)
+                //     navigate("/login")
+            });
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <div className={styles.content}>
+                <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className='text text_type_main-medium mb-6 mt-10'>Вход</h1>
 
                     <Input
@@ -51,7 +61,7 @@ export function LoginPage() {
                         <span className="text_color_inactive">Забыли пароль? </span>
                         <Link to='/forgot-password' className={styles.link}> Восстановить пароль</Link>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );

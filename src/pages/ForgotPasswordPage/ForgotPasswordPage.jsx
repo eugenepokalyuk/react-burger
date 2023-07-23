@@ -12,11 +12,12 @@ export function ForgotPasswordPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // resetPassword(email)
-            // .then(res => {
+        resetPassword(email)
+            .then(res => {
+                console.log('ForgotPasswordPage res', res)
                 navigate("/reset-password")
-            // })
-    }
+            });
+    };
 
     return (
         <div className={styles.wrapper}>

@@ -25,12 +25,12 @@ export const fetchIngredientsData = () => {
 export const createOrder = (orderData) => {
   const endpoint = '/orders';
   return request(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(orderData),
+  })
     .then((data) => {
       return data;
     })
@@ -39,8 +39,65 @@ export const createOrder = (orderData) => {
     });
 };
 
-export const resetPassword = () => {};
-export const sendPassword = () => {};
-export const createUser = () => {};
-export const signIn = () => {};
-export const signOut = () => {};
+export const signIn = () => { };
+export const signOut = () => { };
+
+export const resetPassword = (email) => {
+  const endpoint = '/password-reset';
+  return request(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email
+    }),
+  })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw new Error('Ошибка при создании заказа');
+    });
+};
+
+export const sendPassword = (password, token) => {
+  const endpoint = '/password-reset/reset';
+  return request(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token
+    }),
+  })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw new Error('Ошибка при создании заказа');
+    });
+};
+
+export const createUser = (name, email, password) => {
+  const endpoint = '/auth/register';
+  return request(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      name: name
+    }),
+  })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      throw new Error('Ошибка при создании заказа');
+    });
+};

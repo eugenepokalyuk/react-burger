@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ResetPasswordPage.module.css';
+import { sendPassword } from '../../utils/api';
 
 export function ResetPasswordPage() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        sendPassword(password, name)
+            .then(res => {
+                console.log('ResetPasswordPage res', res)
+                navigate("/login")
+            });
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <div className={styles.content}>
+                <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className='text text_type_main-medium mb-6 mt-10'>Восстановление пароля</h1>
 
                     <Input
@@ -47,7 +60,7 @@ export function ResetPasswordPage() {
                         <Link to='/login' className={styles.link}> Войти</Link>
                     </div>
 
-                </div>
+                </form>
             </div>
         </div>
 

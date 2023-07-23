@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './RegisterPage.module.css';
+import { createUser } from '../../utils/api';
 
 export function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        createUser(name, email, password)
+            .then(res => {
+                console.log('ResetPasswordPage res', res)
+                navigate("/login")
+            });
+    };
 
     return (
         <div className={styles.wrapper}>
