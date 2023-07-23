@@ -1,5 +1,5 @@
 .wrapper {
-    background-image: url("../../images/notFound.png");
+    background-image: url("../../images/PageNotFound.png");
     width: 100vw;
     height: 90vh;
     background-size: cover;
@@ -18,5 +18,5 @@
 }
 
 .link {
-    color: var(--color-title);
+    /* color: var(--color-title); */
 }

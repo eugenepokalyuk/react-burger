@@ -1,0 +1,29 @@
+.error {
+    background-image: url("../../images/IngredientNotFound.png");
+    width: 100vw;
+    height: 90vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.error h1, p {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+}

@@ -81,28 +81,28 @@ export const sendPassword = (password, token) => {
     });
 };
 
-export const createUser = (name, email, password) => {
-  const endpoint = '/auth/register';
-  return request(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-      name: name
-    }),
-  })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      throw new Error('Ошибка при создании заказа');
-    });
-};
+// export const createUser = (name, email, password) => {
+//   const endpoint = '/auth/register';
+//   return request(endpoint, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       email: email,
+//       password: password,
+//       name: name
+//     }),
+//   })
+//     .then((data) => {
+//       return data;
+//     })
+//     .catch((error) => {
+//       throw new Error('Ошибка при создании заказа');
+//     });
+// };
 
-export const editUser = (name, email, password) => {
+// export const editUser = (name, email, password) => {
   // const endpoint = '/auth/register';
   // return request(endpoint, {
   //   method: 'POST',
@@ -121,4 +121,49 @@ export const editUser = (name, email, password) => {
   //   .catch((error) => {
   //     throw new Error('Ошибка при создании заказа');
   //   });
+// };
+
+// POST https://norma.nomoreparties.space/api/auth/login - эндпоинт для авторизации.
+// POST https://norma.nomoreparties.space/api/auth/register - эндпоинт для регистрации пользователя.
+// POST https://norma.nomoreparties.space/api/auth/logout - эндпоинт для выхода из системы.
+// POST https://norma.nomoreparties.space/api/auth/token - эндпоинт обновления токена.
+
+const api = {
+  login: async (email, password) => {
+    const response = await fetch(`${ApiUrlPath}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    return response.json();
+  },
+
+  register: async (email, password, name) => {
+    const response = await fetch(`${ApiUrlPath}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password, name }),
+    });
+
+    return response.json();
+  },
+
+  logout: async (refreshToken) => {
+    const response = await fetch(`${ApiUrlPath}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: refreshToken }),
+    });
+
+    return response.json();
+  },
 };
+
+export default api;

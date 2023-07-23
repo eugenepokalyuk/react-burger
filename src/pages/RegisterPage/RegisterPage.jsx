@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './RegisterPage.module.css';
-import { createUser } from '../../utils/api';
+// import { createUser } from '../../utils/api';
 
 export function RegisterPage() {
     const [name, setName] = useState('');
@@ -14,11 +14,12 @@ export function RegisterPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createUser(name, email, password)
-            .then(res => {
-                console.log('ResetPasswordPage res', res)
-                navigate("/login")
-            });
+        navigate("/login")
+        // createUser(name, email, password)
+        //     .then(res => {
+        //         console.log('ResetPasswordPage res', res)
+        //         navigate("/login")
+        //     });
     };
 
     return (
