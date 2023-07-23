@@ -14,9 +14,11 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/orders" element={<ProfilePage />} />
         <Route path="/profile/orders/:id" element={<ProfilePage />} />
+
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

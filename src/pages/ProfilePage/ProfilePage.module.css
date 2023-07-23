@@ -1,0 +1,57 @@
+.wrapper {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+.link {
+    color: inherit;
+    /* color: var(--color-title); */
+}
+
+.container {
+    max-width: 320px;
+}
+
+.listLinks {
+    display: flex;
+    flex-direction: column;
+}
+
+.listLinks li {
+    display: flex;
+    align-items: center;
+    /* background-color: hotpink; */
+    height: 64px;
+    width: 320px;
+}
+
+.listLinks li:hover {
+    cursor: pointer;
+    color: #fff;
+    /* background: hotpink; */
+}
+
+/* Style for the active NavLink */
+.activeNavLink {
+    color: white;
+    background: hotpink;
+    /* Add any other styles you want for the active NavLink */
+  }
+
+.contentHeight {
+    height: 340px;
+}
+
+.text_align_buttons {
+    display: flex;
+    justify-content: right;
+}

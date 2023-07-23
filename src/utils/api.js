@@ -101,3 +101,24 @@ export const createUser = (name, email, password) => {
       throw new Error('Ошибка при создании заказа');
     });
 };
+
+export const editUser = (name, email, password) => {
+  // const endpoint = '/auth/register';
+  // return request(endpoint, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({
+  //     email: email,
+  //     password: password,
+  //     name: name
+  //   }),
+  // })
+  //   .then((data) => {
+  //     return data;
+  //   })
+  //   .catch((error) => {
+  //     throw new Error('Ошибка при создании заказа');
+  //   });
+};
