@@ -1,5 +1,8 @@
 import styles from './IngredientPage.module.css';
+
+// плохо, брать список ингредиентов из store
 import storage from '../../utils/data.json';
+
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +17,7 @@ export function IngredientPage() {
     const { id } = useParams();
 
     const selectedIngredient = storage.find((ingredient) => ingredient._id === id);
-    // Обработка страницы, если _id ингредитента не совпадает 
+    // Обработка страницы, если _id ингредитента не совпадает
     if (!selectedIngredient) {
         return (
             <div className={`${styles.error}`}>

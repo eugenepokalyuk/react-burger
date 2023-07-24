@@ -29,7 +29,6 @@
 .listLinks li {
     display: flex;
     align-items: center;
-    /* background-color: hotpink; */
     height: 64px;
     width: 320px;
 }
@@ -37,14 +36,10 @@
 .listLinks li:hover {
     cursor: pointer;
     color: #fff;
-    /* background: hotpink; */
 }
 
-/* Style for the active NavLink */
 .activeNavLink {
     color: white;
-    background: hotpink;
-    /* Add any other styles you want for the active NavLink */
   }
 
 .contentHeight {
@@ -54,4 +49,17 @@
 .text_align_buttons {
     display: flex;
     justify-content: right;
+}
+
+.yellow {
+    color: yellow;
+}
+.green {
+    color: green;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: blue;
 }
