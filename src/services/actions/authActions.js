@@ -1,32 +1,15 @@
-// authActions.js
-import api from './api';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const EDIT_SUCCESS = 'EDIT_SUCCESS';
 
-// Авторизация пользователя
-export const login = (email, password) => async (dispatch) => {
-  try {
-    const { data } = await api.login(email, password);
-    dispatch({ type: 'LOGIN_SUCCESS', payload: data });
-  } catch (error) {
-    dispatch({ type: 'LOGIN_FAILURE', payload: error.response.data.message });
-  }
-};
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+export const EDIT_FAILURE = 'EDIT_FAILURE';
 
-// Регистрация пользователя
-export const register = (email, password, name) => async (dispatch) => {
-  try {
-    const { data } = await api.register(email, password, name);
-    dispatch({ type: 'REGISTER_SUCCESS', payload: data });
-  } catch (error) {
-    dispatch({ type: 'REGISTER_FAILURE', payload: error.response.data.message });
-  }
-};
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-// Выход из системы
-export const logout = (refreshToken) => async (dispatch) => {
-  try {
-    await api.logout(refreshToken);
-    dispatch({ type: 'LOGOUT_SUCCESS' });
-  } catch (error) {
-    dispatch({ type: 'LOGOUT_FAILURE', payload: error.response.data.message });
-  }
-};
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILURE = 'REFRESH_TOKEN_FAILURE';
+
+export const USER_STATEMENT = 'USER_STATEMENT';

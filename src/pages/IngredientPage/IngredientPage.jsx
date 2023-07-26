@@ -1,8 +1,6 @@
 import styles from './IngredientPage.module.css';
-
 // плохо, брать список ингредиентов из store
 import storage from '../../utils/data.json';
-
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 

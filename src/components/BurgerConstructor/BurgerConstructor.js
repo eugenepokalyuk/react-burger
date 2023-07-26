@@ -8,18 +8,22 @@ import { BurgerContext } from '../../services/BurgerContext';
 import { createOrder } from '../../utils/api';
 import { useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
+import { selectUserCredentials } from '../../services/reducers/authReducer'
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { error: AuthError, user: AuthUser } = useSelector(selectUserCredentials);
   const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
   const [orderId, setOrderId] = useState(null);
   const constructorIngredients = useSelector(selectConstructorIngredients);
   const dispatch = useDispatch();
   const ingredientElement = useSelector(store => store.constructorIngredients.ingredients);
   const ingredientElementBun = useSelector(store => store.constructorIngredients.bun);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getIngredientsData = async () => {
@@ -45,10 +49,8 @@ const BurgerConstructor = () => {
 
   const handleOrderClick = async () => {
     try {
-      console.log('ingredientElementBun', ingredientElementBun)
       const ingredientIds = burgerIngredients.map((ingredient) => ingredient._id);
       const bunId = ingredientElementBun ? ingredientElementBun._id : '643d69a5c3f7b9001cfa093c';
-      console.log('bunId', bunId)
 
       // Добавляем bunId в список ingredientIds
       if (bunId) {
@@ -62,6 +64,14 @@ const BurgerConstructor = () => {
       // Обработка ошибки
     }
   };
+
+  const handleAuthClick = async () => {
+    try {
+      navigate('/login', { replace: true });
+    } catch (error) {
+      // Обработка ошибки
+    }
+  }
 
   const closeModal = () => {
     setModalOpen(false);
@@ -101,10 +111,14 @@ const BurgerConstructor = () => {
             <p className='text text_type_digits-medium mr-2'>{totalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
-
-          <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={ingredientElement === undefined || ingredientElementBun === undefined ? true : false}>
-            Оформить заказ
-          </Button>
+          {AuthUser
+            ? <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={ingredientElement === undefined || ingredientElementBun === undefined ? true : false}>
+              Оформить заказ
+            </Button>
+            : <Button htmlType="button" type="primary" size="large" onClick={handleAuthClick} disabled={false}>
+              Авторизация
+            </Button>
+          }
         </div>
       </div>
 

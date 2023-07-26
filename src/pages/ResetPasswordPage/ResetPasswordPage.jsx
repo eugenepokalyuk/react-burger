@@ -11,12 +11,29 @@ export function ResetPasswordPage() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [error, setError] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         sendPassword(password, name)
             .then(res => {
-                console.log('ResetPasswordPage res', res)
-                navigate("/login")
+                console.log('res', res);
+                // dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
+                // dispatch({
+                //     type: USER_STATEMENT,
+                //     payload: {
+                //         accessToken: res.accessToken,
+                //         refreshToken: res.refreshToken,
+                //         email: res.user.email,
+                //         name: res.user.name,
+                //         password
+                //     }
+                // })
+                navigate('/login', { replace: true });
+            })
+            .catch(error => {
+                // dispatch({ type: 'REGISTER_FAILURE' });
+                setError('Ой, произошла ошибка!');
             });
     };
 
@@ -50,6 +67,15 @@ export function ResetPasswordPage() {
                         size={'default'}
                         extraClass='mb-6'
                     />
+
+                    {error && (
+                        <p
+                            className={`${styles.errorMessage} text text_type_main-default mb-4`}
+                            align="center"
+                        >
+                            {error}
+                        </p>
+                    )}
 
                     <Button htmlType="submit" type="primary" size="medium" extraClass='mb-20'>
                         Сохранить

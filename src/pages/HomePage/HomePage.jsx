@@ -5,17 +5,17 @@ import { BurgerProvider } from '../../services/BurgerContext';
 import styles from './HomePage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIngredients, selectLoading, selectError } from '../../services/reducers/ingredients';
-import { fetchIngredientsRequest } from '../../services/actions/ingredients';
+// import { fetchIngredientsRequest } from '../../services/actions/ingredients';
 
 export function HomePage() {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const ingredientsData = useSelector(selectIngredients);
     const loading = useSelector(selectLoading);
     const error = useSelector(selectError);
 
-    useEffect(() => {
-      dispatch(fetchIngredientsRequest());
-    }, [dispatch]);
+    // useEffect(() => {
+    //   dispatch(fetchIngredientsRequest());
+    // }, [dispatch]);
   
     if (loading) {
       return <div className={styles.loading}>Ожидаем ответ от сервера...</div>;

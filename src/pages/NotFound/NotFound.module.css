@@ -1,9 +1,13 @@
 .wrapper {
     background-image: url("../../images/PageNotFound.png");
-    width: 100vw;
-    height: 90vh;
     background-size: cover;
     background-repeat: no-repeat;
+
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
 }
 
 .container {
@@ -14,9 +18,13 @@
 }
 
 .content {
-    margin: auto;
+    text-align: center;
 }
 
 .link {
-    /* color: var(--color-title); */
+    color: var(--color-title);
+}
+
+.link:hover {
+    color: hotpink;
 }

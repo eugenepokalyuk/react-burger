@@ -13,3 +13,7 @@
 .link {
     color: var(--color-title);
 }
+
+.errorMessage {
+    color: #E52B1A;
+}
