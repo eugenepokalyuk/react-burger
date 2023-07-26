@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.list li > a {
+.list li > a{
   display: flex;
 }
 
@@ -65,4 +65,8 @@
 .active {
   color: #F2F2F3;
   fill: #F2F2F3;
+}
+
+.activeNavLink {
+  color: white;
 }
