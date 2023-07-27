@@ -1,23 +1,36 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound } from '../../pages';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './App.module.css';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { fetchIngredientsRequest } from '../../services/actions/ingredients';
+import { useDispatch } from 'react-redux';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
+import { fetchIngredientsData } from '../../utils/api';
+
 
 const App = () => {
   const dispatch = useDispatch();
+  let location = useLocation();
+  let state = location.state as { backgroundLocation?: Location };
 
   useEffect(() => {
-    dispatch(fetchIngredientsRequest());
+    dispatch({ type: FETCH_INGREDIENTS_REQUEST });
+    fetchIngredientsData()
+      .then(res => {
+        dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: res });
+      })
+      .catch(error => {
+        dispatch({ type: FETCH_INGREDIENTS_FAILURE });
+      });
+    // dispatch(getUsers)
   }, [dispatch]);
-  
+
   return (
-    <BrowserRouter>
+    <>
       <AppHeader />
-      <Routes>
+
+      <Routes location={state?.backgroundLocation || location}>
+
         <Route path="/" element={<HomePage />} />
 
         <Route
@@ -34,6 +47,7 @@ const App = () => {
           path="/forgot-password"
           element={<ProtectedRoute auth={false} children={<ForgotPasswordPage />} />}
         />
+
         <Route
           path="/reset-password"
           element={<ProtectedRoute auth={false} children={<ResetPasswordPage />} />}
@@ -70,7 +84,16 @@ const App = () => {
         />
 
       </Routes>
-    </BrowserRouter>
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={<IngredientPage />}
+          />
+        </Routes>
+      )}
+    </>
   );
 };
 

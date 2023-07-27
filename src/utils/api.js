@@ -11,10 +11,11 @@ export const fetchIngredientsData = () => {
   const endpoint = '/ingredients';
   return request(endpoint, {})
     .then((res) => {
-      if (res?.success) return res.data;
+      if (res.success) return res.data;
       return Promise.reject(res);
     });
 }
+
 export const createOrder = (orderData) => {
   const endpoint = '/orders';
   return request(endpoint, {
@@ -34,7 +35,7 @@ export const createOrder = (orderData) => {
 //#endregion
 //#region [ User Auth ]
 // Переписать
-export const resetPassword = async (email, password) => {
+export const resetPassword = async (email) => {
   try {
     const response = await fetch(`${ApiUrlPath}/password-reset`, {
       method: 'POST',
@@ -42,8 +43,7 @@ export const resetPassword = async (email, password) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email,
-        password
+        email
       }),
     });
 
@@ -203,4 +203,6 @@ export const logoutUser = async () => {
     return Promise.reject(error);
   }
 };
+// написать getUsers
+// если ошибка то refreshToken
 //#endregion

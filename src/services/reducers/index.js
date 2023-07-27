@@ -8,7 +8,6 @@ import { authReducer } from './authReducer';
 
 const rootReducer = combineReducers({
   constructorIngredients: constructorIngredientsReducer,
-  // ingredientCounter: ingredientCounterReducer,
   viewedIngredient: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
   order: orderDetailsReducer,

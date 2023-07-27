@@ -2,14 +2,16 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux';
-import { clearViewedIngredient } from '../../services/actions/currentIngredient';
+import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
 import { useDrag } from 'react-dnd';
 import { ingredientType } from '../../utils/types';
 
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const dispatch = useDispatch();
+
   const handleClick = () => {
     dispatch(clearViewedIngredient());
+    dispatch(addViewedIngredient(ingredient));
 
     setIsModalOpen(true);
     setSelectedIngredient(ingredient);

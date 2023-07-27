@@ -1,48 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, useNavigate } from 'react-router-dom';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ForgotPasswordPage.module.css';
 import { resetPassword } from '../../utils/api';
 
 export function ForgotPasswordPage() {
     const [email, setEmail] = useState('');
-
     const navigate = useNavigate();
-    const location = useLocation();
-
     const [error, setError] = useState('');
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     resetPassword(email)
-    //         .then(res => {
-    //             navigate('/reset-password', { replace: true });
-    //         })
-    //         .catch(error => {
-    //             setError('Ой, произошла ошибка!');
-    //         });
-    // };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         resetPassword(email)
             .then(res => {
-                console.log('res', res);
-                // dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
-                // dispatch({
-                //     type: USER_STATEMENT,
-                //     payload: {
-                //         accessToken: res.accessToken,
-                //         refreshToken: res.refreshToken,
-                //         email: res.user.email,
-                //         name: res.user.name,
-                //         password
-                //     }
-                // })
+                // Не самая лучшая реализация, согласились
+                // dispatch()
+                localStorage.setItem('passwordResetDone', 'true');
                 navigate('/reset-password', { replace: true });
             })
             .catch(error => {
-                // dispatch({ type: 'REGISTER_FAILURE' });
                 setError('Ой, произошла ошибка!');
             });
     };
@@ -86,6 +62,5 @@ export function ForgotPasswordPage() {
                 </form>
             </div>
         </div>
-
     );
 }

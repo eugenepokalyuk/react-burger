@@ -7,6 +7,7 @@ import Modal from '../Modal/Modal';
 import { fetchIngredientsData } from '../../utils/api';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   fetchIngredientsRequest
 } from '../../services/actions/ingredients';
@@ -20,33 +21,46 @@ import { addIngredientToConstructor } from '../../services/actions/burgerConstru
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const constructorIngredients = useSelector(selectConstructorIngredients);
   const selectedBun = useSelector(store => store.constructorIngredients.bun);
+  const selectIngredients = useSelector(store => store.ingredients.ingredients);
 
   const bunRef = useRef(null);
   const mainsRef = useRef(null);
   const saucesRef = useRef(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [ingredientsData, setIngredientsData] = useState([]);
   const [activeTab, setActiveTab] = useState('Булки');
 
-  useEffect(() => {
-    const getIngredientsData = async () => {
-      try {
-        const data = await fetchIngredientsData();
-        setIngredientsData(data);
-      } catch (error) {
-        // Обработка ошибки
-      }
-    };
-
-    getIngredientsData();
-  }, []);
+  const handleIngredientClick = (ingredientId) => {
+    // dispatch(setSelectedIngredientAction(ingredientId));
+    if (id) {
+      setIsModalOpen(true);
+    } else {
+      navigate(`/ingredients/${ingredientId}`);
+    }
+  };
 
   useEffect(() => {
+    setIngredientsData(selectIngredients);
+    
     dispatch(fetchIngredientsRequest());
     dispatch(fetchConstructorIngredientsRequest());
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    observer.observe(bunRef.current);
+    observer.observe(saucesRef.current);
+    observer.observe(mainsRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
   }, [dispatch]);
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -112,18 +126,6 @@ const BurgerIngredients = () => {
     threshold: 1.0,
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleIntersection, options);
-
-    observer.observe(bunRef.current);
-    observer.observe(saucesRef.current);
-    observer.observe(mainsRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   const filteredBuns = useMemo(
     () => ingredientsData.filter((ingredient) => ingredient.type === BUN_TYPE),
     [ingredientsData]
@@ -156,7 +158,6 @@ const BurgerIngredients = () => {
     }
   };
 
-
   return (
     <section className={styles.container}>
       <h1 className='text text_type_main-large mb-5 mt-10'>Соберите бургер</h1>
@@ -182,6 +183,7 @@ const BurgerIngredients = () => {
             getIngredientCount={() => getIngredientCount(ingredient)}
             setIsModalOpen={setIsModalOpen}
             setSelectedIngredient={setSelectedIngredient}
+            onClick={() => handleIngredientClick(ingredient._id)}
           />
         ))}
 
@@ -193,6 +195,7 @@ const BurgerIngredients = () => {
             getIngredientCount={getIngredientCount}
             setIsModalOpen={setIsModalOpen}
             setSelectedIngredient={setSelectedIngredient}
+            onClick={() => handleIngredientClick(ingredient._id)}
           />
         ))}
 
@@ -204,12 +207,14 @@ const BurgerIngredients = () => {
             getIngredientCount={getIngredientCount}
             setIsModalOpen={setIsModalOpen}
             setSelectedIngredient={setSelectedIngredient}
+            onClick={() => handleIngredientClick(ingredient._id)}
           />
         ))}
       </div>
 
       {isModalOpen && (
-        <Modal onClose={closeModal} header='Детали ингредиента'>
+        <Modal onClose={closeModal} header='Детали ингредиента2'>
+          {console.log('selectedIngredient', selectedIngredient)}
           {selectedIngredient && (
             <>
               <div className='mb-4 mt-4'>
@@ -235,7 +240,7 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-  ingredientsData: PropTypes.object.isRequired,
+  // ingredientsData: PropTypes.object.isRequired,
 };
 
 export default BurgerIngredients;

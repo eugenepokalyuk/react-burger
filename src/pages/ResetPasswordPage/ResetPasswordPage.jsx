@@ -1,38 +1,32 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ResetPasswordPage.module.css';
 import { sendPassword } from '../../utils/api';
 
 export function ResetPasswordPage() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-
     const navigate = useNavigate();
-    const location = useLocation();
-
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const passwordResetDone = localStorage.getItem('passwordResetDone');
+
+        if (!passwordResetDone) {
+            navigate('/forgot-password');
+        }
+
+        localStorage.removeItem('passwordResetDone');
+    }, [navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         sendPassword(password, name)
             .then(res => {
-                console.log('res', res);
-                // dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
-                // dispatch({
-                //     type: USER_STATEMENT,
-                //     payload: {
-                //         accessToken: res.accessToken,
-                //         refreshToken: res.refreshToken,
-                //         email: res.user.email,
-                //         name: res.user.name,
-                //         password
-                //     }
-                // })
                 navigate('/login', { replace: true });
             })
             .catch(error => {
-                // dispatch({ type: 'REGISTER_FAILURE' });
                 setError('Ой, произошла ошибка!');
             });
     };

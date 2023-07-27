@@ -3,8 +3,13 @@ import styles from './IngredientPage.module.css';
 import storage from '../../utils/data.json';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function IngredientPage() {
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
     const nutrientLabels = [
         { label: 'Калории, ккал', value: 'calories' },
         { label: 'Белки, г', value: 'proteins' },
@@ -12,10 +17,16 @@ export function IngredientPage() {
         { label: 'Углеводы, г', value: 'carbohydrates' },
     ];
 
-    const { id } = useParams();
+    // const selectedIngredient = storage.find((ingredient) => ingredient._id === id);
+    const selectedIngredient = useSelector((state) => state.ingredients.selectedIngredient);
 
-    const selectedIngredient = storage.find((ingredient) => ingredient._id === id);
-    // Обработка страницы, если _id ингредитента не совпадает
+    // useEffect(() => {
+    //     dispatch(fetchIngredientDetailsAction(id));
+    // }, [dispatch, id]);
+
+    console.log('selectedIngredient', selectedIngredient)
+
+
     if (!selectedIngredient) {
         return (
             <div className={`${styles.error}`}>
@@ -30,7 +41,7 @@ export function IngredientPage() {
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.content}>
-                    <h1 className='text text_type_main-large mb-6 mt-10'>Детали ингредиента</h1>
+                    <h1 className='text text_type_main-large mb-6 mt-10'>Детали ингредиента1</h1>
 
                     <div className='mb-4 mt-4'>
                         <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
