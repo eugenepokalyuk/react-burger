@@ -96,6 +96,9 @@ export const loginUser = async (email, password) => {
     if (data.success) {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userPassword', "********");
+      localStorage.setItem('userName', email.split('@')[0]);
       return data;
     } else {
       return Promise.reject(new Error(data.message || 'Unknown error'));
@@ -122,6 +125,10 @@ export const registerUser = async (name, email, password) => {
     if (data.success) {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
+
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userPassword', "********");
+      localStorage.setItem('userName', name);
       return data;
     } else {
       return Promise.reject(new Error(data.message || 'Unknown error'));
@@ -158,12 +165,39 @@ export const updateUser = async (name, email, password, accessToken) => {
     return Promise.reject(error);
   }
 };
+export const logoutUser = async () => {
+  try {
+    const response = await fetch(`${ApiUrlPath}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: refreshToken
+      })
+    });
+    const data = await checkResponse(response);
+    if (data.success) {
+      // localStorage.removeItem('accessToken');
+      // localStorage.removeItem('refreshToken');
+    } else {
+      return Promise.reject(new Error(data.message || 'Unknown error'));
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getUsers = () => {
+  return fetchWithRefresh('GET', `${ApiUrlPath}/auth/user`)
+}
+
 export const refreshToken = async (refreshToken) => {
   try {
     const response = await fetch(`${ApiUrlPath}/auth/token`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
         token: refreshToken
@@ -181,26 +215,33 @@ export const refreshToken = async (refreshToken) => {
     return Promise.reject(error);
   }
 };
-export const logoutUser = async () => {
+
+export const fetchWithRefresh = async (method, URL, endpoint) => {
+  const option = {
+    method: method,
+    headers: {
+      'Content-Type': "application/json",
+      authorization: localStorage.getItem("accessToken")
+    },
+    body: JSON.stringify(endpoint)
+  }
   try {
-    const response = await fetch(`${ApiUrlPath}/auth/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: refreshToken
-      })
-    });
-    const data = await checkResponse(response);
-    if (data.success) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+    const res = await fetch(URL, option);
+    return await checkResponse(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken(); //обновляем токен
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      localStorage.setItem("refreshToken", refreshData.refreshToken);
+      localStorage.setItem("accessToken", refreshData.accessToken);
+      option.headers.authorization = refreshData.accessToken;
+      const res = await fetch(URL, option); //повторяем запрос
+      return await checkResponse(res);
     } else {
-      return Promise.reject(new Error(data.message || 'Unknown error'));
+      return Promise.reject(err);
     }
-  } catch (error) {
-    return Promise.reject(error);
   }
 };
 // написать getUsers

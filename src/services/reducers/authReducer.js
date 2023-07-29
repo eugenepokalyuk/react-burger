@@ -13,7 +13,10 @@ import {
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILURE,
 
-  USER_STATEMENT
+  USER_STATEMENT,
+
+  GET_USER_SUCCESS,
+  CHECK_USER_FAILURE,
 } from '../actions/authActions'
 
 const initialState = {
@@ -28,6 +31,7 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
     case EDIT_SUCCESS:
+    case GET_USER_SUCCESS:
       return {
         ...state,
         user: action.payload,
@@ -38,6 +42,7 @@ export const authReducer = (state = initialState, action) => {
     case EDIT_FAILURE:
     case LOGOUT_SUCCESS:
     case LOGOUT_FAILURE:
+    case CHECK_USER_FAILURE:
       return {
         ...state,
         user: null,

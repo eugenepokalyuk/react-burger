@@ -17,27 +17,23 @@ export function ProfilePage() {
     const location = useLocation();
 
     const getUserAccessToken = useSelector((store) => store.auth.user.accessToken);
-    const getUserRefreshToken = useSelector((store) => store.auth.user.refreshToken);
-    const getUserEmail = useSelector((store) => store.auth.user.email);
-    const getUserName = useSelector((store) => store.auth.user.name);
-    const getUserPassword = useSelector((store) => store.auth.user.password);
-
     const [error, setError] = useState('');
 
     useEffect(() => {
-        setName(getUserName);
-        setEmail(getUserEmail);
-        setPassword(getUserPassword);
+        setName(localStorage.getItem('userName'));
+        setEmail(localStorage.getItem('userEmail'));
+        setPassword(localStorage.getItem('userPassword'));
     }, []);
 
     const handleReset = () => {
-        setName(getUserName);
-        setEmail(getUserEmail);
-        setPassword(getUserPassword);
+        setName(localStorage.getItem('userName'));
+        setEmail(localStorage.getItem('userEmail'));
+        setPassword(localStorage.getItem('userPassword'));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        localStorage.clear();
         updateUser(name, email, password, getUserAccessToken)
             .then(res => {
                 dispatch({ type: EDIT_SUCCESS })
@@ -50,6 +46,7 @@ export function ProfilePage() {
 
     const handleLogout = (e) => {
         e.preventDefault();
+        localStorage.clear();
         logoutUser(email, password)
             .then(res => {
                 dispatch({ type: 'LOGOUT_SUCCESS' });

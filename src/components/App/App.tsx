@@ -5,7 +5,8 @@ import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPag
 import { useDispatch } from 'react-redux';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
-import { fetchIngredientsData } from '../../utils/api';
+import { CHECK_USER_REQUEST, GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
+import { fetchIngredientsData, getUsers } from '../../utils/api';
 
 
 const App = () => {
@@ -16,7 +17,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
-
     fetchIngredientsData()
       .then(res => {
         dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: res });
@@ -25,6 +25,17 @@ const App = () => {
         dispatch({ type: FETCH_INGREDIENTS_FAILURE });
       });
 
+    if (localStorage.getItem('accessToken')) {
+      dispatch({ type: CHECK_USER_REQUEST });
+      getUsers()
+        .then(res => {
+          dispatch({ type: GET_USER_SUCCESS, payload: res });
+        })
+        .catch(error => {
+          localStorage.clear();
+          dispatch({ type: CHECK_USER_FAILURE });
+        });
+    }
     // dispatch(getUsers)
   }, [dispatch]);
 
@@ -87,7 +98,7 @@ const App = () => {
         />
 
       </Routes>
-      
+
       {state?.backgroundLocation && (
         <Routes>
           <Route
