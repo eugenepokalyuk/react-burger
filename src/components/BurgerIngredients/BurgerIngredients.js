@@ -26,7 +26,6 @@ const BurgerIngredients = () => {
 
   const constructorIngredients = useSelector(selectConstructorIngredients);
   const selectedBun = useSelector(store => store.constructorIngredients.bun);
-  const selectIngredients = useSelector(store => store.ingredients.ingredients);
 
   const bunRef = useRef(null);
   const mainsRef = useRef(null);
@@ -37,6 +36,8 @@ const BurgerIngredients = () => {
   const [ingredientsData, setIngredientsData] = useState([]);
   const [activeTab, setActiveTab] = useState('Булки');
 
+  const selectIngredients = useSelector(store => store.ingredients.ingredients);
+  // setIngredientsData(ingredients);
   const handleIngredientClick = (ingredientId) => {
     // dispatch(setSelectedIngredientAction(ingredientId));
     if (id) {
@@ -47,8 +48,17 @@ const BurgerIngredients = () => {
   };
 
   useEffect(() => {
-    setIngredientsData(selectIngredients);
-    
+    const getIngredientsData = async () => {
+      try {
+        const data = await fetchIngredientsData();
+        setIngredientsData(data);
+      } catch (error) {
+        // Обработка ошибки
+      }
+    };
+
+    getIngredientsData();
+
     dispatch(fetchIngredientsRequest());
     dispatch(fetchConstructorIngredientsRequest());
 
@@ -157,7 +167,6 @@ const BurgerIngredients = () => {
       return 0;
     }
   };
-
   return (
     <section className={styles.container}>
       <h1 className='text text_type_main-large mb-5 mt-10'>Соберите бургер</h1>
@@ -213,8 +222,7 @@ const BurgerIngredients = () => {
       </div>
 
       {isModalOpen && (
-        <Modal onClose={closeModal} header='Детали ингредиента2'>
-          {console.log('selectedIngredient', selectedIngredient)}
+        <Modal onClose={closeModal} header='Детали ингредиента'>
           {selectedIngredient && (
             <>
               <div className='mb-4 mt-4'>
@@ -237,10 +245,6 @@ const BurgerIngredients = () => {
       )}
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  // ingredientsData: PropTypes.object.isRequired,
 };
 
 export default BurgerIngredients;

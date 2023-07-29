@@ -41,7 +41,6 @@ export function ProfilePage() {
         updateUser(name, email, password, getUserAccessToken)
             .then(res => {
                 dispatch({ type: EDIT_SUCCESS })
-                console.log('res', res)
             })
             .catch(error => {
                 dispatch({ type: EDIT_FAILURE, payload: error.message })

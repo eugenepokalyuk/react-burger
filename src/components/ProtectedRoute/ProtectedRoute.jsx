@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const ProtectedRoute = ({ auth, children }) => {
     const location = useLocation();
     const userAuth = useSelector((store) => store.auth.user);
-
+    
     if (userAuth && !auth) {
         const { from } = location.state || { from: { pathname: "/" } };
         return <Navigate to={from} />

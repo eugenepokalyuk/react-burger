@@ -1,14 +1,14 @@
+import React, { useEffect, useState } from 'react';
 import styles from './IngredientPage.module.css';
-// плохо, брать список ингредиентов из store
-import storage from '../../utils/data.json';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
+import { fetchIngredientsData } from '../../utils/api';
 
 export function IngredientPage() {
     const { id } = useParams();
-    const dispatch = useDispatch();
+    const { ingredients } = useSelector((state) => state.ingredients);
+    const selectedIngredient = ingredients.find((item) => item._id === id);
 
     const nutrientLabels = [
         { label: 'Калории, ккал', value: 'calories' },
@@ -16,16 +16,6 @@ export function IngredientPage() {
         { label: 'Жиры, г', value: 'fat' },
         { label: 'Углеводы, г', value: 'carbohydrates' },
     ];
-
-    // const selectedIngredient = storage.find((ingredient) => ingredient._id === id);
-    const selectedIngredient = useSelector((state) => state.ingredients.selectedIngredient);
-
-    // useEffect(() => {
-    //     dispatch(fetchIngredientDetailsAction(id));
-    // }, [dispatch, id]);
-
-    console.log('selectedIngredient', selectedIngredient)
-
 
     if (!selectedIngredient) {
         return (
@@ -41,7 +31,7 @@ export function IngredientPage() {
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.content}>
-                    <h1 className='text text_type_main-large mb-6 mt-10'>Детали ингредиента1</h1>
+                    <h1 className='text text_type_main-large mb-6 mt-10'>Детали ингредиента</h1>
 
                     <div className='mb-4 mt-4'>
                         <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />

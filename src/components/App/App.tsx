@@ -10,11 +10,13 @@ import { fetchIngredientsData } from '../../utils/api';
 
 const App = () => {
   const dispatch = useDispatch();
-  let location = useLocation();
-  let state = location.state as { backgroundLocation?: Location };
+  const location = useLocation();
+  const state = location.state as { backgroundLocation?: Location };
+  const background = location.state && location.state.background;
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
+
     fetchIngredientsData()
       .then(res => {
         dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: res });
@@ -22,6 +24,7 @@ const App = () => {
       .catch(error => {
         dispatch({ type: FETCH_INGREDIENTS_FAILURE });
       });
+
     // dispatch(getUsers)
   }, [dispatch]);
 
@@ -29,7 +32,7 @@ const App = () => {
     <>
       <AppHeader />
 
-      <Routes location={state?.backgroundLocation || location}>
+      <Routes location={background || location}>
 
         <Route path="/" element={<HomePage />} />
 
@@ -84,7 +87,7 @@ const App = () => {
         />
 
       </Routes>
-
+      
       {state?.backgroundLocation && (
         <Routes>
           <Route

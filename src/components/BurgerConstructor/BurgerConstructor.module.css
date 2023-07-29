@@ -33,7 +33,8 @@
 }
 
 .dropIndicator {
-    border: 2px dashed blue;
+    scale: 0.95;
+    /* border: 2px dashed blue; */
     /* background: #ff69b410; */
     /* background-color: lightblue; */
     /* Дополнительные стили по вашему усмотрению */

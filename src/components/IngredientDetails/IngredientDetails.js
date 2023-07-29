@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
 import { useDrag } from 'react-dnd';
 import { ingredientType } from '../../utils/types';
-
+import { Link, useLocation } from 'react-router-dom';
 const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSelectedIngredient }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleClick = () => {
     dispatch(clearViewedIngredient());
@@ -26,7 +27,9 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
   })
 
   return (
-    <div
+    <Link
+      to={`/ingredients/${ingredient._id}`}
+      state={{ background: location }}
       key={ingredient._id}
       className={`${styles.cardItem} mb-5 mr-6`}
       onClick={handleClick}
@@ -39,7 +42,7 @@ const IngredientItem = ({ ingredient, getIngredientCount, setIsModalOpen, setSel
         <CurrencyIcon className={styles.CurrencyIcon} type="primary" />
       </div>
       <p className="text text_type_main-default">{ingredient.name}</p>
-    </div>
+    </Link>
   );
 };
 

@@ -13,6 +13,7 @@ const OrderDetails = ({ orderId }) => {
 
   useEffect(() => {
     dispatch(fetchOrderNumberRequest());
+    dispatch(updateOrderNumber(orderId));
   }, [dispatch]);
   
   return (
