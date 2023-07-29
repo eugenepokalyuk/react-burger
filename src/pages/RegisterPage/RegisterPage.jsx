@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Input, ShowIcon, Button, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './RegisterPage.module.css';
-import { registerUser } from '../../utils/api';
+import { registerUser, loginUser } from '../../utils/api';
 import { useDispatch } from 'react-redux';
+import { USER_STATEMENT } from '../../services/actions/authActions'
 
 export function RegisterPage() {
     const dispatch = useDispatch();
@@ -22,7 +23,25 @@ export function RegisterPage() {
         // dispatch
         registerUser(name, email, password)
             .then(res => {
-                navigate('/', { replace: true });
+                loginUser(email, password)
+                    .then(res => {
+                        dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
+                        dispatch({
+                            type: USER_STATEMENT,
+                            payload: {
+                                accessToken: res.accessToken,
+                                refreshToken: res.refreshToken,
+                                email: res.user.email,
+                                name: res.user.name,
+                                password
+                            }
+                        })
+                        navigate('/', { replace: true });
+                    })
+                    .catch(error => {
+                        dispatch({ type: 'REGISTER_FAILURE' });
+                        setError('Ой, произошла ошибка!');
+                    });
             })
             .catch(error => {
                 setError('Ой, произошла ошибка!');

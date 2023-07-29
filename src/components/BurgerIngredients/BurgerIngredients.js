@@ -95,6 +95,7 @@ const BurgerIngredients = () => {
   ];
 
   const closeModal = () => {
+    navigate(-1);
     setIsModalOpen(false);
   };
 

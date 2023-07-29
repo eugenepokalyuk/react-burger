@@ -97,7 +97,6 @@ export const loginUser = async (email, password) => {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
       localStorage.setItem('userEmail', email);
-      localStorage.setItem('userPassword', "********");
       localStorage.setItem('userName', email.split('@')[0]);
       return data;
     } else {
@@ -123,13 +122,12 @@ export const registerUser = async (name, email, password) => {
 
     const data = await checkResponse(response);
     if (data.success) {
+      console.log('data', data)
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
 
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('userPassword', "********");
-      localStorage.setItem('userName', name);
-      return data;
+      localStorage.setItem('userEmail', data.email);
+      localStorage.setItem('userName', data.name);
     } else {
       return Promise.reject(new Error(data.message || 'Unknown error'));
     }
@@ -165,7 +163,7 @@ export const updateUser = async (name, email, password, accessToken) => {
     return Promise.reject(error);
   }
 };
-export const logoutUser = async () => {
+export const logoutUser = async (refreshToken) => {
   try {
     const response = await fetch(`${ApiUrlPath}/auth/logout`, {
       method: 'POST',

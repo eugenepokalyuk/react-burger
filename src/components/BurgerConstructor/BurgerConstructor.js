@@ -57,7 +57,14 @@ const BurgerConstructor = () => {
         ingredientIds.push(bunId);
       }
 
-      const response = await createOrder({ ingredients: ingredientIds });
+      const response = await createOrder({ ingredients: ingredientIds })
+        .then(res => {
+          console.log(burgerIngredients)
+          if (res.success === true) {
+            setBurgerIngredients([]);
+          }
+        });
+
       setOrderId(response.order.number);
       setModalOpen(true);
     } catch (error) {

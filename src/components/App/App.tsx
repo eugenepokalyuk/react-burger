@@ -7,7 +7,19 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
 import { CHECK_USER_REQUEST, GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
 import { fetchIngredientsData, getUsers } from '../../utils/api';
-
+import {
+  DEFAULT_PATH,
+  LOGIN_PATH,
+  REGISTER_PATH,
+  FORGOT_PASSWORD_PATH,
+  RESET_PASSWORD_PATH,
+  PROFILE_PATH,
+  PROFILE_ORDERS_PATH,
+  PROFILE_ORDERS_ID_PATH,
+  FEED_PATH,
+  INGREDIENTS_PATH,
+  ERROR_PATH
+} from '../../utils/routePath';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,55 +57,50 @@ const App = () => {
 
       <Routes location={background || location}>
 
-        <Route path="/" element={<HomePage />} />
+        <Route path={DEFAULT_PATH} element={<HomePage />} />
 
         <Route
-          path="/login"
+          path={LOGIN_PATH}
           element={<ProtectedRoute auth={false} children={<LoginPage />} />}
         />
 
         <Route
-          path="/register"
+          path={REGISTER_PATH}
           element={<ProtectedRoute auth={false} children={<RegisterPage />} />}
         />
 
         <Route
-          path="/forgot-password"
+          path={FORGOT_PASSWORD_PATH}
           element={<ProtectedRoute auth={false} children={<ForgotPasswordPage />} />}
         />
 
         <Route
-          path="/reset-password"
+          path={RESET_PASSWORD_PATH}
           element={<ProtectedRoute auth={false} children={<ResetPasswordPage />} />}
         />
 
         <Route
-          path="/profile"
+          path={PROFILE_PATH}
           element={<ProtectedRoute auth={true} children={<ProfilePage />} />}
         />
 
         <Route
-          path="/profile/orders"
+          path={PROFILE_ORDERS_PATH}
           element={<ProtectedRoute auth={true} children={<ProfileHistory />} />}
         />
 
         <Route
-          path="/profile/orders/:id"
+          path={PROFILE_ORDERS_ID_PATH}
           element={<ProtectedRoute auth={true} children={<ProfilePage />} />}
         />
 
         <Route
-          path="/feed"
+          path={FEED_PATH}
           element={<NotFound />}
         />
 
         <Route
-          path="/ingredients/:id"
-          element={<IngredientPage />}
-        />
-
-        <Route
-          path="*"
+          path={ERROR_PATH}
           element={<NotFound />}
         />
 
@@ -102,7 +109,7 @@ const App = () => {
       {state?.backgroundLocation && (
         <Routes>
           <Route
-            path="/ingredients/:id"
+            path={INGREDIENTS_PATH}
             element={<IngredientPage />}
           />
         </Routes>

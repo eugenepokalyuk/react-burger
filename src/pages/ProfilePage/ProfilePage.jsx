@@ -17,6 +17,7 @@ export function ProfilePage() {
     const location = useLocation();
 
     const getUserAccessToken = useSelector((store) => store.auth.user.accessToken);
+    const getUserRefreshToken = useSelector((store) => store.auth.user.refreshToken);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -33,8 +34,9 @@ export function ProfilePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const accessToken = getUserAccessToken ? getUserAccessToken : localStorage.getItem('accessToken');
         localStorage.clear();
-        updateUser(name, email, password, getUserAccessToken)
+        updateUser(name, email, password, accessToken)
             .then(res => {
                 dispatch({ type: EDIT_SUCCESS })
             })
@@ -46,8 +48,9 @@ export function ProfilePage() {
 
     const handleLogout = (e) => {
         e.preventDefault();
+        let refreshToken = getUserRefreshToken ? getUserRefreshToken : localStorage.getItem('refreshToken');
         localStorage.clear();
-        logoutUser(email, password)
+        logoutUser(refreshToken)
             .then(res => {
                 dispatch({ type: 'LOGOUT_SUCCESS' });
                 navigate('/login', { replace: true });
