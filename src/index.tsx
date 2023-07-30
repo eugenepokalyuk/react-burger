@@ -14,7 +14,6 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-
   <Provider store={store}>
     <BrowserRouter>
       <DndProvider backend={HTML5Backend}>

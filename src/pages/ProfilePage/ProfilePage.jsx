@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ProfilePage.module.css'
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate, useLocation, NavLink } from 'react-router-dom';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { logoutUser, updateUser } from '../../utils/api';
 import { EDIT_FAILURE, EDIT_SUCCESS } from '../../services/actions/authActions';
 
@@ -34,11 +34,11 @@ export function ProfilePage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const accessToken = getUserAccessToken ? getUserAccessToken : localStorage.getItem('accessToken');
-        localStorage.clear();
-        updateUser(name, email, password, accessToken)
+        // const accessToken = getUserAccessToken ? getUserAccessToken : localStorage.getItem('accessToken');
+        updateUser(name, email, password)
             .then(res => {
-                dispatch({ type: EDIT_SUCCESS })
+                dispatch({ type: EDIT_SUCCESS, payload: res.user })
+                navigate('/profile', { replace: true });
             })
             .catch(error => {
                 dispatch({ type: EDIT_FAILURE, payload: error.message })

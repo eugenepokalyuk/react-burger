@@ -100,6 +100,11 @@ const App = () => {
         />
 
         <Route
+          path={INGREDIENTS_PATH}
+          element={<IngredientPage />}
+        />
+
+        <Route
           path={ERROR_PATH}
           element={<NotFound />}
         />
