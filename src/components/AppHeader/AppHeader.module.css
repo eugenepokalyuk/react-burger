@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.list li > a {
+.list li>a {
   display: flex;
 }
 
@@ -53,16 +53,104 @@
   border: 1px solid transparent;
 }
 
-.link:hover{
-  border: 2px dashed blue;
+.link:hover {
   color: #F2F2F3;
 }
 
-.link:hover > svg{
+.link:hover>svg {
   fill: #F2F2F3;
 }
+
 .active svg,
 .active {
   color: #F2F2F3;
   fill: #F2F2F3;
+}
+
+.activeNavLink {
+  color: white;
+}
+
+/* Мобилка */
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.header {
+  margin: 0 auto;
+  background: #1c1c21;
+}
+
+.mobileNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #1c1c21;
+  color: #ffffff;
+}
+
+.mobileLogo {
+  flex: 1;
+}
+
+.burgerMenuButton {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.burgerMenu {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #1C1C21;
+}
+
+.burgerMenuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.closeButton {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.burgerMenuList {
+  display: flex;
+  flex-direction: column;
+}
+
+.burgerMenuList li {
+  margin-bottom: 10px;
+}
+
+.burgerMenuList a {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.burgerMenuList p {
+  margin-left: 10px;
+}
+
+.activeNavLink {
+  color: white;
+}
+
+.mobileNav a.activeNavLink .icon {
+  fill: #ffffff;
+}
+
+.mobileNav a.activeNavLink .text {
+  color: #ffffff;
 }

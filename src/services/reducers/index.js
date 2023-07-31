@@ -3,14 +3,15 @@ import { constructorIngredientsReducer } from './burgerConstructor';
 import { ingredientDetailsReducer } from './currentIngredient';
 import { ingredientsReducer } from './ingredients';
 import { orderDetailsReducer } from './orderDetails';
-import { ingredientCounterReducer } from './ingredientCounter';
+// import { ingredientCounterReducer } from './ingredientCounter';
+import { authReducer } from './authReducer';
 
 const rootReducer = combineReducers({
   constructorIngredients: constructorIngredientsReducer,
-  ingredientCounter: ingredientCounterReducer,
   viewedIngredient: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
-  order: orderDetailsReducer, // Объект созданного заказа
+  order: orderDetailsReducer,
+  auth: authReducer,
 });
 
 export default rootReducer;

@@ -4,6 +4,7 @@
     cursor: pointer;
     text-align: center;
     position: relative;
+    color: #fff;
 }
 
 .cardItem img {

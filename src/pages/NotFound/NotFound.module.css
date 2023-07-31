@@ -1,0 +1,30 @@
+.wrapper {
+    background-image: url("../../images/PageNotFound.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    padding: var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--container-padding) * 2);
+}
+
+.content {
+    text-align: center;
+}
+
+.link {
+    color: var(--color-title);
+}
+
+.link:hover {
+    color: hotpink;
+}
