@@ -5,7 +5,6 @@ import rootReducer from './reducers/index';
 
 import { RootState, AppThunk } from './types';
 
-
 const initialState: RootState = {
   constructorIngredients: {
     ingredients: [],
@@ -34,4 +33,3 @@ export const store = createStore(
     applyMiddleware<AppThunk>(thunkMiddleware)
   )
 );
-

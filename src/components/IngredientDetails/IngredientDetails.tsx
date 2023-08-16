@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientDetails.module.css';
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux';
 import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
 import { IngredientItemProps } from '../../services/types';
@@ -50,12 +49,6 @@ const IngredientItem: FC<IngredientItemProps> = ({
       <p className="text text_type_main-default">{ingredient.name}</p>
     </Link>
   );
-};
-
-IngredientItem.propTypes = {
-  getIngredientCount: PropTypes.func.isRequired,
-  setIsModalOpen: PropTypes.func.isRequired,
-  setSelectedIngredient: PropTypes.func.isRequired,
 };
 
 export default IngredientItem;

@@ -2,7 +2,7 @@ const ApiUrlPath = 'https://norma.nomoreparties.space/api';
 const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
-function request(endpoint: string, options: RequestInit) {
+const request = (endpoint: string, options: RequestInit) => {
   const url = `${ApiUrlPath}${endpoint}`;
   return fetch(url, options).then(checkResponse);
 }

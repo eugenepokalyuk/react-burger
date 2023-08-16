@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { Ingredient } from '../types';
 
 export const FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST = 'FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST' as const;
 export const FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS = 'FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS' as const;
@@ -13,7 +14,7 @@ export const fetchConstructorIngredientsRequest = () => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
 });
 
-export const fetchConstructorIngredientsSuccess = (ingredients: any[]) => ({
+export const fetchConstructorIngredientsSuccess = (ingredients: string[]) => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   payload: ingredients,
 });
@@ -23,12 +24,12 @@ export const fetchConstructorIngredientsFailure = (error: any) => ({
   payload: error,
 });
 
-export const addIngredientToConstructor = (ingredient: any) => ({
+export const addIngredientToConstructor = (ingredient: Ingredient) => ({
   type: ADD_INGREDIENT_TO_CONSTRUCTOR,
   payload: { ...ingredient, uniqueId: uuidv4() },
 });
 
-export const removeIngredientFromConstructor = (ingredient: any) => ({
+export const removeIngredientFromConstructor = (ingredient: Ingredient) => ({
   type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
   payload: ingredient,
 });

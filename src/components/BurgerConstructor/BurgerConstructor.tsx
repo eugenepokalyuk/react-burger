@@ -1,16 +1,14 @@
-import { useState, useContext, useEffect, useMemo, FC } from 'react';
+import { useState, useEffect, useMemo, FC } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredients';
-import { BurgerContext } from '../../services/BurgerContext';
 import { createOrder } from '../../utils/api';
 import { useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
 import { selectUserCredentials } from '../../services/reducers/authReducer'
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
 
@@ -21,12 +19,15 @@ const BurgerConstructor: FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   // const { error: AuthError, user: AuthUser } = useSelector(selectUserCredentials);
   const { user: AuthUser } = useSelector(selectUserCredentials);
-  const { burgerIngredients, setBurgerIngredients } = useContext(BurgerContext);
   const [orderId, setOrderId] = useState<string | null>(null);
   const constructorIngredients = useSelector(selectConstructorIngredients);
   const dispatch = useDispatch();
+
   const ingredientElement = useSelector((store: any) => store.constructorIngredients.ingredients);
   const ingredientElementBun = useSelector((store: any) => store.constructorIngredients.bun);
+
+  const [, setBurgerIngredients] = useState<string[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const BurgerConstructor: FC = () => {
 
   const handleOrderClick = async () => {
     try {
-      const ingredientIds = burgerIngredients.map((ingredient: Ingredient) => ingredient._id);
+      const ingredientIds = ingredientElement.map((ingredient: Ingredient) => ingredient._id);
       const bunId = ingredientElementBun ? ingredientElementBun._id : '643d69a5c3f7b9001cfa093c';
 
       if (bunId) {
@@ -97,19 +98,20 @@ const BurgerConstructor: FC = () => {
   const totalPrice = useMemo(() => {
     const bunPrice = ingredientElementBun ? ingredientElementBun.price : 0;
 
-    const ingredientsPrice = burgerIngredients.reduce((total: number, ingredient: Ingredient) => {
+    const ingredientsPrice = ingredientElement.reduce((total: number, ingredient: Ingredient) => {
       return total + ingredient.price;
     }, 0);
-
     return bunPrice + ingredientsPrice;
-  }, [burgerIngredients, ingredientElementBun]);
+
+  }, [ingredientElement, ingredientElementBun]);
+
 
   return (
     <section className={`${styles.container} mt-25`}>
       <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
         <div className={styles.flexContainer}>
           <ConstructorIngredients
-            items={burgerIngredients}
+            items={ingredientElement}
           />
         </div>
 
@@ -141,11 +143,6 @@ const BurgerConstructor: FC = () => {
 
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  burgerIngredients: PropTypes.arrayOf(PropTypes.object),
-  setBurgerIngredients: PropTypes.func,
 };
 
 export default BurgerConstructor;

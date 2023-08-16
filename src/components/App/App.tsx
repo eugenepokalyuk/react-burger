@@ -48,7 +48,6 @@ const App = () => {
           dispatch({ type: CHECK_USER_FAILURE });
         });
     }
-    // dispatch(getUsers)
   }, [dispatch]);
 
   return (

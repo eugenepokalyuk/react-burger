@@ -10,17 +10,7 @@ import {
 
 import { Ingredient } from '../types';
 
-interface Bun {
-  image_large?: string;
-  image?: string
-}
-
-interface State {
-  ingredients: Ingredient[];
-  loading: boolean;
-  error: any;
-  bun?: Bun;
-}
+import { BurgerConstructorBun as Bun, BurgerConstructorState as State } from '../types'
 
 const initialState: State = {
   ingredients: [],

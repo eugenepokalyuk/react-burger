@@ -1,7 +1,6 @@
 import React, { useEffect, FC } from 'react';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 import styles from './OrderDetails.module.css';
-import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
 import { fetchOrderNumberRequest, updateOrderNumber } from '../../services/actions/orderDetails';
@@ -32,9 +31,5 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderId }) => {
     </>
   );
 }
-
-OrderDetails.propTypes = {
-  orderId: PropTypes.string.isRequired,
-};
 
 export default OrderDetails;

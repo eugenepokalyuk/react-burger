@@ -1,7 +1,9 @@
+import { Ingredient } from "../types";
+
 export const ADD_VIEWED_INGREDIENT = 'ADD_VIEWED_INGREDIENT' as const;
 export const CLEAR_VIEWED_INGREDIENT = 'CLEAR_VIEWED_INGREDIENT' as const;
 
-export const addViewedIngredient = (ingredient: any) => ({
+export const addViewedIngredient = (ingredient: Ingredient) => ({
     type: ADD_VIEWED_INGREDIENT,
     payload: ingredient,
 });

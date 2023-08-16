@@ -93,3 +93,13 @@ export type AppThunk<ReturnType = void> = ThunkMiddleware<
     StoreAction,
     ReturnType
 >;
+export interface BurgerConstructorBun {
+    image_large?: string;
+    image?: string
+}
+export interface BurgerConstructorState {
+    ingredients: Ingredient[];
+    loading: boolean;
+    error: any;
+    bun?: BurgerConstructorBun;
+}
