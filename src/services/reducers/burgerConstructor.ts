@@ -6,6 +6,7 @@ import {
   REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
   MOVE_INGREDIENT_IN_CONSTRUCTOR,
   SET_BUN,
+  CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
 } from '../actions/burgerConstructor';
 
 import { Ingredient } from '../types';
@@ -45,7 +46,10 @@ type Action =
   | {
     type: typeof SET_BUN;
     payload: Bun;
-  };
+  }
+  | {
+    type: typeof CLEAR_INGREDIENTS_IN_CONSTRUCTOR;
+  }
 
 export const constructorIngredientsReducer = (
   state: State = initialState,
@@ -108,6 +112,11 @@ export const constructorIngredientsReducer = (
           image: action.payload.image_large,
         },
       };
+      case CLEAR_INGREDIENTS_IN_CONSTRUCTOR:
+        return {
+          ...state,
+          ingredients: [],
+        };
     default:
       return state;
   }

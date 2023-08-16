@@ -9,6 +9,7 @@ export const REMOVE_INGREDIENT_FROM_CONSTRUCTOR = 'REMOVE_INGREDIENT_FROM_CONSTR
 export const MOVE_INGREDIENT_IN_CONSTRUCTOR = 'MOVE_INGREDIENT_IN_CONSTRUCTOR' as const;
 export const SET_BUN = 'SET_BUN' as const;
 export const UPDATE_INGREDIENT_COUNT = 'UPDATE_INGREDIENT_COUNT' as const;
+export const CLEAR_INGREDIENTS_IN_CONSTRUCTOR = 'CLEAR_INGREDIENTS_IN_CONSTRUCTOR' as const;
 
 export const fetchConstructorIngredientsRequest = () => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
@@ -27,6 +28,10 @@ export const fetchConstructorIngredientsFailure = (error: any) => ({
 export const addIngredientToConstructor = (ingredient: Ingredient) => ({
   type: ADD_INGREDIENT_TO_CONSTRUCTOR,
   payload: { ...ingredient, uniqueId: uuidv4() },
+});
+
+export const clearIngredientsInConstructor = () => ({
+  type: CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
 });
 
 export const removeIngredientFromConstructor = (ingredient: Ingredient) => ({

@@ -6,14 +6,10 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredients';
 import { createOrder } from '../../utils/api';
 import { useDrop } from 'react-dnd';
-import { selectConstructorIngredients } from '../../services/reducers/ingredients';
 import { selectUserCredentials } from '../../services/reducers/authReducer'
-// import { useDispatch, useSelector } from 'react-redux';
-import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
+import { addIngredientToConstructor, clearIngredientsInConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
-
-// Import interfaces from types
 import { Ingredient, OrderResponse } from '../../services/types';
 
 const BurgerConstructor: FC = () => {
@@ -21,27 +17,23 @@ const BurgerConstructor: FC = () => {
   // const { error: AuthError, user: AuthUser } = useSelector(selectUserCredentials);
   const { user: AuthUser } = useAppSelector(selectUserCredentials);
   const [orderId, setOrderId] = useState<string | null>(null);
-  const constructorIngredients = useAppSelector(selectConstructorIngredients);
-  const dispatch = useAppDispatch();
-
   const ingredientElement = useAppSelector((store: any) => store.constructorIngredients.ingredients);
   const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
-
-  const [, setBurgerIngredients] = useState<string[]>([]);
-
+  const dispatch = useAppDispatch();
+  const [burgerIngredients, setBurgerIngredients] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getIngredientsData = async () => {
       try {
-        setBurgerIngredients(ingredientElement.lenght === 0 ? null : ingredientElement);
+        setBurgerIngredients(ingredientElement.lenght === 0 ? [] : ingredientElement);
       } catch (error) {
         // Обработка ошибки
       }
     };
 
     getIngredientsData();
-  }, [constructorIngredients, ingredientElement, setBurgerIngredients]);
+  }, [ingredientElement, setBurgerIngredients]);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "items",
@@ -63,8 +55,10 @@ const BurgerConstructor: FC = () => {
       }
 
       const response: OrderResponse = await createOrder({ ingredients: ingredientIds });
-      if (response.success === true) {
-        setBurgerIngredients([]);
+
+      if (response.success) {
+        dispatch(clearIngredientsInConstructor()); // Clear constructor ingredients
+        setBurgerIngredients([]); // Clear burger ingredients
       }
 
       setOrderId(response.order.number);
@@ -75,26 +69,12 @@ const BurgerConstructor: FC = () => {
   };
 
   const handleAuthClick = async () => {
-    try {
-      navigate('/login', { replace: true });
-    } catch (error) {
-      // Обработка ошибки
-    }
+    navigate('/login', { replace: true });
   }
 
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  // const handleIngredientAdd = (ingredient: Ingredient) => {
-  //   // Реализация логики добавления ингредиента
-  //   dispatch(addIngredientToConstructor(ingredient))
-  // };
-
-  // const handleIngredientRemove = (ingredient: Ingredient) => {
-  //   // Реализация логики удаления ингредиента
-  //   dispatch(addIngredientToConstructor(ingredient))
-  // };
 
   const totalPrice = useMemo(() => {
     const bunPrice = ingredientElementBun ? ingredientElementBun.price : 0;
