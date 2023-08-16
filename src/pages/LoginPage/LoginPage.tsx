@@ -1,7 +1,8 @@
 import React, { useState, FormEvent, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../services/hooks/hooks';
+
 import styles from './LoginPage.module.css';
 import { loginUser } from '../../utils/api';
 import { USER_STATEMENT } from '../../services/actions/authActions'
@@ -12,7 +13,7 @@ export const LoginPage: FC = () => {
     const navigate = useNavigate();
 
     const [error, setError] = useState('');
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

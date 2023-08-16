@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './RegisterPage.module.css';
 import { registerUser, loginUser } from '../../utils/api';
-import { useDispatch } from 'react-redux';
 import { USER_STATEMENT } from '../../services/actions/authActions'
+import { useAppDispatch } from '../../services/hooks/hooks';
 
 export const RegisterPage: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

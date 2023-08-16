@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound } from '../../pages';
-import { useDispatch } from 'react-redux';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
 import { CHECK_USER_REQUEST, GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
@@ -21,8 +20,11 @@ import {
   ERROR_PATH
 } from '../../utils/routePath';
 
+import { useAppDispatch } from '../../services/hooks/hooks';
+
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const background = location.state && location.state.background;

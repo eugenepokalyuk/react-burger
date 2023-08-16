@@ -4,7 +4,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientItem from '../IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { fetchIngredientsData } from '../../utils/api';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   fetchIngredientsRequest
@@ -19,12 +19,12 @@ import {
 import { Ingredient, NutrientProperty } from '../../services/types'
 
 const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  const constructorIngredients = useSelector(selectConstructorIngredients);
-  const selectedBun = useSelector((store: any) => store.constructorIngredients.bun);
+  const constructorIngredients = useAppSelector(selectConstructorIngredients);
+  const selectedBun = useAppSelector((store: any) => store.constructorIngredients.bun);
 
   const bunRef = useRef<HTMLHeadingElement>(null);
   const mainsRef = useRef<HTMLHeadingElement>(null);

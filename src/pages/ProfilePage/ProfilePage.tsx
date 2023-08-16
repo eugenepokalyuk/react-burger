@@ -1,13 +1,14 @@
 import React, { useState, useEffect, FormEvent, MouseEvent, FC } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ProfilePage.module.css'
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
+
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { logoutUser, updateUser } from '../../utils/api';
 import { EDIT_FAILURE, EDIT_SUCCESS } from '../../services/actions/authActions';
 
 export const ProfilePage: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -16,7 +17,7 @@ export const ProfilePage: FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const getUserRefreshToken = useSelector((store: any) => store.auth.user.refreshToken);
+    const getUserRefreshToken = useAppSelector((store: any) => store.auth.user.refreshToken);
     const [, setError] = useState<string>('');
 
     useEffect(() => {

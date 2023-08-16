@@ -8,9 +8,10 @@ import { createOrder } from '../../utils/api';
 import { useDrop } from 'react-dnd';
 import { selectConstructorIngredients } from '../../services/reducers/ingredients';
 import { selectUserCredentials } from '../../services/reducers/authReducer'
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { addIngredientToConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 
 // Import interfaces from types
 import { Ingredient, OrderResponse } from '../../services/types';
@@ -18,13 +19,13 @@ import { Ingredient, OrderResponse } from '../../services/types';
 const BurgerConstructor: FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   // const { error: AuthError, user: AuthUser } = useSelector(selectUserCredentials);
-  const { user: AuthUser } = useSelector(selectUserCredentials);
+  const { user: AuthUser } = useAppSelector(selectUserCredentials);
   const [orderId, setOrderId] = useState<string | null>(null);
-  const constructorIngredients = useSelector(selectConstructorIngredients);
-  const dispatch = useDispatch();
+  const constructorIngredients = useAppSelector(selectConstructorIngredients);
+  const dispatch = useAppDispatch();
 
-  const ingredientElement = useSelector((store: any) => store.constructorIngredients.ingredients);
-  const ingredientElementBun = useSelector((store: any) => store.constructorIngredients.bun);
+  const ingredientElement = useAppSelector((store: any) => store.constructorIngredients.ingredients);
+  const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
 
   const [, setBurgerIngredients] = useState<string[]>([]);
 

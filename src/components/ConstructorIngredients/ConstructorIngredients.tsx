@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ConstructorIngredients.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
 import { useDrag, useDrop } from 'react-dnd';
-
 import { Ingredient, DragHandleProps, DropTargetProps, ConstructorIngredientsProps, renderBunType } from '../../services/types'
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
@@ -41,9 +40,9 @@ const DropTarget: FC<DropTargetProps> = ({ id, index, itemType, onMove, children
 };
 
 const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const BUN_TYPE = 'bun';
-  const ingredientElementBun = useSelector((store: any) => store.constructorIngredients.bun);
+  const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
 
   const renderBun = (type: renderBunType) => {
     return (

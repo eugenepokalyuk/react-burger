@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients';
 import styles from './HomePage.module.css';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks/hooks';
 import { selectLoading, selectError } from '../../services/reducers/ingredients';
 
 export const HomePage: FC = () => {
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const loading = useAppSelector(selectLoading);
+  const error = useAppSelector(selectError);
 
   if (loading) {
     return <div className={styles.loading}>Ожидаем ответ от сервера...</div>;

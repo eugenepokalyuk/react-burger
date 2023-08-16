@@ -1,14 +1,13 @@
 import React, { useEffect, FC } from 'react';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 import styles from './OrderDetails.module.css';
-
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../services/hooks/hooks';
 import { fetchOrderNumberRequest, updateOrderNumber } from '../../services/actions/orderDetails';
 
 import { OrderDetailsProps } from '../../services/types';
 
 const OrderDetails: FC<OrderDetailsProps> = ({ orderId }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchOrderNumberRequest());

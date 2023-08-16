@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientDetails.module.css';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../services/hooks/hooks';
 import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
 import { IngredientItemProps } from '../../services/types';
 import { useDrag } from 'react-dnd';
@@ -14,7 +14,7 @@ const IngredientItem: FC<IngredientItemProps> = ({
   setIsModalOpen,
   setSelectedIngredient
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const handleClick = () => {

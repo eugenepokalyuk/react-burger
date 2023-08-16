@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import styles from './IngredientPage.module.css';
 import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export const IngredientPage: FC = () => {
     const { id } = useParams();
-    const { ingredients } = useSelector((state: any) => state.ingredients);
+    const { ingredients } = useAppSelector((state: any) => state.ingredients);
     const selectedIngredient = ingredients.find((item: any) => item._id === id);
 
     const nutrientLabels = [
