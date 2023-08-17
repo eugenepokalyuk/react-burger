@@ -5,7 +5,7 @@ import Modal from '../Modal/Modal';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import ConstructorIngredients from '../ConstructorIngredients/ConstructorIngredients';
 import { createOrder } from '../../utils/api';
-import { useDrop } from 'react-dnd';
+import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { selectUserCredentials } from '../../services/reducers/authReducer'
 import { addIngredientToConstructor, clearIngredientsInConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
@@ -35,12 +35,16 @@ const BurgerConstructor: FC = () => {
     getIngredientsData();
   }, [ingredientElement, setBurgerIngredients]);
 
-  const [{ isHover }, dropTarget] = useDrop({
+  interface TIngredient extends Ingredient {};
+
+  const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<TIngredient, unknown, { canDrop: boolean; dragItem: TIngredient; isHover: boolean }>({
     accept: "items",
-    drop(item: any) {
+    drop(item: TIngredient) {
       dispatch(addIngredientToConstructor(item))
     },
-    collect: monitor => ({
+    collect: (monitor: DropTargetMonitor) => ({
+      canDrop: monitor.canDrop(),
+      dragItem: monitor.getItem(),
       isHover: monitor.isOver(),
     })
   });
