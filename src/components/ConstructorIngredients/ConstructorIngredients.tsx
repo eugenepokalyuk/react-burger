@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
 import { useDrag, useDrop } from 'react-dnd';
 import { Ingredient, DragHandleProps, DropTargetProps, ConstructorIngredientsProps, renderBunType } from '../../services/types'
+import { Identifier } from "dnd-core";
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -23,18 +24,27 @@ const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
 };
 
 const DropTarget: FC<DropTargetProps> = ({ id, index, itemType, onMove, children }) => {
-  const [, drop] = useDrop({
-    accept: 'ingredient',
-    hover(item: any) {
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      onMove(dragIndex, hoverIndex, item.type);
-      item.index = hoverIndex;
-    },
-  });
+  const [, drop] = useDrop<{
+    type: string;
+    ingredient: Ingredient;
+    index: number;
+  }, unknown,
+    { handlerId: Identifier | null }>
+    ({
+      accept: 'ingredient',
+      hover(item) {
+        const dragIndex = item.index;
+        const hoverIndex = index;
+        const itemType = item.type;
+
+        if (dragIndex === hoverIndex) {
+          return;
+        }
+
+        onMove(dragIndex, hoverIndex, itemType);
+        item.index = hoverIndex;
+      },
+    });
 
   return <div ref={drop}>{children}</div>;
 };
