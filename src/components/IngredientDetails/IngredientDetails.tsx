@@ -43,8 +43,7 @@ const IngredientItem: FC<IngredientItemProps> = ({
       <img src={ingredient.image} alt={ingredient.name} />
       <div className="p-1">
         <p className="text text_type_digits-default m-1">{ingredient.price}</p>
-        {/* @ts-ignore */}
-        <CurrencyIcon type="primary" className={styles.CurrencyIcon} />
+        <CurrencyIcon type="primary" />
       </div>
       <p className="text text_type_main-default">{ingredient.name}</p>
     </Link>
