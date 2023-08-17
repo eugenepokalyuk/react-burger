@@ -17,7 +17,7 @@ export const fetchOrderNumberFailure = (error: any) => ({
     payload: error,
 });
 
-export const updateOrderNumber = (orderNumber: any) => ({
+export const updateOrderNumber = (orderNumber: string) => ({
     type: UPDATE_ORDER_NUMBER,
     payload: orderNumber,
 });
