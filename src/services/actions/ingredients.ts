@@ -1,5 +1,6 @@
 import { fetchIngredientsData } from '../../utils/api';
 import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from './burgerConstructor'
+import { Ingredient } from '../types';
 
 export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST' as const;
 export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS' as const;
@@ -9,7 +10,7 @@ export const fetchIngredientsRequest = () => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-export const fetchIngredientsSuccess = (data: any) => ({
+export const fetchIngredientsSuccess = (data: Ingredient[]) => ({
     type: FETCH_INGREDIENTS_SUCCESS,
     payload: data,
 });
