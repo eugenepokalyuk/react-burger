@@ -53,7 +53,7 @@ export interface ModalOverlayProps {
     onClose: () => void;
 }
 export interface OrderDetailsProps {
-    orderId: string | null;
+    orderId: string;
 }
 export interface ProtectedRouteProps {
     auth?: boolean;
