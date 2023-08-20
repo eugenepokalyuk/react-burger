@@ -2,20 +2,39 @@ import { fetchIngredientsData } from '../../utils/api';
 import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from './burgerConstructor'
 import { Ingredient } from '../types';
 
-export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST' as const;
-export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS' as const;
-export const FETCH_INGREDIENTS_FAILURE = 'FETCH_INGREDIENTS_FAILURE' as const;
+export const FETCH_INGREDIENTS_REQUEST: 'FETCH_INGREDIENTS_REQUEST' = 'FETCH_INGREDIENTS_REQUEST' as const;
+export const FETCH_INGREDIENTS_SUCCESS: 'FETCH_INGREDIENTS_SUCCESS' = 'FETCH_INGREDIENTS_SUCCESS' as const;
+export const FETCH_INGREDIENTS_FAILURE: 'FETCH_INGREDIENTS_FAILURE' = 'FETCH_INGREDIENTS_FAILURE' as const;
 
-export const fetchIngredientsRequest = () => ({
+export type TIngredients =
+    | IFetchIngredientsRequestAction
+    | IFetchIngredientsSuccessAction
+    | IFetchIngredientsFailureAction;
+
+export interface IFetchIngredientsRequestAction {
+    readonly type: typeof FETCH_INGREDIENTS_REQUEST;
+}
+
+export interface IFetchIngredientsSuccessAction {
+    readonly type: typeof FETCH_INGREDIENTS_SUCCESS;
+    readonly payload: Ingredient[];
+}
+
+export interface IFetchIngredientsFailureAction {
+    readonly type: typeof FETCH_INGREDIENTS_FAILURE;
+    readonly payload: string;
+}
+
+export const fetchIngredientsRequest = (): IFetchIngredientsRequestAction => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-export const fetchIngredientsSuccess = (data: Ingredient[]) => ({
+export const fetchIngredientsSuccess = (data: Ingredient[]): IFetchIngredientsSuccessAction => ({
     type: FETCH_INGREDIENTS_SUCCESS,
     payload: data,
 });
 
-export const fetchIngredientsFailure = (error: any) => ({
+export const fetchIngredientsFailure = (error: string): IFetchIngredientsFailureAction => ({
     type: FETCH_INGREDIENTS_FAILURE,
     payload: error,
 });
