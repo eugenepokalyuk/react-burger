@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ThunkMiddleware } from 'redux-thunk';
+import { store } from './store';
+
 export type Ingredient = {
     _id: string;
     price: number;
