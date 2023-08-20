@@ -1,6 +1,7 @@
 import {
     ADD_VIEWED_INGREDIENT,
-    CLEAR_VIEWED_INGREDIENT
+    CLEAR_VIEWED_INGREDIENT,
+    TCurrentIngredient
 } from '../actions/currentIngredient'
 
 const initialState = {

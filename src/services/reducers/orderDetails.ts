@@ -2,7 +2,8 @@ import {
     FETCH_ORDER_NUMBER_REQUEST,
     FETCH_ORDER_NUMBER_SUCCESS,
     FETCH_ORDER_NUMBER_FAILURE,
-    UPDATE_ORDER_NUMBER
+    UPDATE_ORDER_NUMBER,
+    TOrderDetails
 } from '../actions/orderDetails'
 
 const initialState = {

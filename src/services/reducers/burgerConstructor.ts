@@ -7,6 +7,7 @@ import {
   MOVE_INGREDIENT_IN_CONSTRUCTOR,
   SET_BUN,
   CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
+  TBurgerConstructor
 } from '../actions/burgerConstructor';
 
 import { Ingredient } from '../types';

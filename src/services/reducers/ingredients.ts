@@ -1,7 +1,8 @@
 import {
     FETCH_INGREDIENTS_REQUEST,
     FETCH_INGREDIENTS_SUCCESS,
-    FETCH_INGREDIENTS_FAILURE
+    FETCH_INGREDIENTS_FAILURE,
+    TIngredients
 } from '../actions/ingredients'
 
 const initialState = {
@@ -10,13 +11,14 @@ const initialState = {
     error: null,
 } as const;
 
-export const selectIngredients = (state: any) => state;
+export const selectIngredients = (state: TIngredients) => state;
+
 export const selectConstructorIngredients = (state: any) => state.constructorIngredients;
 export const selectLoading = (state: any) => state.loading;
 export const selectError = (state: any) => state.error;
 export const selectIngredientsLoading = (state: any) => state.loading;
 
-export const ingredientsReducer = (state = initialState, action: any) => {
+export const ingredientsReducer = (state = initialState, action: TIngredients) => {
     switch (action.type) {
         case FETCH_INGREDIENTS_REQUEST:
             return {
