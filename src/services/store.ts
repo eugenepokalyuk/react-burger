@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware, Store, Action, ActionCreator } from 'redux';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
 
-import { RootState, AppThunk } from './types';
+import { RootState } from './types';
 
 const initialState: RootState = {
   constructorIngredients: {
@@ -26,7 +26,17 @@ const initialState: RootState = {
   },
 };
 
-export const store = createStore(
+export type TApplicationActions = any;
+
+// Типизация хранилища
+export type StoreType = Store<RootState, any>
+
+// Типизация thunk'ов в нашем приложении
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+>;
+
+export const store: StoreType = createStore(
   rootReducer,
   initialState,
   composeWithDevTools(
