@@ -16,9 +16,11 @@ import {
   PROFILE_ORDERS_PATH,
   PROFILE_ORDERS_ID_PATH,
   FEED_PATH,
+  FEED_ID_PATH,
   INGREDIENTS_PATH,
   ERROR_PATH
 } from '../../utils/routePath';
+
 
 import { useAppDispatch } from '../../services/hooks/hooks';
 
@@ -97,6 +99,11 @@ const App = () => {
 
         <Route
           path={FEED_PATH}
+          element={<NotFound />}
+        />
+
+        <Route
+          path={FEED_ID_PATH}
           element={<NotFound />}
         />
 
