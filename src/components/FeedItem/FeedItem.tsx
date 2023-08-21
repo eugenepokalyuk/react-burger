@@ -19,6 +19,7 @@ const FeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL }) => {
 
     const closeModal = () => {
         // navigate(-1);
+        // navigate(`${baseURL}/${order.number}`);
         navigate(`${baseURL}`);
         setIsModalOpen(false);
     };
