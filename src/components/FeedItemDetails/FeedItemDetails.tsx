@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from 'react';
 import styles from './FeedItemDetails.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import data1 from '../../utils/data.json';
+import { v4 as uuidv4 } from 'uuid';
 
 interface FeedItemProps {
     // order: any;
@@ -19,7 +20,7 @@ const FeedItemDetails: FC<FeedItemProps> = () => {
 
                 <ul className={`${styles.scrollable} ${styles.w100} ${styles.ingredientList} mb-10`}>
                     {data1.map((item: any) =>
-                        <li className='mb-4'>
+                        <li key={uuidv4()} className='mb-4'>
                             <div className={`${styles.itemImage}`}>
                                 <img src={item.image} alt={`${item.name} изображение`} />
                             </div>
