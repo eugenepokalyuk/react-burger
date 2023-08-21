@@ -1,0 +1,86 @@
+.orderCard {
+    background: #1C1C21;
+    padding: calc(6*4px);
+    border-radius: 40px;
+    margin-top: calc(4*4px);
+    transition: 0.5s;
+}
+
+.orderItem {
+    transition: 0.5s;
+}
+
+.orderItem:hover {
+    scale: 0.95;
+}
+
+.orderCard:hover {
+    cursor: pointer;
+    scale: 0.95;
+}
+
+.flex {
+    display: flex;
+}
+
+.flexContentBetween {
+    justify-content: space-between;
+}
+
+.flexAlignCenter {
+    align-items: center;
+}
+
+.remainingIngredients {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 16px;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 100%;
+}
+
+.ingredientList {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0 0 20px;
+}
+
+.ingredientList li {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin-left: -20px;
+    background-color: #131316;
+    border: 3px solid #7920bd;
+    border-radius: 100%;
+}
+
+.ingredientList img {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.orderTitleDone {
+    color: #0CC;
+}
+
+.link {
+    color: inherit;
+}

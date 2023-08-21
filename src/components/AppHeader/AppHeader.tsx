@@ -94,73 +94,74 @@ const AppHeader: FC = () => {
     )
   }
 
-  const MobileView: FC = () => {
-    const [isBurgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
+  // const MobileView: FC = () => {
+  //   const [isBurgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
 
-    const toggleBurgerMenu = () => {
-      setBurgerMenuOpen(!isBurgerMenuOpen);
-    };
+  //   const toggleBurgerMenu = () => {
+  //     setBurgerMenuOpen(!isBurgerMenuOpen);
+  //   };
 
-    return (
-      <nav className={styles.mobileNav}>
-        <div className={styles.mobileLogo}>
-          <NavLink to='/'>
-            <img src={MobileLogo} alt="Знак закрытия окна" />
-          </NavLink>
-        </div>
+  //   return (
+  //     <nav className={styles.mobileNav}>
+  //       <div className={styles.mobileLogo}>
+  //         <NavLink to='/'>
+  //           <img src={MobileLogo} alt="Знак закрытия окна" />
+  //         </NavLink>
+  //       </div>
 
-        <div className={styles.burgerMenuButton} onClick={toggleBurgerMenu}>
-          <MenuIcon type="primary" />
+  //       <div className={styles.burgerMenuButton} onClick={toggleBurgerMenu}>
+  //         <MenuIcon type="primary" />
 
-        </div>
+  //       </div>
 
-        {isBurgerMenuOpen && (
-          <div className={`${styles.burgerMenu} pr-2 pl-2`}>
-            <div className={`${styles.burgerMenuHeader} pt-4 pb-4`}>
-              <p className='text text_type_main-large'>Меню</p>
-              <div className={styles.closeButton} onClick={toggleBurgerMenu}>
-                <CloseIcon type="primary" />
-              </div>
-            </div>
+  //       {isBurgerMenuOpen && (
+  //         <div className={`${styles.burgerMenu} pr-2 pl-2`}>
+  //           <div className={`${styles.burgerMenuHeader} pt-4 pb-4`}>
+  //             <p className='text text_type_main-large'>Меню</p>
+  //             <div className={styles.closeButton} onClick={toggleBurgerMenu}>
+  //               <CloseIcon type="primary" />
+  //             </div>
+  //           </div>
 
-            <ul className={styles.burgerMenuList}>
-              <li>
-                {user ? (
-                  <NavLink to='/profile'>
-                    <ProfileIcon type={profileRoute ? "primary" : "secondary"} />
-                    <p className={`text text_type_main-medium ${profileRoute ? "" : "text_color_inactive"} ml-2`}>Личный кабинет</p>
-                    <ArrowDownIcon type="primary" />
-                  </NavLink>
-                ) : (
-                  <NavLink to='/login'>
-                    <ProfileIcon type={loginRoute ? "primary" : "secondary"} />
-                    <p className={`text text_type_main-medium ${loginRoute ? "" : "text_color_inactive"} ml-2`}>Личный кабинет</p>
-                  </NavLink>
-                )}
-              </li>
-              <li>
-                <NavLink to='/'>
-                  <BurgerIcon type={homeRoute ? "primary" : "secondary"} />
-                  <p className={`text text_type_main-medium ${homeRoute ? "" : "text_color_inactive"} ml-2`}>Конструктор</p>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to='/feed'>
-                  <ListIcon type={feedRoute ? "primary" : "secondary"} />
-                  <p className={`text text_type_main-medium ${feedRoute ? "" : "text_color_inactive"} ml-2`}>Лента заказов</p>
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        )}
-      </nav>
-    );
-  };
+  //           <ul className={styles.burgerMenuList}>
+  //             <li>
+  //               {user ? (
+  //                 <NavLink to='/profile'>
+  //                   <ProfileIcon type={profileRoute ? "primary" : "secondary"} />
+  //                   <p className={`text text_type_main-medium ${profileRoute ? "" : "text_color_inactive"} ml-2`}>Личный кабинет</p>
+  //                   <ArrowDownIcon type="primary" />
+  //                 </NavLink>
+  //               ) : (
+  //                 <NavLink to='/login'>
+  //                   <ProfileIcon type={loginRoute ? "primary" : "secondary"} />
+  //                   <p className={`text text_type_main-medium ${loginRoute ? "" : "text_color_inactive"} ml-2`}>Личный кабинет</p>
+  //                 </NavLink>
+  //               )}
+  //             </li>
+  //             <li>
+  //               <NavLink to='/'>
+  //                 <BurgerIcon type={homeRoute ? "primary" : "secondary"} />
+  //                 <p className={`text text_type_main-medium ${homeRoute ? "" : "text_color_inactive"} ml-2`}>Конструктор</p>
+  //               </NavLink>
+  //             </li>
+  //             <li>
+  //               <NavLink to='/feed'>
+  //                 <ListIcon type={feedRoute ? "primary" : "secondary"} />
+  //                 <p className={`text text_type_main-medium ${feedRoute ? "" : "text_color_inactive"} ml-2`}>Лента заказов</p>
+  //               </NavLink>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       )}
+  //     </nav>
+  //   );
+  // };
 
   return (
     <header className={`${styles.header} pb-4 pt-4`}>
       {
-        isDesktop ? <DesktopView /> : <MobileView />
+        isDesktop && <DesktopView />
+        // isDesktop ? <DesktopView /> : <MobileView />
       }
     </header>
   );

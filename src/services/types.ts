@@ -105,3 +105,26 @@ export interface BurgerConstructorState {
     error: any;
     bun?: BurgerConstructorBun;
 }
+
+export interface Order {
+    _id: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    ingredients: string[];
+    updatedAt: string;
+}
+
+export interface OrderData {
+    success: boolean;
+    orders: Order[];
+    total: number;
+    totalToday: number;
+}
+
+export interface FeedItemProps {
+    order: Order;
+    showStatus: boolean,
+    parentURL: any,
+    // setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}

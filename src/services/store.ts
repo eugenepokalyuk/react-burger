@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, Store, Action, ActionCreator } from 'redu
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
-
 import { RootState } from './types';
 
 const initialState: RootState = {

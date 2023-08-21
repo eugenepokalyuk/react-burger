@@ -7,7 +7,8 @@
 }
 
 .content {
-    margin: auto;
+    /* margin: auto; */
+    width: 100%;
     text-align: center;
 }
 
@@ -19,7 +20,7 @@
     width: 844px;
     height: 198px;
     text-align: left;
-    align-items:flex-start;
+    align-items: flex-start;
 }
 
 .contentHeight {
@@ -32,7 +33,7 @@
 }
 
 .container {
-    max-width: 100%;
+    max-width: 320px;
 }
 
 .listLinks {
@@ -60,4 +61,27 @@
 .text_align_buttons {
     display: flex;
     justify-content: right;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.scrollable {
+    max-height: 85vh;
+    overflow: auto;
+    scrollbar-color: #8685ad #2f2f37;
+    padding-right: 8px;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #8685ad;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #2f2f37;
 }

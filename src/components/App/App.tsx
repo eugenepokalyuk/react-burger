@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
-import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound } from '../../pages';
+import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound, OrderFeed } from '../../pages';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
 import { CHECK_USER_REQUEST, GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
@@ -23,6 +23,7 @@ import {
 
 
 import { useAppDispatch } from '../../services/hooks/hooks';
+import FeedItemDetails from '../FeedItemDetails/FeedItemDetails';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -94,17 +95,17 @@ const App = () => {
 
         <Route
           path={PROFILE_ORDERS_ID_PATH}
-          element={<ProtectedRoute auth={true} children={<ProfilePage />} />}
+          element={<ProtectedRoute auth={true} children={<FeedItemDetails />} />}
         />
 
         <Route
           path={FEED_PATH}
-          element={<NotFound />}
+          element={<OrderFeed />}
         />
 
         <Route
           path={FEED_ID_PATH}
-          element={<NotFound />}
+          element={<FeedItemDetails />}
         />
 
         <Route
@@ -121,10 +122,23 @@ const App = () => {
 
       {state?.backgroundLocation && (
         <Routes>
+
           <Route
             path={INGREDIENTS_PATH}
             element={<IngredientPage />}
           />
+
+          <Route
+            path={PROFILE_ORDERS_ID_PATH}
+            element={<ProtectedRoute auth={true} children={<FeedItemDetails />} />}
+          />
+
+
+          <Route
+            path={FEED_ID_PATH}
+            element={<FeedItemDetails />}
+          />
+
         </Routes>
       )}
     </>

@@ -1,13 +1,17 @@
 import React, { FC } from 'react';
-
+import data from '../../utils/orderFeedData.json';
 import styles from './ProfileHistory.module.css'
 import { Link, useLocation, NavLink } from 'react-router-dom';
+
+import FeedItem from '../../components/FeedItem/FeedItem';
+import { v4 as uuidv4 } from 'uuid';
+import { OrderData } from '../../services/types'
 
 export const ProfileHistory: FC = () => {
     const location = useLocation();
     return (
         <div className={styles.wrapper}>
-            <div className={`${styles.container}`}>
+            <div className={`${styles.container} mr-15`}>
                 <ul className={`mb-20 text text_type_main-medium text_color_inactive ${styles.listLinks}`}>
                     <li className='mb-4'>
                         <NavLink to='/profile' className={location.pathname === '/profile' ? styles.activeNavLink : `${styles.link} text_color_inactive`} >
@@ -34,34 +38,19 @@ export const ProfileHistory: FC = () => {
 }
 
 const HistoryItems = () => {
+    const { success, orders } = data as OrderData;
+    const location = useLocation();
+
     return (
-        <ul className='mt-10'>
-            <li className={`${styles.historyItem} p-6`}>
-                <div>
-                    <p className="text text_type_digits-default">#034535</p>
-                    <p className="text text_type_main-default">Сегодня, 16:20</p>
-                </div>
-                <p className="text text_type_main-medium">Death Star Starship Main бургер</p>
-                <p className="text text_type_main-default">Создан</p>
-            </li>
-
-            <li className={`${styles.historyItem} p-6 mt-6`}>
-                <div>
-                    <p className="text text_type_digits-default">#034535</p>
-                    <p className="text text_type_main-default">Сегодня, 16:20</p>
-                </div>
-                <p className="text text_type_main-medium">Death Star Starship Main бургер</p>
-                <p className="text text_type_main-default">Создан</p>
-            </li>
-
-            <li className={`${styles.historyItem} p-6 mt-6`}>
-                <div>
-                    <p className="text text_type_digits-default">#034535</p>
-                    <p className="text text_type_main-default">Сегодня, 16:20</p>
-                </div>
-                <p className="text text_type_main-medium">Death Star Starship Main бургер</p>
-                <p className="text text_type_main-default">Создан</p>
-            </li>
-        </ul>
+        <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
+            {success && orders.map((order) => (
+                <FeedItem
+                    key={uuidv4()}
+                    order={order}
+                    showStatus={true}
+                    parentURL={location}
+                />
+            ))}
+        </div>
     )
 }

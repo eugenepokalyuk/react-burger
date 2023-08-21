@@ -18,9 +18,9 @@ export const IngredientPage: FC = () => {
     if (!selectedIngredient) {
         return (
             <div className={`${styles.error}`}>
-                <h1 className='text text_type_main-large mb-5 pt-10'>Oops! Ingredient not found</h1>
-                <p className='text text_type_main-medium mb-4'>The page you requested does not exist</p>
-                <p className='text text_type_main-medium'>check the address or try <Link to='/' className={styles.link}>homepage</Link></p>
+                <h1 className='text text_type_main-large mb-5 pt-10 error-h1'>Oops! Ingredient not found</h1>
+                <p className='text text_type_main-medium mb-4 error-p'>The page you requested does not exist</p>
+                <p className='text text_type_main-medium error-p'>check the address or try <Link to='/' className={styles.link}>homepage</Link></p>
             </div>
         );
     }
