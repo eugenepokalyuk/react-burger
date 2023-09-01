@@ -87,13 +87,13 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state,
     }
 
     const handleFeedClick = (order: TWSOrder) => {
+        dispatch(addViewedOrder(order));
         if (location.pathname.indexOf("feed") === -1) {
-            navigate(`/profile/orders/${order._id}`);
+            navigate(`/profile/orders/${order.number}`);
         } else {
-            navigate(`/feed/${order._id}`);
+            navigate(`/feed/${order.number}`);
         }
         // dispatch(clearViewedOrder());
-        // dispatch(addViewedOrder(order));
 
         // setIsModalOpen(true);
         // setSelectedIngredient(ingredient);
