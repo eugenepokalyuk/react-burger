@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound, OrderFeed } from '../../pages';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -25,15 +25,20 @@ import {
 import { useAppDispatch } from '../../services/hooks/hooks';
 import { WS_CONNECTION_START } from '../../services/actions/WSActions';
 import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
+import Modal from '../Modal/Modal';
 // import { OrderPage } from '../../pages/OrderPage/OrderPage';
 
 const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const state = location.state as { backgroundLocation?: Location };
   const background = location.state && location.state.background;
 
-  // const { order } = []
+  const handleModalClose = () => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
@@ -130,18 +135,30 @@ const App = () => {
 
           <Route
             path={INGREDIENTS_PATH}
-            element={<IngredientPage />}
+            element={
+              <Modal onClose={handleModalClose}>
+                <IngredientPage />
+              </Modal>
+            }
           />
 
           <Route
             path={PROFILE_ORDERS_ID_PATH}
-            element={<ProtectedRoute auth={true} children={<FeedItemDetails />} />}
+            element={<ProtectedRoute auth={true} children={
+              <Modal onClose={handleModalClose}>
+                <FeedItemDetails />
+              </Modal>
+            } />}
           />
 
 
           <Route
             path={FEED_ID_PATH}
-            element={<FeedItemDetails />}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedItemDetails />
+              </Modal>
+            }
           />
 
         </Routes>

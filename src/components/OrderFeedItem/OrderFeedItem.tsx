@@ -1,19 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeedItem.module.css';
 import { FeedItemProps, Ingredient, TWSOrder } from '../../services/types'
-import { useAppSelector } from '../../services/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
+import { addViewedOrder, clearViewedOrder } from '../../services/actions/viewedFeedOrder';
 
-const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL }) => {
+const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state, /* setIsModalOpen */ }) => {
     const { ingredients } = useAppSelector((state: any) => state.ingredients);
     const [data, setData] = useState<Ingredient[]>([]);
     const navigate = useNavigate();
     const location = useLocation();
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const baseURL = parentURL.pathname;
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (order && order.ingredients) {
@@ -27,7 +28,7 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL }) => {
 
     const closeModal = () => {
         navigate(`${baseURL}`);
-        setIsModalOpen(false);
+        // setIsModalOpen(false);
     };
 
     // Если указывать useAppSelector вместо data1 то картинки не прогружаются, решить проблему не получилось.
@@ -91,9 +92,24 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL }) => {
         } else {
             navigate(`/feed/${order._id}`);
         }
+        // dispatch(clearViewedOrder());
+        // dispatch(addViewedOrder(order));
+
+        // setIsModalOpen(true);
+        // setSelectedIngredient(ingredient);
+        // setIsModalOpen(true);
     };
 
     return (
+        // <Link
+        //     to={`/feed/${order._id}`}
+        //     state={{ background: location }}
+        //     key={order._id}
+        //     className={`${styles.cardItem} mb-5 mr-6`}
+        //     // className={`${styles.orderCard} ${styles.Link}`}
+        //     // ref={dragTarget}
+        //     onClick={() => handleFeedClick(order)}
+        // >
         <>
             <div
                 key={order._id}
@@ -146,11 +162,12 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL }) => {
 
 
             </div>
-            {isModalOpen && (
+            {/* {setIsModalOpen && (
                 <Modal onClose={closeModal} header={`#${order.number}`}>
-                    {/* <FeedItemDetails /> */}
+                    <FeedItemDetails />
                 </Modal>
-            )}
+            )} */}
+            {/* </Link> */}
         </>
     )
 }

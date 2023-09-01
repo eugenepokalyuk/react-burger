@@ -42,14 +42,14 @@ const HistoryItems = () => {
 
     return (
         <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-            {userOrders.map((order) => (
+            {/* {userOrders.map((order) => (
                 <OrderFeedItem
                     key={uuidv4()}
                     order={order}
                     showStatus={true}
                     parentURL={location}
                 />
-            ))}
+            ))} */}
         </div>
     )
 }

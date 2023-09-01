@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styles from './OrderFeed.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from 'react-router-dom';
@@ -7,6 +7,7 @@ import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import OrderFeedStat from '../../components/OrderFeedStat/OrderFeedStat';
 
 export const OrderFeed: FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
     // wss://norma.nomoreparties.space/orders
@@ -22,6 +23,8 @@ export const OrderFeed: FC = () => {
                             order={order}
                             showStatus={false}
                             parentURL={location}
+                            state={{ background: location }}
+                            setIsModalOpen={setIsModalOpen}
                         />
                     ))}
                 </div>
