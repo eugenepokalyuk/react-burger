@@ -1,0 +1,27 @@
+.flex {
+    display: flex;
+}
+
+.textShadows {
+    text-shadow: 0 0 16px rgba(51, 51, 255, .25), 0 0 8px rgba(51, 51, 255, .25), 0 4px 32px rgba(51, 51, 255, .5);
+}
+
+.w50 {
+    width: 50%;
+}
+
+.orderList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.orderItem {
+    color: #0CC;
+
+    max-width: 50%;
+    flex: 0 0 50%;
+}

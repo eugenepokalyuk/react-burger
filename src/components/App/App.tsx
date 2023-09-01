@@ -23,14 +23,17 @@ import {
 
 
 import { useAppDispatch } from '../../services/hooks/hooks';
-import FeedItemDetails from '../FeedItemDetails/FeedItemDetails';
+import { WS_CONNECTION_START } from '../../services/actions/WSActions';
+import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
+// import { OrderPage } from '../../pages/OrderPage/OrderPage';
 
 const App = () => {
   const dispatch = useAppDispatch();
-
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
   const background = location.state && location.state.background;
+
+  // const { order } = []
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
@@ -53,6 +56,8 @@ const App = () => {
           dispatch({ type: CHECK_USER_FAILURE });
         });
     }
+
+    dispatch({ type: WS_CONNECTION_START, payload: '/all' });
   }, [dispatch]);
 
   return (

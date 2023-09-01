@@ -14,13 +14,12 @@ import { Ingredient, OrderResponse } from '../../services/types';
 
 const BurgerConstructor: FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  // const { error: AuthError, user: AuthUser } = useSelector(selectUserCredentials);
   const { user: AuthUser } = useAppSelector(selectUserCredentials);
   const [orderId, setOrderId] = useState<string | null>(null);
   const ingredientElement = useAppSelector((store: any) => store.constructorIngredients.ingredients);
   const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
   const dispatch = useAppDispatch();
-  const [burgerIngredients, setBurgerIngredients] = useState<string[]>([]);
+  const [, setBurgerIngredients] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {

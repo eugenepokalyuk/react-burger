@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
-import data from '../../utils/orderFeedData.json';
 import styles from './ProfileHistory.module.css'
 import { Link, useLocation, NavLink } from 'react-router-dom';
-
-import FeedItem from '../../components/FeedItem/FeedItem';
+import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import { v4 as uuidv4 } from 'uuid';
-import { OrderData } from '../../services/types'
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export const ProfileHistory: FC = () => {
     const location = useLocation();
@@ -38,13 +36,14 @@ export const ProfileHistory: FC = () => {
 }
 
 const HistoryItems = () => {
-    const { success, orders } = data as OrderData;
+    const { userOrders } = useAppSelector(store => (store.wsReducer));
+    const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
 
     return (
         <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-            {success && orders.map((order) => (
-                <FeedItem
+            {userOrders.map((order) => (
+                <OrderFeedItem
                     key={uuidv4()}
                     order={order}
                     showStatus={true}

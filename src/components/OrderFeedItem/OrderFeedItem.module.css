@@ -81,6 +81,10 @@
     color: #0CC;
 }
 
+.orderTitleCancled {
+    color: #E52B1A;
+}
+
 .link {
     color: inherit;
 }

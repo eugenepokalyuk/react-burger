@@ -4,8 +4,7 @@
     max-width: 1240px;
     justify-content: space-around;
     flex-direction: column;
-    /* height: 70vh; */
-    /* background: hotpink; */
+    height: 80vh;
     width: 640px;
 }
 
@@ -13,9 +12,10 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* gap: 60px; */
-    /* background: yellowgreen; */
-    /* height: 620px; */
+}
+
+.mAuto {
+    margin: auto;
 }
 
 .orderTitleDone {
