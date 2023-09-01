@@ -1,44 +1,13 @@
-import { createStore, applyMiddleware, Store, Action, ActionCreator } from 'redux';
-import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+import { createStore, applyMiddleware, Store, ActionCreator, Action } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
+import thunk, { ThunkAction } from "redux-thunk";
+import { socketMiddleware } from './ws';
+import { wsActions, wsAuthActions } from './actions/WSActions';
 import { RootState } from './types';
 
-const initialState: RootState = {
-  constructorIngredients: {
-    ingredients: [],
-    loading: false,
-    error: null,
-  },
-  viewedIngredient: {
-    viewedIngredient: null,
-  },
-  ingredients: {
-    ingredients: [],
-    loading: false,
-    error: null,
-  },
-  order: {
-    orderNumber: null,
-    loading: false,
-    error: null,
-  },
-};
-
-export type TApplicationActions = any;
-
-// Типизация хранилища
-export type StoreType = Store<RootState, any>
-
-// Типизация thunk'ов в нашем приложении
-export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, RootState, TApplicationActions>
->;
-
-export const store: StoreType = createStore(
+const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
+export const store = createStore(
   rootReducer,
-  initialState,
-  composeWithDevTools(
-    applyMiddleware<AppThunk>(thunkMiddleware)
-  )
+  composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsAuthActions)))
 );

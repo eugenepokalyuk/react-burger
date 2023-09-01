@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ThunkMiddleware } from 'redux-thunk';
 import { store } from './store';
+import rootReducer from './reducers';
 
 export type Ingredient = {
     _id: string;
@@ -106,25 +107,43 @@ export interface BurgerConstructorState {
     bun?: BurgerConstructorBun;
 }
 
-export interface Order {
+export type TWSOrder = {
+    ingredients: Array<string>;
+    name: string;
     _id: string;
     status: string;
     number: number;
     createdAt: string;
-    ingredients: string[];
     updatedAt: string;
 }
 
 export interface OrderData {
     success: boolean;
-    orders: Order[];
+    orders: TWSOrder[];
     total: number;
     totalToday: number;
 }
 
 export interface FeedItemProps {
-    order: Order;
+    order: TWSOrder;
     showStatus: boolean,
     parentURL: any,
+    state: any
     // setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsModalOpen: any;
+}
+
+export interface IIngredient {
+    _id: string
+    name: string
+    type: string
+    proteins: number
+    fat: number
+    carbohydrates: number
+    calories: number
+    price: number
+    image: string
+    image_mobile: string
+    image_large: string
+    __v: number
 }
