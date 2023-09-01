@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
 
 const FeedItemDetails = () => {
-    const { id } = useParams();
+    // const { id } = useParams();
+    const { number } = useParams();
     const location = useLocation()
     const { ingredients } = useAppSelector((store: any) => store.ingredients);
 
@@ -19,8 +20,10 @@ const FeedItemDetails = () => {
 
     const selectedOrders = location.pathname.includes("/profile") ? userOrders : orders;
 
-    const order = selectedOrders && selectedOrders.find((elem: any) => elem._id === id);
+    const order = selectedOrders && selectedOrders?.find((elem: any) => elem?.number === Number(number));
+    // const order = selectedOrders && selectedOrders?.find((elem: any) => console.log('elem', { elem: elem?.number, number }));
     const [orderIngredients, setOrderIngredients] = useState<IIngredient[]>([])
+
     order?.ingredients.forEach((orderIngredient: IIngredient) => {
         const foundIngredient = ingredients.find(
             (ingredient: any) => ingredient._id === orderIngredient
