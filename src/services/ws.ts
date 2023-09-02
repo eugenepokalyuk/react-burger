@@ -6,7 +6,6 @@ import { TWSActions, TWSAuthActions } from "./actions/WSActions";
 import { AppThunk } from '../services/types';
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middleware => {
-
     return (store: MiddlewareAPI<Dispatch, AppThunk>) => {
         let socket: WebSocket | null = null;
 

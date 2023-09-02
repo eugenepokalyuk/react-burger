@@ -32,7 +32,9 @@ const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as { backgroundLocation?: Location };
+
+  // const state = location.state as { backgroundLocation?: Location };
+  // const state = location.state;
   const background = location.state && location.state.background;
 
   const handleModalClose = () => {
@@ -130,14 +132,23 @@ const App = () => {
 
       </Routes>
 
-      {state?.backgroundLocation && (
+      {background && (
         <Routes>
 
           <Route
             path={INGREDIENTS_PATH}
             element={
+              // <Modal onClose={handleModalClose}>
+              <IngredientPage />
+              // </Modal>
+            }
+          />
+
+          <Route
+            path={FEED_ID_PATH}
+            element={
               <Modal onClose={handleModalClose}>
-                <IngredientPage />
+                <FeedItemDetails />
               </Modal>
             }
           />
@@ -150,17 +161,6 @@ const App = () => {
               </Modal>
             } />}
           />
-
-
-          <Route
-            path={FEED_ID_PATH}
-            element={
-              <Modal onClose={handleModalClose}>
-                <FeedItemDetails />
-              </Modal>
-            }
-          />
-
         </Routes>
       )}
       {/* {isOrderModalOpen && (

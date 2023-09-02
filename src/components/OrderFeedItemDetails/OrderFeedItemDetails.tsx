@@ -1,38 +1,54 @@
 import styles from "./OrderFeedItemDetails.module.css"
 import { useParams } from "react-router";
 import { useAppSelector } from '../../services/hooks/hooks';
-import { IIngredient } from '../../services/types';
+import { IIngredient, TWSOrder } from '../../services/types';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchOrderData } from "../../utils/api";
 
 const FeedItemDetails = () => {
-    // const { id } = useParams();
-    const { number } = useParams();
-    const location = useLocation()
-    const { ingredients } = useAppSelector((store: any) => store.ingredients);
+    const { number } = useParams<{ number: string }>();
 
-    const { orders, userOrders } = useAppSelector((store: any) => ({
+    const location = useLocation()
+    const { ingredients } = useAppSelector((store) => store.ingredients);
+    const [orderData, setOrderData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const getOrderData = async () => {
+            try {
+                const data = await fetchOrderData(number);
+                setOrderData(data);
+                // dispatch()
+            } catch (error) {
+                // Обработка ошибки
+            }
+        };
+
+        getOrderData();
+    }, [number]);
+
+    const { orders, userOrders } = useAppSelector((store) => ({
         orders: store.wsReducer.orders,
         userOrders: store.wsReducer.userOrders,
     }));
 
+    // Отправить запрос
     const selectedOrders = location.pathname.includes("/profile") ? userOrders : orders;
 
-    const order = selectedOrders && selectedOrders?.find((elem: any) => elem?.number === Number(number));
-    // const order = selectedOrders && selectedOrders?.find((elem: any) => console.log('elem', { elem: elem?.number, number }));
-    const [orderIngredients, setOrderIngredients] = useState<IIngredient[]>([])
+    // const order = selectedOrders && selectedOrders?.find((elem: any) => elem?.number === Number(number));
+    // const [orderIngredients, setOrderIngredients] = useState<IIngredient[]>([])
 
-    order?.ingredients.forEach((orderIngredient: IIngredient) => {
-        const foundIngredient = ingredients.find(
-            (ingredient: any) => ingredient._id === orderIngredient
-        );
+    // order?.ingredients.forEach((orderIngredient: IIngredient) => {
+    // const foundIngredient = ingredients.find(
+    // (ingredient: any) => ingredient._id === orderIngredient
+    // );
 
-        if (foundIngredient) {
-            orderIngredients.push(foundIngredient);
-        }
-    });
+    // if (foundIngredient) {
+    // orderIngredients.push(foundIngredient);
+    // }
+    // });
 
     const orderTotalCost = (ingredients: IIngredient[]) =>
         ingredients.reduce((accum, current) => accum + current.price, 0);
@@ -58,43 +74,53 @@ const FeedItemDetails = () => {
         }
     };
 
+    console.log('orderData', orderData);
+
     return (
-        <section className={`${styles.container}`}>
-            <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
-                <h2 className={`text text_type_digits-default ${styles.mAuto}`}>#{order?.number}</h2>
-                <p className={`text text_type_main-medium mt-10 mb-3`}>{order?.name}</p>
-                <p className={`text text_type_main-default mb-15 ${styles.orderTitleDone}`}>{order?.status === "done" ? "Выполнен" : "В работе"}</p>
-                <p className={`text text_type_main-medium mb-3`}>Состав:</p>
+        orderData
+            ? <>1</>
+            : <>2</>
+        // <section className={`${styles.container}`}>
+        //     <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
+        //         <h2 className={`text text_type_digits-default ${styles.mAuto}`}>#0</h2>
+        //         {/* <h2 className={`text text_type_digits-default ${styles.mAuto}`}>#{order?.number}</h2> */}
+        //         <p className={`text text_type_main-medium mt-10 mb-3`}>name</p>
+        //         {/* <p className={`text text_type_main-medium mt-10 mb-3`}>{order?.name}</p> */}
+        //         <p className={`text text_type_main-default mb-15 ${styles.orderTitleDone}`}>status</p>
+        //         {/* <p className={`text text_type_main-default mb-15 ${styles.orderTitleDone}`}>{order?.status === "done" ? "Выполнен" : "В работе"}</p> */}
+        //         <p className={`text text_type_main-medium mb-3`}>Состав:</p>
 
-                <ul className={`${styles.scrollable} ${styles.w100} ${styles.ingredientList} mb-10`}>
-                    {orderIngredients.map((item, index) => (
-                        <li key={uuidv4()} className='mb-4'>
-                            <div className={`${styles.itemImage}`}>
-                                <img src={item?.image} alt={`${item?.name} изображение`} />
-                            </div>
+        //         <ul className={`${styles.scrollable} ${styles.w100} ${styles.ingredientList} mb-10`}>
+        //             {/* {orderIngredients.map((item, index) => (
+        //                 <li key={uuidv4()} className='mb-4'>
+        //                     <div className={`${styles.itemImage}`}>
+        //                         <img src={item?.image} alt={`${item?.name} изображение`} />
+        //                     </div>
 
-                            <div className={`${styles.itemName}`}>
-                                <p className='text text_type_main-default'>{item.name}</p>
-                            </div>
+        //                     <div className={`${styles.itemName}`}>
+        //                         <p className='text text_type_main-default'>{item.name}</p>
+        //                     </div>
 
-                            <div className={`${styles.itemPrice}`}>
-                                <p className='mr-2 text text_type_digits-default'>{item.price}</p>
-                                <CurrencyIcon type="primary" />
-                            </div>
+        //                     <div className={`${styles.itemPrice}`}>
+        //                         <p className='mr-2 text text_type_digits-default'>{item.price}</p>
+        //                         <CurrencyIcon type="primary" />
+        //                     </div>
 
-                        </li>
-                    ))}
-                </ul>
+        //                 </li>
+        //             ))} */}
+        //         </ul>
 
-                <ul className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.w100}`}>
-                    <li className='text text_type_main-default text_color_inactive'>{formatDate(order?.createdAt)}</li>
-                    <li className={`${styles.flex} ${styles.flexAlignCenter}`}>
-                        <p className='text text_type_digits-default mr-2'>{orderTotalCost(orderIngredients)}</p>
-                        <CurrencyIcon type="primary" />
-                    </li>
-                </ul>
-            </div>
-        </section>
+        //         <ul className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.w100}`}>
+        //             {/* <li className='text text_type_main-default text_color_inactive'>{formatDate(order?.createdAt)}</li> */}
+        //             <li className='text text_type_main-default text_color_inactive'>createdAt</li>
+        //             <li className={`${styles.flex} ${styles.flexAlignCenter}`}>
+        //                 {/* <p className='text text_type_digits-default mr-2'>{orderTotalCost(orderIngredients)}</p> */}
+        //                 <p className='text text_type_digits-default mr-2'>count</p>
+        //                 <CurrencyIcon type="primary" />
+        //             </li>
+        //         </ul>
+        //     </div>
+        // </section>
     );
 }
 

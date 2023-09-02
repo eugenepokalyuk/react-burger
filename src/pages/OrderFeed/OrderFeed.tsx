@@ -10,7 +10,7 @@ export const OrderFeed: FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
-    // wss://norma.nomoreparties.space/orders
+
     return (
         <section className={styles.container}>
             <h1 className='text text_type_main-large mb-5 mt-10'>Лента заказов</h1>

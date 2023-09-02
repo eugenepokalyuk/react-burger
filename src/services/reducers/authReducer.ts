@@ -19,10 +19,26 @@ import {
   CHECK_USER_FAILURE,
 } from '../actions/authActions'
 
+// Define action types
+// type ActionType =
+//   | LOGIN_SUCCESS
+//   | REGISTER_SUCCESS
+//   | EDIT_SUCCESS
+//   | GET_USER_SUCCESS
+//   | LOGIN_FAILURE
+//   | REGISTER_FAILURE
+//   | EDIT_FAILURE
+//   | LOGOUT_SUCCESS
+//   | LOGOUT_FAILURE
+//   | CHECK_USER_FAILURE
+//   | REFRESH_TOKEN_SUCCESS
+//   | REFRESH_TOKEN_FAILURE
+//   | USER_STATEMENT;
+
 const initialState = {
   user: null,
   error: null,
-} as const;
+};
 
 export const selectUserCredentials = (state: any) => state.auth;
 

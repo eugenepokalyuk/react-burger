@@ -25,3 +25,7 @@
     max-width: 50%;
     flex: 0 0 50%;
 }
+
+.colorWhite {
+    color: #fff;
+}

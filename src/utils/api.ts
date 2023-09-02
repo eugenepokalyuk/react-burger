@@ -14,10 +14,25 @@ export const fetchIngredientsData = () => {
       return Promise.reject(res);
     });
 }
+
+export const fetchOrderData = (id: any) => {
+  console.log('id', id)
+  const endpoint = `/orders/18999`;
+  return request(endpoint, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => {
+      if (res.success) return res.data;
+      return Promise.reject(res);
+    });
+}
+
 export const createOrder = (orderData: any /* string[] */) => {
   const endpoint = '/orders';
   const token: string = localStorage.getItem("accessToken") || "";
-  
+
   return request(endpoint, {
     method: 'POST',
     headers: {

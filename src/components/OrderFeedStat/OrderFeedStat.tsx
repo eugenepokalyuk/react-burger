@@ -4,7 +4,7 @@ import { useAppSelector } from '../../services/hooks/hooks';
 import { TWSOrder } from '../../services/types';
 import { v4 as uuidv4 } from 'uuid';
 
-const FeedStat: FC = () => {
+const OrderFeedStat: FC = () => {
     const { orders } = useAppSelector(store => (store.wsReducer));
     const { total } = useAppSelector(store => (store.wsReducer));
     const { totalToday } = useAppSelector(store => (store.wsReducer));
@@ -27,30 +27,22 @@ const FeedStat: FC = () => {
 
                 <div className={styles.w50}>
                     <h1 className='text text_type_main-medium mb-6'>В работе:</h1>
-                    {/* {orders.length > 0 ? orders.slice(0, 20).map((order: TWSOrder) => (
-                        order.status !== "done" && (
-                            <li key={uuidv4()}
-                                className={`${styles.orderItem} text text_type_digits-default mb-2`}>
-                                {order.number}
-                            </li>
-                        )
-                    )) : <p className='text text_type_main-small'>Все текущие заказы готовы!</p>} */}
-                    {
-                        orders.length > 0 ? (
-                            orders.slice(0, 20).map((order: TWSOrder) => (
-                                order.status !== "done" ? (
+                    {orders.length > 0 ? (
+                        orders.slice(0, 50).map((order: TWSOrder) => (
+                            order.status !== "done"
+                                ? (
                                     <li
                                         key={uuidv4()}
-                                        className={`${styles.orderItem} text text_type_digits-default mb-2`}
+                                        className={`${styles.orderItem} ${styles.colorWhite} text text_type_digits-default mb-2`}
                                     >
                                         {order.number}
                                     </li>
-                                ) : null
-                            ))
-                        ) : (
-                            <p className="text text_type_main-small">Все текущие заказы готовы!</p>
-                        )
-                    }
+                                )
+                                : null
+                        ))
+                    ) : (
+                        <p className="text text_type_main-small">Все текущие заказы готовы!</p>
+                    )}
                 </div>
             </div>
 
@@ -67,4 +59,4 @@ const FeedStat: FC = () => {
     )
 }
 
-export default FeedStat;
+export default OrderFeedStat;

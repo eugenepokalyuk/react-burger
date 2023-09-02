@@ -1,20 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeedItem.module.css';
-import { FeedItemProps, Ingredient, TWSOrder } from '../../services/types'
-import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
+import { FeedItemProps, Ingredient } from '../../services/types'
+import { useAppSelector } from '../../services/hooks/hooks';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Modal from '../Modal/Modal';
-import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
-import { addViewedOrder, clearViewedOrder } from '../../services/actions/viewedFeedOrder';
 
-const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state, /* setIsModalOpen */ }) => {
+const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus }) => {
     const { ingredients } = useAppSelector((state: any) => state.ingredients);
     const [data, setData] = useState<Ingredient[]>([]);
-    const navigate = useNavigate();
     const location = useLocation();
-    const baseURL = parentURL.pathname;
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (order && order.ingredients) {
@@ -26,13 +20,6 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state,
         }
     }, [ingredients, order]);
 
-    const closeModal = () => {
-        navigate(`${baseURL}`);
-        // setIsModalOpen(false);
-    };
-
-    // Если указывать useAppSelector вместо data1 то картинки не прогружаются, решить проблему не получилось.
-    // const listOfIngredients = useAppSelector((store: any) => store.ingredients.ingredients);
     const formatDate = (dateString: string) => {
         const options: Intl.DateTimeFormatOptions = {
             hour: 'numeric', minute: 'numeric'
@@ -53,6 +40,7 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state,
             return `${daysDiff} дней назад, ${date.toLocaleTimeString('ru-RU', options)}`;
         }
     };
+
     // можно попробовать useMemo
     const calculateOrderPrice = (orderIngredients: string[]) => {
         let totalPrice = 0;
@@ -86,35 +74,15 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state,
         return orderTextStatus;
     }
 
-    const handleFeedClick = (order: TWSOrder) => {
-        dispatch(addViewedOrder(order));
-        if (location.pathname.indexOf("feed") === -1) {
-            navigate(`/profile/orders/${order.number}`);
-        } else {
-            navigate(`/feed/${order.number}`);
-        }
-        // dispatch(clearViewedOrder());
-
-        // setIsModalOpen(true);
-        // setSelectedIngredient(ingredient);
-        // setIsModalOpen(true);
-    };
-
     return (
-        // <Link
-        //     to={`/feed/${order._id}`}
-        //     state={{ background: location }}
-        //     key={order._id}
-        //     className={`${styles.cardItem} mb-5 mr-6`}
-        //     // className={`${styles.orderCard} ${styles.Link}`}
-        //     // ref={dragTarget}
-        //     onClick={() => handleFeedClick(order)}
-        // >
-        <>
+        <Link
+            to={`${order.number}`}
+            state={{ background: location }}
+            key={order._id}
+            className={`${styles.cardItem} ${styles.link} mb-5 mr-6`}
+        >
             <div
-                key={order._id}
                 className={`${styles.orderCard} ${styles.Link}`}
-                onClick={() => handleFeedClick(order)}
             >
                 <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem} mb-6`}>
                     <p className='text text_type_digits-default'>#{order.number}</p>
@@ -162,13 +130,7 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus, parentURL, state,
 
 
             </div>
-            {/* {setIsModalOpen && (
-                <Modal onClose={closeModal} header={`#${order.number}`}>
-                    <FeedItemDetails />
-                </Modal>
-            )} */}
-            {/* </Link> */}
-        </>
+        </Link>
     )
 }
 

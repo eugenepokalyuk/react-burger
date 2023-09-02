@@ -4,8 +4,8 @@
     max-width: 1240px;
     justify-content: space-around;
     flex-direction: column;
-    height: 80vh;
     width: 640px;
+    /* height: 80vh; */
 }
 
 .wrapper {
