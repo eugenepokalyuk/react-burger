@@ -163,6 +163,20 @@ const App = () => {
 
         </Routes>
       )}
+      {/* {isOrderModalOpen && (
+        <Modal closeModal={closeOrderModal}>
+          {order ?
+            <OrderDetails order={order} />
+            :
+            <div>
+              <Preloader />
+              <p className='text text_type_main-medium mt-5'>
+                Оформляем заказ<br />Подождите 15 секунд
+              </p>
+            </div>
+          }
+        </Modal>
+      )} */}
     </>
   );
 };

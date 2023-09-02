@@ -57,7 +57,7 @@ const BurgerConstructor: FC = () => {
         ingredientIds.push(bunId);
       }
 
-      const response: OrderResponse = await dispatch(createOrder({ ingredients: ingredientIds }));
+      const response: OrderResponse = await createOrder({ ingredients: ingredientIds });
 
       if (response.success) {
         dispatch(clearIngredientsInConstructor());

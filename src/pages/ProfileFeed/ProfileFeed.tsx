@@ -49,7 +49,7 @@ const ProfileItems = () => {
     return (
         <div className={`${styles.content} ${styles.contentHeight}`}>
             <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-                {orders.map((order) => (
+                {userOrders.map((order) => (
                     <OrderFeedItem
                         key={uuidv4()}
                         order={order}
