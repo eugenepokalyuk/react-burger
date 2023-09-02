@@ -4,7 +4,7 @@ import AppHeader from '../AppHeader/AppHeader';
 import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileFeed, IngredientPage, NotFound, OrderFeed } from '../../pages';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
-import { CHECK_USER_REQUEST, GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
+import { GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
 import { fetchIngredientsData, getUsers } from '../../utils/api';
 import {
   DEFAULT_PATH,
@@ -26,19 +26,15 @@ import { useAppDispatch } from '../../services/hooks/hooks';
 import { WS_CONNECTION_START } from '../../services/actions/WSActions';
 import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
 import Modal from '../Modal/Modal';
-// import { OrderPage } from '../../pages/OrderPage/OrderPage';
 
 const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const state = location.state as { backgroundLocation?: Location };
-  // const state = location.state;
   const background = location.state && location.state.background;
 
   const handleModalClose = () => {
-    // Возвращаемся к предыдущему пути при закрытии модалки
     navigate(-1);
   };
 
@@ -49,18 +45,17 @@ const App = () => {
         dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: res });
       })
       .catch(error => {
-        dispatch({ type: FETCH_INGREDIENTS_FAILURE });
+        dispatch({ type: FETCH_INGREDIENTS_FAILURE, payload: error });
       });
 
     if (localStorage.getItem('accessToken')) {
-      dispatch({ type: CHECK_USER_REQUEST });
       getUsers()
         .then(res => {
           dispatch({ type: GET_USER_SUCCESS, payload: res });
         })
         .catch(error => {
           localStorage.clear();
-          dispatch({ type: CHECK_USER_FAILURE });
+          dispatch({ type: CHECK_USER_FAILURE, payload: error });
         });
     }
 
@@ -138,9 +133,7 @@ const App = () => {
           <Route
             path={INGREDIENTS_PATH}
             element={
-              // <Modal onClose={handleModalClose}>
               <IngredientPage />
-              // </Modal>
             }
           />
 
@@ -163,20 +156,6 @@ const App = () => {
           />
         </Routes>
       )}
-      {/* {isOrderModalOpen && (
-        <Modal closeModal={closeOrderModal}>
-          {order ?
-            <OrderDetails order={order} />
-            :
-            <div>
-              <Preloader />
-              <p className='text text_type_main-medium mt-5'>
-                Оформляем заказ<br />Подождите 15 секунд
-              </p>
-            </div>
-          }
-        </Modal>
-      )} */}
     </>
   );
 };

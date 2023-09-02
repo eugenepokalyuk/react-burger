@@ -7,7 +7,7 @@
 
 .logo {
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   left: 40%;
 }
 

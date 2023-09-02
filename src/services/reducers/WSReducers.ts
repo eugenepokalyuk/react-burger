@@ -1,28 +1,21 @@
 import { TWSActions, TWSAuthActions } from "../actions/WSActions";
-import { TWSOrder } from "../actions/WSActions";
 import {
     WS_CONNECTION_START,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_CLOSED,
+
     WS_GET_ORDERS,
+
     WS_AUTH_CONNECTION_ERROR,
     WS_AUTH_CONNECTION_START,
     WS_AUTH_CONNECTION_SUCCESS,
+
     WS_GET_AUTH_ORDERS,
+
     WS_AUTH_CONNECTION_CLOSED
 } from "../actions/WSActions";
-
-export type TOrdersState = {
-    wsConnected: boolean;
-    wsError?: Event;
-    wsAuthConnected: boolean;
-    wsAuthError?: Event;
-    orders: Array<TWSOrder>;
-    userOrders: Array<TWSOrder>;
-    total: number;
-    totalToday: number;
-}
+import { TOrdersState } from "../types/types";
 
 export const initialState: TOrdersState = {
     wsConnected: false,
@@ -62,10 +55,6 @@ export const wsReducer = (state = initialState, action: TWSActions | TWSAuthActi
             return {
                 ...state,
                 wsConnected: false,
-                wsError: undefined,
-                orders: [],
-                total: 0,
-                totalToday: 0,
             };
 
         case WS_GET_ORDERS:

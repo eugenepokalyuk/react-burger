@@ -1,10 +1,9 @@
-import { createStore, applyMiddleware, Store, ActionCreator, Action } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
-import thunk, { ThunkAction } from "redux-thunk";
+import thunk from "redux-thunk";
 import { socketMiddleware } from './ws';
 import { wsActions, wsAuthActions } from './actions/WSActions';
-import { RootState } from './types';
 
 const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
 export const store = createStore(

@@ -6,7 +6,7 @@ import { useAppSelector } from '../../services/hooks/hooks';
 export const IngredientPage: FC = () => {
     const { id } = useParams();
     const { ingredients } = useAppSelector((state: any) => state.ingredients);
-    const selectedIngredient = ingredients.find((item: any) => item._id === id);
+    const selectedIngredient = ingredients.find((item: { _id: string | undefined; }) => item._id === id);
 
     const nutrientLabels = [
         { label: 'Калории, ккал', value: 'calories' },

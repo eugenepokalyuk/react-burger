@@ -1,14 +1,12 @@
 import React, { useState, useEffect, FormEvent, MouseEvent, FC } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ProfilePage.module.css'
-import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { logoutUser, updateUser } from '../../utils/api';
-import { EDIT_FAILURE, EDIT_SUCCESS } from '../../services/actions/authActions';
 
 export const ProfilePage: FC = () => {
-    const dispatch = useAppDispatch();
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -36,11 +34,11 @@ export const ProfilePage: FC = () => {
         e.preventDefault();
         updateUser(name, email, password)
             .then(res => {
-                dispatch({ type: EDIT_SUCCESS, payload: res.user })
+                // dispatch({ type: EDIT_SUCCESS, payload: res.user })
                 navigate('/profile', { replace: true });
             })
             .catch(error => {
-                dispatch({ type: EDIT_FAILURE, payload: error.message })
+                // dispatch({ type: EDIT_FAILURE, payload: error.message })
                 setError('Ой, произошла ошибка!');
             });
     };
@@ -51,11 +49,11 @@ export const ProfilePage: FC = () => {
         localStorage.clear();
         logoutUser(refreshToken)
             .then(res => {
-                dispatch({ type: 'LOGOUT_SUCCESS' });
+                // dispatch({ type: 'LOGOUT_SUCCESS' });
                 navigate('/login', { replace: true });
             })
             .catch(error => {
-                dispatch({ type: 'LOGOUT_FAILURE', payload: error.message });
+                // dispatch({ type: 'LOGOUT_FAILURE', payload: error.message });
                 setError('Ой, произошла ошибка!');
             });
     }

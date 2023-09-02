@@ -1,7 +1,7 @@
-import { TWSOrder } from "../types";
+import { TWSOrder } from "../types/types";
 
-export const ADD_VIEWED_ORDER: 'ADD_VIEWED_ORDER' = 'ADD_VIEWED_ORDER' as const;
-export const CLEAR_VIEWED_ORDER: 'CLEAR_VIEWED_ORDER' = 'CLEAR_VIEWED_ORDER' as const;
+export const ADD_VIEWED_ORDER: 'ADD_VIEWED_ORDER' = 'ADD_VIEWED_ORDER';
+export const CLEAR_VIEWED_ORDER: 'CLEAR_VIEWED_ORDER' = 'CLEAR_VIEWED_ORDER';
 
 export type TViewedOrder =
     | IAddViewedOrderAction

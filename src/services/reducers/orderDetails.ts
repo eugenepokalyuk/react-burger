@@ -2,19 +2,18 @@ import {
     FETCH_ORDER_NUMBER_REQUEST,
     FETCH_ORDER_NUMBER_SUCCESS,
     FETCH_ORDER_NUMBER_FAILURE,
-    UPDATE_ORDER_NUMBER,
-    TOrderDetails
+    UPDATE_ORDER_NUMBER
 } from '../actions/orderDetails'
+import { ActionTypes } from '../types/orderDetails/ActionTypes';
+import { IOrderState } from '../types/types';
 
-const initialState = {
+const initialState: IOrderState = {
     orderNumber: null,
     loading: false,
     error: null,
 };
 
-export const selectOrderNumber = (state: any) => state.orderNumber;
-
-export const orderDetailsReducer = (state = initialState, action: any) => {
+export const orderDetailsReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case FETCH_ORDER_NUMBER_REQUEST:
             return {

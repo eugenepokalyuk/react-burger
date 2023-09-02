@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 // import { useSelector } from "react-redux";
 import { useAppSelector } from "../../services/hooks/hooks";
 
-import { ProtectedRouteProps } from "../../services/types";
+import { ProtectedRouteProps } from "../../services/types/types";
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ auth, children }) => {
     const location = useLocation();

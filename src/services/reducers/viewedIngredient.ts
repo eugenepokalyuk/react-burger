@@ -1,16 +1,15 @@
 import {
     ADD_VIEWED_INGREDIENT,
-    CLEAR_VIEWED_INGREDIENT,
-    TCurrentIngredient
+    CLEAR_VIEWED_INGREDIENT
 } from '../actions/currentIngredient'
+import { ActionTypes } from '../types/ingredientDetails/ActionTypes';
+import { IViewedIngredientState } from '../types/types';
 
-const initialState = {
+const initialState: IViewedIngredientState = {
     viewedIngredient: null,
-} as const;
+};
 
-export const selectViewedIngredient = (state: any) => state.viewedIngredient;
-
-export const ingredientDetailsReducer = (state = initialState, action: any) => {
+export const ingredientDetailsReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_VIEWED_INGREDIENT:
             return {

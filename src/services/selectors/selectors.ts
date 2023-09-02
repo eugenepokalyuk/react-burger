@@ -1,0 +1,1 @@
+export const selectConstructorIngredients = (state: { constructorIngredients: any; }  /* RootState */) => state.constructorIngredients;

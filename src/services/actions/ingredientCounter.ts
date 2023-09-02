@@ -1,6 +1,6 @@
 // нужен ли мне этот экшн?
 
-export const UPDATE_INGREDIENT_COUNT: 'UPDATE_INGREDIENT_COUNT' = 'UPDATE_INGREDIENT_COUNT' as const;
+export const UPDATE_INGREDIENT_COUNT: 'UPDATE_INGREDIENT_COUNT' = 'UPDATE_INGREDIENT_COUNT';
 
 export type TIngredientCounter =
     | IUpdateIngredientCountAction;

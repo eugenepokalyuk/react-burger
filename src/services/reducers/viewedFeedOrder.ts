@@ -1,16 +1,15 @@
 import {
     ADD_VIEWED_ORDER,
-    CLEAR_VIEWED_ORDER,
-    TViewedOrder
+    CLEAR_VIEWED_ORDER
 } from '../actions/viewedFeedOrder'
+import { IViewedFeedOrderState } from '../types/types';
+import { ActionTypes } from '../types/viewedFeedOrder/ActionTypes';
 
-const initialState = {
-    viewedOrder: null,
-} as const;
+const initialState: IViewedFeedOrderState = {
+    viewedFeedOrder: null,
+};
 
-export const selectViewedOrder = (state: any) => state.viewedOrder;
-
-export const feedDetailsReducer = (state = initialState, action: any) => {
+export const feedDetailsReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_VIEWED_ORDER:
             return {

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './OrderFeedStat.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
-import { TWSOrder } from '../../services/types';
+import { TWSOrder } from '../../services/types/types';
 import { v4 as uuidv4 } from 'uuid';
 
 const OrderFeedStat: FC = () => {

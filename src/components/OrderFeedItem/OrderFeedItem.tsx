@@ -1,20 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeedItem.module.css';
-import { FeedItemProps, Ingredient } from '../../services/types'
-import { useAppSelector } from '../../services/hooks/hooks';
+import { FeedItemProps, Ingredient, TWSOrder } from '../../services/types/types'
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { addViewedOrder, clearViewedOrder } from '../../services/actions/viewedFeedOrder';
 
 const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus }) => {
     const { ingredients } = useAppSelector((state: any) => state.ingredients);
     const [data, setData] = useState<Ingredient[]>([]);
     const location = useLocation();
+    const dispatch = useAppDispatch();
+    const [, setSelectedOrder] = useState<TWSOrder | null>(null);
 
     useEffect(() => {
         if (order && order.ingredients) {
             const items: Ingredient[] = order.ingredients.map(
                 (item) =>
-                    ingredients.find((newIngredient: any) =>
+                    ingredients.find((newIngredient: { _id: string; }) =>
                         newIngredient._id === item) as Ingredient);
             setData(items);
         }
@@ -46,7 +49,7 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus }) => {
         let totalPrice = 0;
 
         orderIngredients.forEach((ingredientId) => {
-            const ingredient = ingredients.find((ing: any) => ing._id === ingredientId);
+            const ingredient = ingredients.find((ing: { _id: string; }) => ing._id === ingredientId);
             if (ingredient) {
                 totalPrice += ingredient.price;
             }
@@ -74,12 +77,19 @@ const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus }) => {
         return orderTextStatus;
     }
 
+    const handleClick = () => {
+        dispatch(clearViewedOrder());
+        dispatch(addViewedOrder(order));
+        setSelectedOrder(order);
+    };
+
     return (
         <Link
             to={`${order.number}`}
             state={{ background: location }}
             key={order._id}
             className={`${styles.cardItem} ${styles.link} mb-5 mr-6`}
+            onClick={handleClick}
         >
             <div
                 className={`${styles.orderCard} ${styles.Link}`}

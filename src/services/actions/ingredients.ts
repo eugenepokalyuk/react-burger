@@ -1,10 +1,10 @@
 import { fetchIngredientsData } from '../../utils/api';
 import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from './burgerConstructor'
-import { Ingredient } from '../types';
+import { Ingredient } from '../types/types';
 
-export const FETCH_INGREDIENTS_REQUEST: 'FETCH_INGREDIENTS_REQUEST' = 'FETCH_INGREDIENTS_REQUEST' as const;
-export const FETCH_INGREDIENTS_SUCCESS: 'FETCH_INGREDIENTS_SUCCESS' = 'FETCH_INGREDIENTS_SUCCESS' as const;
-export const FETCH_INGREDIENTS_FAILURE: 'FETCH_INGREDIENTS_FAILURE' = 'FETCH_INGREDIENTS_FAILURE' as const;
+export const FETCH_INGREDIENTS_REQUEST: 'FETCH_INGREDIENTS_REQUEST' = 'FETCH_INGREDIENTS_REQUEST';
+export const FETCH_INGREDIENTS_SUCCESS: 'FETCH_INGREDIENTS_SUCCESS' = 'FETCH_INGREDIENTS_SUCCESS';
+export const FETCH_INGREDIENTS_FAILURE: 'FETCH_INGREDIENTS_FAILURE' = 'FETCH_INGREDIENTS_FAILURE';
 
 export type TIngredients =
     | IFetchIngredientsRequestAction

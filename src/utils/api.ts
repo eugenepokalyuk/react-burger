@@ -15,21 +15,20 @@ export const fetchIngredientsData = () => {
     });
 }
 
-export const fetchOrderData = (id: any) => {
-  console.log('id', id)
-  const endpoint = `/orders/18999`;
+export const fetchOrderData = (number: string | undefined) => {
+  const endpoint = `/orders/${number}`;
   return request(endpoint, {
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((res) => {
-      if (res.success) return res.data;
+      if (res.success) return res.orders[0];
       return Promise.reject(res);
     });
 }
 
-export const createOrder = (orderData: any /* string[] */) => {
+export const createOrder = (orderData: { ingredients: string[]; }) => {
   const endpoint = '/orders';
   const token: string = localStorage.getItem("accessToken") || "";
 
@@ -224,6 +223,8 @@ export const refreshToken = async (refreshToken: string) => {
     return Promise.reject(error);
   }
 };
+
+
 export const fetchWithRefresh = async (method: string, URL: string, endpoint?: string) => {
   const headers = new Headers({
     'Content-Type': 'application/json',

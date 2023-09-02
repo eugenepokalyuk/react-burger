@@ -14,9 +14,9 @@ import {
 } from '../../services/actions/burgerConstructor'
 import {
   selectConstructorIngredients,
-} from '../../services/reducers/ingredients';
+} from '../../services/selectors/selectors';
 
-import { Ingredient, NutrientProperty } from '../../services/types'
+import { Ingredient, NutrientProperty } from '../../services/types/types'
 
 const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,8 @@ const BurgerIngredients: FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const constructorIngredients = useAppSelector(selectConstructorIngredients);
-  const selectedBun = useAppSelector((store: any) => store.constructorIngredients.bun);
+
+  const selectedBun = useAppSelector((store) => store.constructorIngredients.bun);
 
   const bunRef = useRef<HTMLHeadingElement>(null);
   const mainsRef = useRef<HTMLHeadingElement>(null);

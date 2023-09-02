@@ -4,7 +4,7 @@ import { Link, useLocation, NavLink } from 'react-router-dom';
 import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
-import { WS_AUTH_CONNECTION_START } from '../../services/actions/WSActions';
+import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/WSActions';
 
 export const ProfileFeed: FC = () => {
     const location = useLocation();
@@ -12,16 +12,18 @@ export const ProfileFeed: FC = () => {
         <div className={styles.wrapper}>
             <div className={`${styles.container} mr-15`}>
                 <ul className={`mb-20 text text_type_main-medium text_color_inactive ${styles.listLinks}`}>
-                    <li className='mb-4'>
-                        <NavLink to='/profile' className={location.pathname === '/profile' ? styles.activeNavLink : `${styles.link} text_color_inactive`} >
+                    <NavLink to='/profile' className={location.pathname === '/profile' ? styles.activeNavLink : `${styles.link} text_color_inactive`} >
+                        <li className='mb-4'>
                             Профиль
-                        </NavLink>
-                    </li>
-                    <li className='mb-4'>
-                        <NavLink to='/profile/orders' className={location.pathname === '/profile/orders' ? styles.activeNavLink : `${styles.link} text_color_inactive`} >
+                        </li>
+                    </NavLink>
+
+                    <NavLink to='/profile/orders' className={location.pathname === '/profile/orders' ? styles.activeNavLink : `${styles.link} text_color_inactive`} >
+                        <li className='mb-4'>
                             История заказов
-                        </NavLink>
-                    </li>
+                        </li>
+                    </NavLink>
+
                     <li className='mb-4'>
                         <Link to='/profile/orders/:id' className={styles.link}> Выход</Link>
                     </li>
@@ -37,7 +39,6 @@ export const ProfileFeed: FC = () => {
 const ProfileItems = () => {
     const dispatch = useAppDispatch();
     const { userOrders } = useAppSelector(store => (store.wsReducer));
-    const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
 
     useEffect(() => {

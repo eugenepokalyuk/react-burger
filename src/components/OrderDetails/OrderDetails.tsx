@@ -4,7 +4,7 @@ import styles from './OrderDetails.module.css';
 import { useAppDispatch } from '../../services/hooks/hooks';
 import { fetchOrderNumberRequest, updateOrderNumber } from '../../services/actions/orderDetails';
 
-import { OrderDetailsProps } from '../../services/types';
+import { OrderDetailsProps } from '../../services/types/types';
 
 const OrderDetails: FC<OrderDetailsProps> = ({ orderId }) => {
   const dispatch = useAppDispatch();

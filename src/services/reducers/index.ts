@@ -12,8 +12,8 @@ const rootReducer = combineReducers({
   viewedIngredient: ingredientDetailsReducer,
   ingredients: ingredientsReducer,
   order: orderDetailsReducer,
-  feedDetails: feedDetailsReducer,
   auth: authReducer,
+  feedDetails: feedDetailsReducer,
   wsReducer: wsReducer,
 });
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, FC } from 'react';
+import { useState, useMemo, FC } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import Modal from '../Modal/Modal';
@@ -10,32 +10,26 @@ import { selectUserCredentials } from '../../services/reducers/authReducer'
 import { addIngredientToConstructor, clearIngredientsInConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
-import { Ingredient, OrderResponse } from '../../services/types';
+import { Ingredient, OrderResponse } from '../../services/types/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const BurgerConstructor: FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const { user: AuthUser } = useAppSelector(selectUserCredentials);
   const [orderId, setOrderId] = useState<string | null>(null);
-  const ingredientElement = useAppSelector((store: any) => store.constructorIngredients.ingredients);
-  const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
+
+  const ingredientElement = useAppSelector((store) => store.constructorIngredients.ingredients);
+  const ingredientElementBun = useAppSelector((store) => store.constructorIngredients.bun);
+
   const dispatch = useAppDispatch();
   const [, setBurgerIngredients] = useState<string[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getIngredientsData = async () => {
-      try {
-        setBurgerIngredients(ingredientElement.lenght === 0 ? [] : ingredientElement);
-      } catch (error) {
-        // Обработка ошибки
-      }
-    };
-
-    getIngredientsData();
-  }, [ingredientElement, setBurgerIngredients]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   interface TIngredient extends Ingredient { };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<TIngredient, unknown, { canDrop: boolean; dragItem: TIngredient; isHover: boolean }>({
     accept: "items",
     drop(item: TIngredient) {
@@ -50,6 +44,8 @@ const BurgerConstructor: FC = () => {
 
   const handleOrderClick = async () => {
     try {
+      setIsLoading(true);
+
       const ingredientIds = ingredientElement.map((ingredient: Ingredient) => ingredient._id);
       const bunId = ingredientElementBun ? ingredientElementBun._id : '643d69a5c3f7b9001cfa093c';
 
@@ -66,7 +62,9 @@ const BurgerConstructor: FC = () => {
 
       setOrderId(response.order.number);
       setModalOpen(true);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       // Обработка ошибки
     }
   };
@@ -114,6 +112,17 @@ const BurgerConstructor: FC = () => {
           }
         </div>
       </div>
+
+      {isLoading && (
+        <Modal onClose={closeModal}>
+          <div className={styles.modalContent}>
+            <h1 className='text text_type_main-large mb-8'>Оформляем заказ</h1>
+            <p className='text text_type_main-medium mb-8'>Подождите пожалуйста, примерное время ожидание 15 сек.</p>
+            <FontAwesomeIcon icon={faSpinner} spin size="5x" className={`${styles.faSpinner}`} />
+          </div>
+        </Modal>
+      )}
+
 
       {isModalOpen && (
         <Modal onClose={closeModal}>

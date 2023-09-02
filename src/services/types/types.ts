@@ -1,7 +1,5 @@
-import React, { ReactNode } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { ThunkMiddleware } from 'redux-thunk';
-import { store } from './store';
-import rootReducer from './reducers';
 
 export type Ingredient = {
     _id: string;
@@ -63,33 +61,39 @@ export interface ProtectedRouteProps {
     children: JSX.Element // Верно ли так помечать данный пропс?
 }
 interface constructorIngredientsState {
+    ingredients: IIngredient[];
+    loading: boolean;
+    error: null | unknown;
+};
+export interface IViewedIngredientState {
+    viewedIngredient: IIngredient | null;
+};
+export interface IIngredientsState {
     ingredients: Ingredient[];
     loading: boolean;
-    error: any;
-};
-interface viewedIngredientState {
-    viewedIngredient: Ingredient | null;
-};
-interface ingredientsState {
-    ingredients: Ingredient[];
-    loading: boolean;
-    error: any;
+    error: null | unknown;
 }
-interface orderState {
+export interface IOrderState {
     orderNumber: string | null;
     loading: boolean;
-    error: any;
+    error: null | unknown;
 };
-export interface RootState {
-    constructorIngredients: constructorIngredientsState;
-    viewedIngredient: viewedIngredientState;
-    // Тут непонятная ошибка для меня, поставил any
-    ingredients: ingredientsState | any;
-    order: orderState;
+
+export type TUser = {
+    email: string,
+    name: string
 }
+
+export interface IAuthState {
+    // auth: {
+    user: TUser | null,
+    // }
+    error: null | unknown,
+}
+
 type StoreAction = {
     type: string;
-    payload?: any;
+    payload?: string;
 };
 export type AppThunk<ReturnType = void> = ThunkMiddleware<
     RootState,
@@ -97,13 +101,16 @@ export type AppThunk<ReturnType = void> = ThunkMiddleware<
     ReturnType
 >;
 export interface BurgerConstructorBun {
+    price: number;
+    name: string;
+    _id: string;
     image_large?: string;
     image?: string
 }
-export interface BurgerConstructorState {
+export interface IConstructorState {
     ingredients: Ingredient[];
     loading: boolean;
-    error: any;
+    error: null | unknown;
     bun?: BurgerConstructorBun;
 }
 
@@ -127,10 +134,9 @@ export interface OrderData {
 export interface FeedItemProps {
     order: TWSOrder;
     showStatus: boolean,
-    parentURL: any,
-    state: any
-    // setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setIsModalOpen: any;
+    parentURL: { pathname: string },
+    state: any,
+    setIsModalOpen: Dispatch<SetStateAction<boolean>> | boolean | undefined;
 }
 
 export interface IIngredient {
@@ -146,4 +152,28 @@ export interface IIngredient {
     image_mobile: string
     image_large: string
     __v: number
+}
+
+export interface RootState {
+    constructorIngredients: constructorIngredientsState;
+    viewedIngredient: IViewedIngredientState;
+    ingredients: IIngredientsState;
+    order: IOrderState;
+    auth: IAuthState,
+
+    feedDetails: IViewedFeedOrderState,
+    wsReducer: TOrdersState,
+}
+export type TOrdersState = {
+    wsConnected: boolean;
+    wsError?: Event;
+    wsAuthConnected: boolean;
+    wsAuthError?: Event;
+    orders: Array<TWSOrder>;
+    userOrders: Array<TWSOrder>;
+    total: number;
+    totalToday: number;
+}
+export interface IViewedFeedOrderState {
+    viewedFeedOrder: TWSOrder | null;
 }

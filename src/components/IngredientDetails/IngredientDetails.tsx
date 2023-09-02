@@ -3,7 +3,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './IngredientDetails.module.css';
 import { useAppDispatch } from '../../services/hooks/hooks';
 import { addViewedIngredient, clearViewedIngredient } from '../../services/actions/currentIngredient';
-import { IngredientItemProps } from '../../services/types';
+import { IngredientItemProps } from '../../services/types/types';
 import { useDrag } from 'react-dnd';
 
 import { Link, useLocation } from 'react-router-dom';

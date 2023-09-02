@@ -3,7 +3,7 @@ import { IWSActions } from "./actions/WSActions";
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { Dispatch } from "redux";
 import { TWSActions, TWSAuthActions } from "./actions/WSActions";
-import { AppThunk } from '../services/types';
+import { AppThunk } from './types/types';
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middleware => {
     return (store: MiddlewareAPI<Dispatch, AppThunk>) => {
@@ -12,7 +12,9 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middlewa
         return next => (action: TWSActions | TWSAuthActions) => {
             const { dispatch } = store;
             const { type, payload } = action;
+
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+
             if (type === wsInit) {
                 socket = new WebSocket(`${wsUrl}${payload}`);
             }

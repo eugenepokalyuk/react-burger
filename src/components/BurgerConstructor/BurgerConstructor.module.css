@@ -43,3 +43,12 @@
 button {
     cursor: crosshair;
 }
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.faSpinner {
+    color: #801AB2;
+}
