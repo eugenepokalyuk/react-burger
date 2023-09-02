@@ -6,7 +6,7 @@ import { ResetPasswordPage } from './ResetPasswordPage/ResetPasswordPage';
 import { ProfilePage } from './ProfilePage/ProfilePage';
 import { IngredientPage } from './IngredientPage/IngredientPage';
 import { NotFound } from './NotFound/NotFound';
-import { ProfileHistory } from './ProfileHistory/ProfileHistory';
+import { ProfileFeed } from './ProfileFeed/ProfileFeed';
 import { OrderFeed } from './OrderFeed/OrderFeed';
 
-export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileHistory, IngredientPage, NotFound, OrderFeed };
+export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileFeed, IngredientPage, NotFound, OrderFeed };

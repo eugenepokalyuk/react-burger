@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
-import styles from './ProfileHistory.module.css'
+import React, { FC, useEffect } from 'react';
+import styles from './ProfileFeed.module.css'
 import { Link, useLocation, NavLink } from 'react-router-dom';
 import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import { v4 as uuidv4 } from 'uuid';
-import { useAppSelector } from '../../services/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
+import { WS_AUTH_CONNECTION_START } from '../../services/actions/WSActions';
 
-export const ProfileHistory: FC = () => {
+export const ProfileFeed: FC = () => {
     const location = useLocation();
     return (
         <div className={styles.wrapper}>
@@ -28,28 +29,34 @@ export const ProfileHistory: FC = () => {
                 <p className='text text_type_main-small text_color_inactive'>В этом разделе вы можете изменить свои персональные данные</p>
             </div>
 
-            <div className={`${styles.content} ${styles.contentHeight}`}>
-                <HistoryItems />
-            </div>
+            <ProfileItems />
         </div>
     );
 }
 
-const HistoryItems = () => {
+const ProfileItems = () => {
+    const dispatch = useAppDispatch();
     const { userOrders } = useAppSelector(store => (store.wsReducer));
     const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
 
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+        const cleanedToken = token?.replace("Bearer ", "");
+        dispatch({ type: WS_AUTH_CONNECTION_START, payload: `?token=${cleanedToken}` });
+    }, [dispatch]);
+
     return (
-        <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-            {/* {userOrders.map((order) => (
-                <OrderFeedItem
-                    key={uuidv4()}
-                    order={order}
-                    showStatus={true}
-                    parentURL={location}
-                />
-            ))} */}
+        <div className={`${styles.content} ${styles.contentHeight}`}>
+            <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
+                {orders.map((order) => (
+                    <OrderFeedItem
+                        key={uuidv4()}
+                        order={order}
+                        showStatus={true}
+                        parentURL={location} state={undefined} setIsModalOpen={undefined} />
+                ))}
+            </div>
         </div>
     )
 }

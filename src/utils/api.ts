@@ -16,10 +16,13 @@ export const fetchIngredientsData = () => {
 }
 export const createOrder = (orderData: any /* string[] */) => {
   const endpoint = '/orders';
+  const token: string = localStorage.getItem("accessToken") || "";
+  
   return request(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      "Authorization": token,
     },
     body: JSON.stringify(orderData),
   })

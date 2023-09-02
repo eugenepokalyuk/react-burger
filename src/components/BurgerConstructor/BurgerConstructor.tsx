@@ -34,7 +34,7 @@ const BurgerConstructor: FC = () => {
     getIngredientsData();
   }, [ingredientElement, setBurgerIngredients]);
 
-  interface TIngredient extends Ingredient {};
+  interface TIngredient extends Ingredient { };
 
   const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<TIngredient, unknown, { canDrop: boolean; dragItem: TIngredient; isHover: boolean }>({
     accept: "items",
@@ -57,11 +57,11 @@ const BurgerConstructor: FC = () => {
         ingredientIds.push(bunId);
       }
 
-      const response: OrderResponse = await createOrder({ ingredients: ingredientIds });
+      const response: OrderResponse = await dispatch(createOrder({ ingredients: ingredientIds }));
 
       if (response.success) {
-        dispatch(clearIngredientsInConstructor()); // Clear constructor ingredients
-        setBurgerIngredients([]); // Clear burger ingredients
+        dispatch(clearIngredientsInConstructor());
+        setBurgerIngredients([]);
       }
 
       setOrderId(response.order.number);
