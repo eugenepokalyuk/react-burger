@@ -144,7 +144,7 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
 
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
-    return nonBunIngredients.map((item, index) => (
+    return nonBunIngredients.map((item, index: number) => (
       <div key={uuidv4()} className={`${styles.dragableItem} mr-4`}>
         <DropTarget
           id={item._id}

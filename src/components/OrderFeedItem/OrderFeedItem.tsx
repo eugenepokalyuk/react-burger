@@ -15,12 +15,13 @@ import {
     clearViewedOrder,
 } from "../../services/actions/viewedFeedOrder";
 import { v4 as uuidv4 } from "uuid";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/WSActions";
 
 interface Props {
     order: TWSOrder;
     showStatus: boolean;
     parentURL: Location;
-    state: { background: Location } | undefined;
+    state?: { background: Location };
     setIsModalOpen: Dispatch<SetStateAction<boolean>> | boolean | undefined;
 }
 
@@ -165,8 +166,8 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                     className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem}`}
                 >
                     <ul className={styles.ingredientList}>
-                        {data?.slice(0, 6).map((item, index) => (
-                            <li key={uuidv4()} className={`${styles.orderItem}`}>
+                        {data?.slice(0, 6).map((item, index: number) => (
+                            <li key={index} className={`${styles.orderItem}`}>
                                 <img
                                     className={styles.image}
                                     src={item?.image}

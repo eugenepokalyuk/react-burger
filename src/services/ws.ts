@@ -7,16 +7,18 @@ import { AppThunk } from './types/types';
 export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middleware => {
     return (store: MiddlewareAPI<Dispatch, AppThunk>) => {
         let socket: WebSocket | null = null;
+        let isConnectionOpen = false;
 
         return next => (action: TWSActions | TWSAuthActions) => {
             const { dispatch } = store;
             const { type, payload } = action;
-
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
             if (type === wsInit) {
                 socket = new WebSocket(`${wsUrl}${payload}`);
+                isConnectionOpen = true;
             }
+
             if (socket) {
                 socket.onopen = event => {
                     dispatch({ type: onOpen, payload: event });
@@ -34,8 +36,17 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middlewa
                 };
 
                 socket.onclose = event => {
-                    dispatch({ type: onClose, payload: event });
+                    if (isConnectionOpen) {
+                        dispatch({ type: onClose, payload: event });
+                    } else {
+                        return;
+                    }
                 };
+
+                if (type === onClose) {
+                    isConnectionOpen = false;
+                    socket.close();
+                }
             }
 
             next(action);

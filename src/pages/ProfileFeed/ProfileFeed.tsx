@@ -1,12 +1,20 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import styles from "./ProfileFeed.module.css";
 import { Link, useLocation, NavLink } from "react-router-dom";
-import OrderFeedItem from "../../components/OrderFeedItem/OrderFeedItem";
-import { v4 as uuidv4 } from "uuid";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
-import {
-  WS_AUTH_CONNECTION_START,
-} from "../../services/actions/WSActions";
+import { ProfileItems } from "../../components/ProfileItems/ProfileItems";
+
+const clx = (classes: (string | { [key: string]: boolean })[]): string => {
+  const classList = classes.flatMap((item) => {
+    if (typeof item === "string") {
+      return item;
+    }
+    return Object.entries(item)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key);
+  });
+
+  return classList.join(" ");
+}
 
 export const ProfileFeed: FC = () => {
   const location = useLocation();
@@ -18,11 +26,14 @@ export const ProfileFeed: FC = () => {
         >
           <NavLink
             to="/profile"
-            className={
-              location.pathname === "/profile"
-                ? styles.activeNavLink
-                : `${styles.link} text_color_inactive`
-            }
+            className={clx([
+              styles.link,
+              "text_color_inactive",
+              {
+                [styles.navlink]: true,
+                [styles.active]: location.pathname === "/profile"
+              }
+            ])}
           >
             <li className="mb-4">Профиль</li>
           </NavLink>
@@ -40,7 +51,6 @@ export const ProfileFeed: FC = () => {
 
           <li className="mb-4">
             <Link to="/profile/orders/:id" className={styles.link}>
-              {" "}
               Выход
             </Link>
           </li>
@@ -51,38 +61,6 @@ export const ProfileFeed: FC = () => {
       </div>
 
       <ProfileItems />
-    </div>
-  );
-};
-
-const ProfileItems = () => {
-  const dispatch = useAppDispatch();
-  const { userOrders } = useAppSelector((store) => store.wsReducer);
-  const location = useLocation();
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const cleanedToken = token?.replace("Bearer ", "");
-    dispatch({
-      type: WS_AUTH_CONNECTION_START,
-      payload: `?token=${cleanedToken}`,
-    });
-  }, [dispatch]);
-
-  return (
-    <div className={`${styles.content} ${styles.contentHeight}`}>
-      <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-        {userOrders.map((order) => (
-          <OrderFeedItem
-            key={uuidv4()}
-            order={order}
-            showStatus={true}
-            parentURL={location}
-            state={undefined}
-            setIsModalOpen={undefined}
-          />
-        ))}
-      </div>
     </div>
   );
 };

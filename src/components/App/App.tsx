@@ -23,7 +23,7 @@ import {
 
 
 import { useAppDispatch } from '../../services/hooks/hooks';
-import { WS_CONNECTION_START } from '../../services/actions/WSActions';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/WSActions';
 import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
 import Modal from '../Modal/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -47,7 +47,9 @@ const App = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
+    
     isLoading(true);
+
     fetchIngredientsData()
       .then(res => {
         dispatch({ type: FETCH_INGREDIENTS_SUCCESS, payload: res });
@@ -68,6 +70,9 @@ const App = () => {
     }
 
     dispatch({ type: WS_CONNECTION_START, payload: '/all' });
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    }
   }, [dispatch]);
 
   return (

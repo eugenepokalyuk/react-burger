@@ -1,15 +1,22 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeed.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../services/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import OrderFeedStat from '../../components/OrderFeedStat/OrderFeedStat';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/WSActions';
 
 export const OrderFeed: FC = () => {
+    const dispatch = useAppDispatch();
     const [, setIsModalOpen] = useState<boolean>(false);
-    const { orders } = useAppSelector(store => (store.wsReducer));
+    const orders = useAppSelector(store => store.wsReducer.orders)
     const location = useLocation();
+
+    useEffect(() => {
+        dispatch({ type: WS_CONNECTION_START, payload: '/all' });
+        return () => { dispatch({ type: WS_CONNECTION_CLOSED }); }
+    }, [dispatch]);
 
     return (
         <section className={styles.container}>
