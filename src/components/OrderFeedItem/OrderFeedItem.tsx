@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import styles from "./OrderFeedItem.module.css";
 import { IIngredient, RootState, TWSOrder } from "../../services/types/types";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import { useAppDispatch, useAppSelector, useFormattedDate } from "../../services/hooks/hooks";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Location, useLocation } from "react-router-dom";
 import {
@@ -44,33 +44,7 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
         }
     }, [ingredients, order]);
 
-    const formatDate = (dateString: string) => {
-        const options: Intl.DateTimeFormatOptions = {
-            hour: "numeric",
-            minute: "numeric",
-        };
-        const date = new Date(dateString);
-        const now = new Date();
-
-        const timeDiff = now.getTime() - date.getTime();
-        const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-        if (daysDiff === 0) {
-            return `Сегодня, ${date.toLocaleTimeString("ru-RU", options)}`;
-        } else if (daysDiff === 1) {
-            return `Вчера, ${date.toLocaleTimeString("ru-RU", options)}`;
-        } else if (daysDiff >= 2 && daysDiff <= 4) {
-            return `${daysDiff} дня назад, ${date.toLocaleTimeString(
-                "ru-RU",
-                options
-            )}`;
-        } else {
-            return `${daysDiff} дней назад, ${date.toLocaleTimeString(
-                "ru-RU",
-                options
-            )}`;
-        }
-    };
+    const formattedDate: string = useFormattedDate(order?.createdAt);
 
     const calculateOrderPrice = (orderIngredients: string[]) => {
         let totalPrice = 0;
@@ -126,7 +100,7 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                 >
                     <p className="text text_type_digits-default">#{order.number}</p>
                     <p className="text text_type_main-default text_color_inactive">
-                        {formatDate(order.createdAt)}
+                        {formattedDate}
                     </p>
                 </div>
 

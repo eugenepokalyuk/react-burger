@@ -30,7 +30,7 @@ export const ProfileItems = () => {
     return (
         <div className={`${styles.content} ${styles.contentHeight}`}>
             <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-                {userOrders.map((order, index: number) => (
+                {userOrders && userOrders.map((order, index: number) => (
                     <OrderFeedItem
                         key={index}
                         order={order}

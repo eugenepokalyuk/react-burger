@@ -1,6 +1,6 @@
 import styles from "./OrderFeedItemDetails.module.css";
 import { useParams } from "react-router";
-import { useAppSelector } from "../../services/hooks/hooks";
+import { useAppSelector, useFormattedDate } from "../../services/hooks/hooks";
 import { IIngredient, RootState, TWSOrder } from "../../services/types/types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { v4 as uuidv4 } from "uuid";
@@ -11,13 +11,12 @@ type Props = {
   isModal?: boolean
 }
 
-const FeedItemDetails: FC<Props> = ({ isModal }) => {
+const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
   const { number } = useParams<{ number: string }>();
   const { ingredients } = useAppSelector(
     (store: RootState) => store.ingredients
   );
   const [orderData, setOrderData] = useState<TWSOrder | null>(null);
-
   useEffect(() => {
     const getOrderData = async () => {
       try {
@@ -31,6 +30,8 @@ const FeedItemDetails: FC<Props> = ({ isModal }) => {
     getOrderData();
   }, [number]);
 
+  const formattedDate: string = useFormattedDate(orderData?.createdAt);
+
   const orderIngredients = orderData?.ingredients
     .map((orderIngredient) =>
       ingredients.find(
@@ -42,33 +43,7 @@ const FeedItemDetails: FC<Props> = ({ isModal }) => {
   const orderTotalCost = (ingredients: IIngredient[]) =>
     ingredients.reduce((accum, current) => accum + current.price, 0);
 
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = {
-      hour: "numeric",
-      minute: "numeric",
-    };
-    const date = new Date(dateString);
-    const now = new Date();
-
-    const timeDiff = now.getTime() - date.getTime();
-    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-    if (daysDiff === 0) {
-      return `Сегодня, ${date.toLocaleTimeString("ru-RU", options)}`;
-    } else if (daysDiff === 1) {
-      return `Вчера, ${date.toLocaleTimeString("ru-RU", options)}`;
-    } else if (daysDiff >= 2 && daysDiff <= 4) {
-      return `${daysDiff} дня назад, ${date.toLocaleTimeString(
-        "ru-RU",
-        options
-      )}`;
-    } else {
-      return `${daysDiff} дней назад, ${date.toLocaleTimeString(
-        "ru-RU",
-        options
-      )}`;
-    }
-  };
+  const toggleTitleNumber = !isModal ? styles.textAlignLeft : styles.mAuto;
 
   return (
     <>
@@ -77,22 +52,16 @@ const FeedItemDetails: FC<Props> = ({ isModal }) => {
           <div
             className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
           >
-            <h2 className={`${!isModal ? styles.textAlignLeft : styles.mAuto} text text_type_digits-default`}>
-              #{orderData?.number}
-            </h2>
+            <h2 className={`${toggleTitleNumber} text text_type_digits-default`}>#{orderData?.number}</h2>
             <p className={`text text_type_main-medium mt-10 mb-3`}>
               {orderData?.name}
             </p>
-            <p
-              className={`text text_type_main-default mb-15 ${styles.orderTitleDone}`}
-            >
+            <p className={`text text_type_main-default mb-15 ${styles.orderTitleDone}`}>
               {orderData?.status === "done" ? "Выполнен" : "В работе"}
             </p>
             <p className={`text text_type_main-medium mb-3`}>Состав:</p>
 
-            <ul
-              className={`${styles.scrollable} ${styles.w100} ${styles.ingredientList} mb-10`}
-            >
+            <ul className={`${styles.scrollable} ${styles.w100} ${styles.ingredientList} mb-10`}>
               {Object.entries(
                 orderIngredients.reduce((ingredientCount, item) => {
                   if (!ingredientCount[item._id]) {
@@ -143,7 +112,7 @@ const FeedItemDetails: FC<Props> = ({ isModal }) => {
               className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.w100}`}
             >
               <li className="text text_type_main-default text_color_inactive">
-                {formatDate(orderData?.createdAt)}
+                {formattedDate}
               </li>
               <li className={`${styles.flex} ${styles.flexAlignCenter}`}>
                 <p className="text text_type_digits-default mr-2">
@@ -159,4 +128,4 @@ const FeedItemDetails: FC<Props> = ({ isModal }) => {
   );
 };
 
-export default FeedItemDetails;
+export default OrderFeedItemDetails;

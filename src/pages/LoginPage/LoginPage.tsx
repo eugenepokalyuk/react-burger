@@ -39,7 +39,6 @@ export const LoginPage: FC = () => {
     };
 
     return (
-
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <form onSubmit={handleSubmit} className={styles.content}>

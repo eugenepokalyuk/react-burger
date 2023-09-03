@@ -7,6 +7,6 @@ import { ProfilePage } from './ProfilePage/ProfilePage';
 import { IngredientPage } from './IngredientPage/IngredientPage';
 import { NotFound } from './NotFound/NotFound';
 import { ProfileFeed } from './ProfileFeed/ProfileFeed';
-import { OrderFeed } from './OrderFeed/OrderFeed';
+import { OrderFeed } from '../components/OrderFeed/OrderFeed';
 
 export { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileFeed, IngredientPage, NotFound, OrderFeed };

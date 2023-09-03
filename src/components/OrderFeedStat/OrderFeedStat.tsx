@@ -3,7 +3,11 @@ import styles from './OrderFeedStat.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 import { TWSOrder } from '../../services/types/types';
 
-const OrderFeedStat: FC = () => {
+type Props = {
+    isEmpty?: boolean
+}
+
+const OrderFeedStat: FC<Props> = ({ isEmpty }) => {
     const orders = useAppSelector(store => (store.wsReducer.orders));
     const total = useAppSelector(store => (store.wsReducer.total));
     const totalToday = useAppSelector(store => (store.wsReducer.totalToday));
@@ -20,14 +24,20 @@ const OrderFeedStat: FC = () => {
                 <div className={`${styles.w50} mr-9`}>
                     <h1 className='text text_type_main-medium mb-6'>Готовы:</h1>
                     <ul className={`${styles.orderList}`}>
-                        {orders.slice(0, 20).map((order: TWSOrder, index: number) => (
-                            order.status === "done" && (
-                                <li key={index}
-                                    className={`${styles.orderItem} text text_type_digits-default mb-2`}>
-                                    {order.number}
-                                </li>
-                            )
-                        ))}
+                        {isEmpty
+                            ? <p className='text text_type_main-default'>Все заказы готовы!</p>
+                            : <>
+                                {orders.slice(0, 20).map((order: TWSOrder, index: number) => (
+                                    order.status === "done" && (
+                                        <li key={index}
+                                            className={`${styles.orderItem} text text_type_digits-default mb-2`}>
+                                            {order.number}
+                                        </li>
+                                    )
+                                ))}
+                            </>
+                        }
+
                     </ul>
                 </div>
 
@@ -51,36 +61,15 @@ const OrderFeedStat: FC = () => {
                     ) : (
                         <p className="text text_type_main-small">Все текущие заказы готовы!</p>
                     )}
-                    {/* {
-                        orders.length > 0
-                            ? (
-                                orders.slice(0, 50).map(
-                                    (order: TWSOrder, index: number) =>
-                                    (
-                                        order.status !== "done"
-                                        && (
-                                            <li
-                                                key={index}
-                                                className={`${styles.orderItem} ${styles.colorWhite} text text_type_digits-default mb-2`}
-                                            >
-                                                {order.number}
-                                            </li>
-                                        )
-                                    )
-                                )
-                            ) : (
-                                <p className="text text_type_main-small">Все текущие заказы готовы!</p>
-                            )
-                    } */}
                 </div>
             </div>
 
-            <div className='mt-15'>
+            <div className='mt-10'>
                 <p className='text text_type_main-medium'>Выполнено за все время:</p>
                 <p className={`${styles.textShadows} text text_type_digits-large`}>{total}</p>
             </div>
 
-            <div className='mt-15'>
+            <div className='mt-10'>
                 <p className='text text_type_main-medium'>Выполнено за сегодня:</p>
                 <p className={`${styles.textShadows} text text_type_digits-large`}>{totalToday}</p>
             </div>

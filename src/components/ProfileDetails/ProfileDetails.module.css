@@ -1,0 +1,50 @@
+.wrapper {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+.link {
+    color: inherit;
+}
+
+.container {
+    max-width: 320px;
+}
+
+.listLinks {
+    display: flex;
+    flex-direction: column;
+}
+
+.listLinks li {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    width: 320px;
+}
+
+.listLinks li:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
+.activeNavLink {
+    color: white;
+}
+
+.contentHeight {
+    height: 340px;
+}
+
+.text_align_buttons {
+    display: flex;
+    justify-content: right;
+}
