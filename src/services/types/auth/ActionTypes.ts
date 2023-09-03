@@ -3,7 +3,8 @@ import {
     CHECK_USER_FAILURE,
     REFRESH_TOKEN_SUCCESS,
     REFRESH_TOKEN_FAILURE,
-    USER_STATEMENT
+    USER_STATEMENT,
+    CLEAR_USER_CREDS
 } from '../../actions/authActions'
 import { TUser } from '../types';
 
@@ -31,9 +32,14 @@ interface IUserStatementAction {
     payload: TUser
 }
 
+interface IClearUserCredsAction {
+    type: typeof CLEAR_USER_CREDS;
+}
+
 export type ActionTypes =
     | IGetUserSuccessAction
     | ICheckUserFailureAction
     | IRefreshTokenSuccessAction
     | IRefreshTokenFailureAction
-    | IUserStatementAction;
+    | IUserStatementAction
+    | IClearUserCredsAction;
