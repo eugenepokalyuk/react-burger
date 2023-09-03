@@ -161,7 +161,7 @@ const App = () => {
           <div className="mb-4 mt-4">
           </div>
           <div>
-            <p className="text text_type_main-medium mb-8">
+            <p className="text text_type_main-medium text_color_inactive mb-8">
               Пожалуйста подождите
             </p>
             <div className={`${styles.flex} text_color_inactive`}>
