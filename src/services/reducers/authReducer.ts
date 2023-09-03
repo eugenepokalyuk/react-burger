@@ -1,21 +1,19 @@
 import {
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILURE,
-
   USER_STATEMENT,
-
   GET_USER_SUCCESS,
   CHECK_USER_FAILURE,
-} from '../actions/authActions'
-import { ActionTypes } from '../types/auth/ActionTypes';
-import { IAuthState } from '../types/types';
+} from "../actions/authActions";
+import { ActionTypes } from "../types/auth/ActionTypes";
+import { IAuthState, RootState } from "../types/types";
 
 const initialState: IAuthState = {
   user: null,
-  error: null
+  error: null,
 };
 
-export const selectUserCredentials = (state: any) => state.auth;
+export const selectUserCredentials = (state: RootState) => state.auth;
 
 export const authReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
@@ -47,7 +45,7 @@ export const authReducer = (state = initialState, action: ActionTypes) => {
         ...state,
         user: action.payload,
         error: null,
-      }
+      };
     default:
       return state;
   }

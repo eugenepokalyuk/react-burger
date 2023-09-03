@@ -6,7 +6,7 @@ import {
     REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
     MOVE_INGREDIENT_IN_CONSTRUCTOR,
     SET_BUN,
-    CLEAR_INGREDIENTS_IN_CONSTRUCTOR
+    CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
 } from "../../actions/burgerConstructor";
 import { IIngredient, BurgerConstructorBun } from "../types";
 
@@ -15,18 +15,18 @@ interface IIngredientsRequestAction {
 }
 
 interface IIngredientsSuccessAction {
-    type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
-    payload: IIngredient[]
+    type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS;
+    payload: IIngredient[];
 }
 
 interface IIngredientsErrorAction {
-    type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_ERROR,
-    payload: null | unknown
+    type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_ERROR;
+    payload: null | unknown;
 }
 
 interface IAddIngredientAction {
     type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
-    payload: any
+    payload: IIngredient;
 }
 
 interface IRemoveIngredientAction {
@@ -35,8 +35,8 @@ interface IRemoveIngredientAction {
 }
 
 interface IMoveIngredientAction {
-    type: typeof MOVE_INGREDIENT_IN_CONSTRUCTOR,
-    payload: { dragIndex: number, hoverIndex: number }
+    type: typeof MOVE_INGREDIENT_IN_CONSTRUCTOR;
+    payload: { dragIndex: number; hoverIndex: number };
 }
 
 interface IAddBunAction {

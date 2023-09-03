@@ -1,15 +1,30 @@
-import React, { FC } from 'react';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './ConstructorIngredients.module.css';
-import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
-import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
-import { useDrag, useDrop } from 'react-dnd';
-import { IIngredient, DragHandleProps, DropTargetProps, ConstructorIngredientsProps, renderBunType } from '../../services/types/types'
+import React, { FC } from "react";
+import {
+  ConstructorElement,
+  DragIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./ConstructorIngredients.module.css";
+import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
+import {
+  MOVE_INGREDIENT_IN_CONSTRUCTOR,
+  REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+  SET_BUN,
+} from "../../services/actions/burgerConstructor";
+import { useDrag, useDrop } from "react-dnd";
+import {
+  IIngredient,
+  DragHandleProps,
+  DropTargetProps,
+  ConstructorIngredientsProps,
+  renderBunType,
+  IConstructorState,
+  RootState,
+} from "../../services/types/types";
 import { Identifier } from "dnd-core";
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   const [{ isDragging }, drag] = useDrag({
-    type: 'ingredient',
+    type: "ingredient",
     item: { id, index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -23,79 +38,98 @@ const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   );
 };
 
-const DropTarget: FC<DropTargetProps> = ({ id, index, itemType, onMove, children }) => {
-  const [, drop] = useDrop<{
-    type: string;
-    ingredient: IIngredient;
-    index: number;
-  }, unknown,
-    { handlerId: Identifier | null }>
-    ({
-      accept: 'ingredient',
-      hover(item) {
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        const itemType = item.type;
+const DropTarget: FC<DropTargetProps> = ({
+  id,
+  index,
+  itemType,
+  onMove,
+  children,
+}) => {
+  const [, drop] = useDrop<
+    {
+      type: string;
+      ingredient: IIngredient;
+      index: number;
+    },
+    unknown,
+    { handlerId: Identifier | null }
+  >({
+    accept: "ingredient",
+    hover(item) {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      const itemType = item.type;
 
-        if (dragIndex === hoverIndex) {
-          return;
-        }
+      if (dragIndex === hoverIndex) {
+        return;
+      }
 
-        onMove(dragIndex, hoverIndex, itemType);
-        item.index = hoverIndex;
-      },
-    });
+      onMove(dragIndex, hoverIndex, itemType);
+      item.index = hoverIndex;
+    },
+  });
 
   return <div ref={drop}>{children}</div>;
 };
 
 const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
   const dispatch = useAppDispatch();
-  const BUN_TYPE = 'bun';
-  const ingredientElementBun = useAppSelector((store: any) => store.constructorIngredients.bun);
+  const BUN_TYPE = "bun";
+  const ingredientElementBun = useAppSelector(
+    (store: RootState) => store.constructorIngredients.bun
+  );
 
   const renderBun = (type: renderBunType) => {
-    return (
-      ingredientElementBun === undefined
-        ? (
-          <div className={`${styles.bunItem}`}>
-            <div className='mr-4'>
-              <p className={`text text_type_main-medium ml-10`}>
-                {'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'}
-              </p>
-            </div>
-          </div>
-        )
-        : (
-          <div className={`${styles.bunItem}`}>
-            <div className='mr-4'>
-              <ConstructorElement
-                type={type}
-                isLocked={true}
-                text={`${ingredientElementBun.name} (${type === 'top' ? 'верх' : 'низ'})`}
-                price={ingredientElementBun.price}
-                thumbnail={ingredientElementBun.image}
-                extraClass={styles.constructorElement}
-              />
-            </div>
-          </div>
-        )
+    return ingredientElementBun === undefined ? (
+      <div className={`${styles.bunItem}`}>
+        <div className="mr-4">
+          <p className={`text text_type_main-medium ml-10`}>
+            {
+              "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа"
+            }
+          </p>
+        </div>
+      </div>
+    ) : (
+      <div className={`${styles.bunItem}`}>
+        <div className="mr-4">
+          <ConstructorElement
+            type={type}
+            isLocked={true}
+            text={`${ingredientElementBun.name} (${
+              type === "top" ? "верх" : "низ"
+            })`}
+            price={ingredientElementBun.price}
+            thumbnail={ingredientElementBun.image || ""}
+            extraClass={styles.constructorElement}
+          />
+        </div>
+      </div>
     );
   };
 
   const handleDelete = (item: IIngredient) => {
     dispatch({
       type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
-      key: item._id
-    })
-  }
+      key: item._id,
+    });
+  };
 
-  const handleMove = (dragIndex: number, hoverIndex: number, itemType: string) => {
+  const handleMove = (
+    dragIndex: number,
+    hoverIndex: number,
+    itemType: string
+  ) => {
     if (itemType === BUN_TYPE) {
       const draggedBun = items[dragIndex];
       const hoverBun = items[hoverIndex];
 
-      if (draggedBun && hoverBun && draggedBun.type === BUN_TYPE && hoverBun.type === BUN_TYPE) {
+      if (
+        draggedBun &&
+        hoverBun &&
+        draggedBun.type === BUN_TYPE &&
+        hoverBun.type === BUN_TYPE
+      ) {
         dispatch({
           type: SET_BUN,
           payload: draggedBun,
@@ -112,11 +146,13 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     return nonBunIngredients.map((item, index) => (
-      <div
-        key={item.uniqueId}
-        className={`${styles.dragableItem} mr-4`}
-      >
-        <DropTarget id={item._id} index={index} itemType={item.type} onMove={handleMove}>
+      <div key={item.uniqueId} className={`${styles.dragableItem} mr-4`}>
+        <DropTarget
+          id={item._id}
+          index={index}
+          itemType={item.type}
+          onMove={handleMove}
+        >
           <DragHandle id={item._id} index={index}>
             <DragIcon type="primary" />
             <ConstructorElement
@@ -134,8 +170,7 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
 
   return (
     <>
-      {ingredientElementBun === undefined
-        ?
+      {ingredientElementBun === undefined ? (
         <>
           {renderBun(undefined)}
 
@@ -147,9 +182,9 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
             </div>
           </div>
         </>
-        :
+      ) : (
         <>
-          {renderBun('top')}
+          {renderBun("top")}
           <div className={`${styles.scrollable} ${styles.itemWidth}`}>
             <div className={styles.scrollableContentWrapper}>
               <div className={styles.scrollableContent}>
@@ -157,9 +192,9 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
               </div>
             </div>
           </div>
-          {renderBun('bottom')}
+          {renderBun("bottom")}
         </>
-      }
+      )}
     </>
   );
 };

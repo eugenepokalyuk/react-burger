@@ -1,1 +1,5 @@
-export const selectConstructorIngredients = (state: { constructorIngredients: any; }  /* RootState */) => state.constructorIngredients;
+import { IConstructorState, RootState } from "../types/types";
+
+export const selectConstructorIngredients = (state: {
+    constructorIngredients: IConstructorState;
+}) => state.constructorIngredients;

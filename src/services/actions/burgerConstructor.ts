@@ -21,9 +21,9 @@ export type TBurgerConstructor =
   | IRemoveIngredientFromConstructorAction
   | IUpdateIngredientCountAction;
 
-export interface IFetchConstructorIngredientsRequestAction {
-  readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST;
-}
+// export interface IFetchConstructorIngredientsRequestAction {
+//   readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST;
+// }
 
 export interface IFetchConstructorIngredientsSuccessAction {
   readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS;
@@ -35,10 +35,10 @@ export interface IFetchConstructorIngredientsFailureAction {
   readonly payload: string;
 }
 
-export interface IAddIngredientToConstructorAction {
-  readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
-  readonly payload: object;
-}
+// export interface IAddIngredientToConstructorAction {
+//   readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
+//   readonly payload: object;
+// }
 
 export interface IClearIngredientsInConstructorAction {
   readonly type: typeof CLEAR_INGREDIENTS_IN_CONSTRUCTOR;
@@ -59,9 +59,9 @@ export interface IUpdateIngredientCountAction {
 
 // Генераторы экшенов
 
-export const fetchConstructorIngredientsRequest = (): IFetchConstructorIngredientsRequestAction => ({
-  type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
-});
+// export const fetchConstructorIngredientsRequest = (): IFetchConstructorIngredientsRequestAction => ({
+//   type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
+// });
 
 export const fetchConstructorIngredientsSuccess = (ingredients: string[]): IFetchConstructorIngredientsSuccessAction => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
@@ -71,11 +71,6 @@ export const fetchConstructorIngredientsSuccess = (ingredients: string[]): IFetc
 export const fetchConstructorIngredientsFailure = (error: string): IFetchConstructorIngredientsFailureAction => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_ERROR,
   payload: error,
-});
-
-export const addIngredientToConstructor = (ingredient: IIngredient): IAddIngredientToConstructorAction => ({
-  type: ADD_INGREDIENT_TO_CONSTRUCTOR,
-  payload: { ...ingredient, uniqueId: uuidv4() },
 });
 
 export const clearIngredientsInConstructor = (): IClearIngredientsInConstructorAction => ({
@@ -93,4 +88,64 @@ export const updateIngredientCount = (ingredientId: string, count: number): IUpd
     ingredientId,
     count
   }
+});
+
+enum ActionTypes {
+  ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR",
+}
+
+interface IAddIngredientToConstructorAction {
+  type: ActionTypes.ADD_INGREDIENT_TO_CONSTRUCTOR;
+  payload: IIngredient;
+}
+
+export const addIngredientToConstructor = (ingredient: IIngredient): IAddIngredientToConstructorAction => ({
+  type: ActionTypes.ADD_INGREDIENT_TO_CONSTRUCTOR,
+  payload: ingredient,
+});
+
+// Define the action types
+enum ActionTypes {
+  FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST",
+  FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS",
+  FETCH_INGREDIENTS_FAILURE = "FETCH_INGREDIENTS_FAILURE",
+  FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST = "FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST",
+}
+
+// Define the action interfaces
+interface IFetchIngredientsRequestAction {
+  type: ActionTypes.FETCH_INGREDIENTS_REQUEST;
+}
+
+interface IFetchIngredientsSuccessAction {
+  type: ActionTypes.FETCH_INGREDIENTS_SUCCESS;
+  payload: IIngredient[];
+}
+
+interface IFetchIngredientsFailureAction {
+  type: ActionTypes.FETCH_INGREDIENTS_FAILURE;
+}
+
+interface IFetchConstructorIngredientsRequestAction {
+  type: ActionTypes.FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST;
+}
+
+// Action creator functions
+export const fetchIngredientsRequest = (): IFetchIngredientsRequestAction => ({
+  type: ActionTypes.FETCH_INGREDIENTS_REQUEST,
+});
+
+export const fetchIngredientsSuccess = (
+  data: IIngredient[]
+): IFetchIngredientsSuccessAction => ({
+  type: ActionTypes.FETCH_INGREDIENTS_SUCCESS,
+  payload: data,
+});
+
+export const fetchIngredientsFailure = (): IFetchIngredientsFailureAction => ({
+  type: ActionTypes.FETCH_INGREDIENTS_FAILURE,
+});
+
+export const fetchConstructorIngredientsRequest = (): IFetchConstructorIngredientsRequestAction => ({
+  type: ActionTypes.FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
 });
