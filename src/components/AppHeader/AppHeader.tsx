@@ -30,7 +30,7 @@ const AppHeader: FC = () => {
   const DesktopView: FC = () => {
     return (
       <nav className={styles.nav}>
-        <ul className={styles.list}>
+        <ul className={`${styles.list} ${styles.w1n3} ${styles.flexStart}`}>
 
           <li>
             <NavLink to='/' className={link}>
@@ -48,14 +48,13 @@ const AppHeader: FC = () => {
 
         </ul>
 
-        <div className={styles.logo}>
+        <div className={`${styles.logo} ${styles.w1n3} ${styles.flexCenter}`}>
           <NavLink to='/' >
             <Logo />
           </NavLink>
         </div>
 
-
-        <ul className={styles.list}>
+        <ul className={`${styles.list} ${styles.w1n3} ${styles.flexEnd}`}>
           {user
             ? <li>
               <NavLink to='/profile' className={link}>
