@@ -4,10 +4,14 @@ import { useAppSelector } from "../../services/hooks/hooks";
 import { IIngredient, RootState, TWSOrder } from "../../services/types/types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { fetchOrderData } from "../../utils/api";
 
-const FeedItemDetails = () => {
+type Props = {
+  isModal?: boolean
+}
+
+const FeedItemDetails: FC<Props> = ({ isModal }) => {
   const { number } = useParams<{ number: string }>();
   const { ingredients } = useAppSelector(
     (store: RootState) => store.ingredients
@@ -69,11 +73,11 @@ const FeedItemDetails = () => {
   return (
     <>
       {orderData && (
-        <section className={`${styles.container}`}>
+        <section className={`${styles.container} ${!isModal && styles.positionFixed}`}>
           <div
             className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
           >
-            <h2 className={`text text_type_digits-default ${styles.mAuto}`}>
+            <h2 className={`${!isModal ? styles.textAlignLeft : styles.mAuto} text text_type_digits-default`}>
               #{orderData?.number}
             </h2>
             <p className={`text text_type_main-medium mt-10 mb-3`}>
@@ -106,10 +110,9 @@ const FeedItemDetails = () => {
                         orderIngredients.find((item) => item._id === itemId)
                           ?.image
                       }
-                      alt={`${
-                        orderIngredients.find((item) => item._id === itemId)
-                          ?.name
-                      } изображение`}
+                      alt={`${orderIngredients.find((item) => item._id === itemId)
+                        ?.name
+                        } изображение`}
                     />
                   </div>
 
