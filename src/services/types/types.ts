@@ -126,7 +126,7 @@ export type TWSOrder = {
     _id: string;
     status: string;
     number: number;
-    createdAt: string;
+    createdAt?: string;
     updatedAt: string;
 };
 
