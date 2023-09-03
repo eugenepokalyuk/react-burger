@@ -8,6 +8,7 @@
 
 .scrollableContentWrapper {
     scrollbar-color: #8685ad #2f2f37;
+
 }
 
 .scrollableContentWrapper::-webkit-scrollbar {
@@ -45,10 +46,16 @@
 }
 
 .itemWidth {
-    background: transparent;
     width: 100%;
+    margin: 0 auto;
 }
 
-.sadfsd {
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingredientWrapper {
     width: 100%;
 }
