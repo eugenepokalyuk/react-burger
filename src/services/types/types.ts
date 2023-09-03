@@ -1,22 +1,12 @@
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { ThunkMiddleware } from 'redux-thunk';
 
-export type Ingredient = {
-    _id: string;
-    price: number;
-    image: string;
-    image_large: string;
-    name: string;
-    type: string;
-    uniqueId?: string;
-};
-
 export type NutrientProperty = 'calories' | 'proteins' | 'fat' | 'carbohydrates';
 export type IngredientItemProps = {
-    ingredient: Ingredient;
-    getIngredientCount: (ingredient: Ingredient) => number;
+    ingredient: IIngredient;
+    getIngredientCount: (ingredient: IIngredient) => number;
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setSelectedIngredient: React.Dispatch<React.SetStateAction<Ingredient | null>>;
+    setSelectedIngredient: React.Dispatch<React.SetStateAction<IIngredient | null>>;
     onClick: () => void;
 };
 export type CurrencyIconProps = {
@@ -42,7 +32,7 @@ export interface DropTargetProps {
     children: ReactNode;
 }
 export interface ConstructorIngredientsProps {
-    items: Ingredient[];
+    items: IIngredient[];
 }
 export type renderBunType = 'top' | 'bottom' | undefined;
 export interface ModalProps {
@@ -69,7 +59,7 @@ export interface IViewedIngredientState {
     viewedIngredient: IIngredient | null;
 };
 export interface IIngredientsState {
-    ingredients: Ingredient[];
+    ingredients: IIngredient[];
     loading: boolean;
     error: null | unknown;
 }
@@ -108,7 +98,7 @@ export interface BurgerConstructorBun {
     image?: string
 }
 export interface IConstructorState {
-    ingredients: Ingredient[];
+    ingredients: IIngredient[];
     loading: boolean;
     error: null | unknown;
     bun?: BurgerConstructorBun;
@@ -152,6 +142,7 @@ export interface IIngredient {
     image_mobile: string
     image_large: string
     __v: number
+    uniqueId?: string;
 }
 
 export interface RootState {

@@ -4,7 +4,7 @@ import styles from './ConstructorIngredients.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { MOVE_INGREDIENT_IN_CONSTRUCTOR, REMOVE_INGREDIENT_FROM_CONSTRUCTOR, SET_BUN } from '../../services/actions/burgerConstructor'
 import { useDrag, useDrop } from 'react-dnd';
-import { Ingredient, DragHandleProps, DropTargetProps, ConstructorIngredientsProps, renderBunType } from '../../services/types/types'
+import { IIngredient, DragHandleProps, DropTargetProps, ConstructorIngredientsProps, renderBunType } from '../../services/types/types'
 import { Identifier } from "dnd-core";
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
@@ -26,7 +26,7 @@ const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
 const DropTarget: FC<DropTargetProps> = ({ id, index, itemType, onMove, children }) => {
   const [, drop] = useDrop<{
     type: string;
-    ingredient: Ingredient;
+    ingredient: IIngredient;
     index: number;
   }, unknown,
     { handlerId: Identifier | null }>
@@ -83,7 +83,7 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
     );
   };
 
-  const handleDelete = (item: Ingredient) => {
+  const handleDelete = (item: IIngredient) => {
     dispatch({
       type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
       key: item._id

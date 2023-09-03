@@ -1,4 +1,4 @@
-import { Ingredient } from "../types/types";
+import { IIngredient } from "../types/types";
 
 export const ADD_VIEWED_INGREDIENT: 'ADD_VIEWED_INGREDIENT' = 'ADD_VIEWED_INGREDIENT';
 export const CLEAR_VIEWED_INGREDIENT: 'CLEAR_VIEWED_INGREDIENT' = 'CLEAR_VIEWED_INGREDIENT';
@@ -10,14 +10,14 @@ export type TCurrentIngredient =
 // Генераторы экшенов
 export interface IAddViewedIngredientAction {
     readonly type: typeof ADD_VIEWED_INGREDIENT;
-    readonly payload: Ingredient;
+    readonly payload: IIngredient;
 }
 
 export interface IClearViewedIngredientAction {
     readonly type: typeof CLEAR_VIEWED_INGREDIENT;
 }
 
-export const addViewedIngredient = (ingredient: Ingredient): any => ({
+export const addViewedIngredient = (ingredient: IIngredient): any => ({
     // export const addViewedIngredient = (ingredient: Ingredient): IAddViewedIngredientAction => ({
     type: ADD_VIEWED_INGREDIENT,
     payload: ingredient,

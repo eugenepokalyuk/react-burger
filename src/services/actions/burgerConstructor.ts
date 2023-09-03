@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Ingredient } from '../types/types';
+import { IIngredient } from '../types/types';
 
 export const FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST: 'FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST' = 'FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST';
 export const FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS: 'FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS' = 'FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS';
@@ -46,7 +46,7 @@ export interface IClearIngredientsInConstructorAction {
 
 export interface IRemoveIngredientFromConstructorAction {
   readonly type: typeof REMOVE_INGREDIENT_FROM_CONSTRUCTOR;
-  readonly payload: Ingredient;
+  readonly payload: IIngredient;
 }
 
 export interface IUpdateIngredientCountAction {
@@ -73,7 +73,7 @@ export const fetchConstructorIngredientsFailure = (error: string): IFetchConstru
   payload: error,
 });
 
-export const addIngredientToConstructor = (ingredient: Ingredient): IAddIngredientToConstructorAction => ({
+export const addIngredientToConstructor = (ingredient: IIngredient): IAddIngredientToConstructorAction => ({
   type: ADD_INGREDIENT_TO_CONSTRUCTOR,
   payload: { ...ingredient, uniqueId: uuidv4() },
 });
@@ -82,7 +82,7 @@ export const clearIngredientsInConstructor = (): IClearIngredientsInConstructorA
   type: CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
 });
 
-export const removeIngredientFromConstructor = (ingredient: Ingredient): IRemoveIngredientFromConstructorAction => ({
+export const removeIngredientFromConstructor = (ingredient: IIngredient): IRemoveIngredientFromConstructorAction => ({
   type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
   payload: ingredient,
 });

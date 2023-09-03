@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeedItem.module.css';
-import { FeedItemProps, Ingredient, TWSOrder } from '../../services/types/types'
+import { FeedItemProps, IIngredient, TWSOrder } from '../../services/types/types'
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
@@ -8,17 +8,17 @@ import { addViewedOrder, clearViewedOrder } from '../../services/actions/viewedF
 
 const OrderFeedItem: FC<FeedItemProps> = ({ order, showStatus }) => {
     const { ingredients } = useAppSelector((state: any) => state.ingredients);
-    const [data, setData] = useState<Ingredient[]>([]);
+    const [data, setData] = useState<IIngredient[]>([]);
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [, setSelectedOrder] = useState<TWSOrder | null>(null);
 
     useEffect(() => {
         if (order && order.ingredients) {
-            const items: Ingredient[] = order.ingredients.map(
+            const items: IIngredient[] = order.ingredients.map(
                 (item) =>
                     ingredients.find((newIngredient: { _id: string; }) =>
-                        newIngredient._id === item) as Ingredient);
+                        newIngredient._id === item) as IIngredient);
             setData(items);
         }
     }, [ingredients, order]);

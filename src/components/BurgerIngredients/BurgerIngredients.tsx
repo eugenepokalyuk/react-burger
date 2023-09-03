@@ -16,7 +16,7 @@ import {
   selectConstructorIngredients,
 } from '../../services/selectors/selectors';
 
-import { Ingredient, NutrientProperty } from '../../services/types/types'
+import { IIngredient, NutrientProperty } from '../../services/types/types'
 
 const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,8 +32,8 @@ const BurgerIngredients: FC = () => {
   const saucesRef = useRef<HTMLHeadingElement>(null);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
-  const [ingredientsData, setIngredientsData] = useState<Ingredient[]>([]);
+  const [selectedIngredient, setSelectedIngredient] = useState<IIngredient | null>(null);
+  const [ingredientsData, setIngredientsData] = useState<IIngredient[]>([]);
   const [activeTab, setActiveTab] = useState<string>('Булки');
 
   const handleIngredientClick = (ingredientId: string) => {
@@ -141,7 +141,7 @@ const BurgerIngredients: FC = () => {
     [ingredientsData]
   );
 
-  const getIngredientCount = (ingredient: Ingredient) => {
+  const getIngredientCount = (ingredient: IIngredient) => {
     if (ingredient.type === BUN_TYPE) {
       if (selectedBun && selectedBun._id === ingredient._id) {
         return 1;
@@ -151,7 +151,7 @@ const BurgerIngredients: FC = () => {
     } else {
       if (constructorIngredients.ingredients && constructorIngredients.ingredients.length > 0) {
         const ingredientId = ingredient._id;
-        const count = constructorIngredients.ingredients.filter((item: Ingredient) => item._id === ingredientId).length;
+        const count = constructorIngredients.ingredients.filter((item: IIngredient) => item._id === ingredientId).length;
         return count;
       }
       return 0;
@@ -225,7 +225,7 @@ const BurgerIngredients: FC = () => {
                 <div key={nutrient.label}>
                   <p className='text text_type_main-default text_color_inactive'>{nutrient.label}</p>
                   <p className='text text_type_main-default text_color_inactive'>
-                    {selectedIngredient[nutrient.value as keyof Ingredient]}
+                    {selectedIngredient[nutrient.value as keyof IIngredient]}
                   </p>
                 </div>
               ))}

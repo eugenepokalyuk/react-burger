@@ -10,7 +10,7 @@ import { selectUserCredentials } from '../../services/reducers/authReducer'
 import { addIngredientToConstructor, clearIngredientsInConstructor } from '../../services/actions/burgerConstructor'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
-import { Ingredient, OrderResponse } from '../../services/types/types';
+import { IIngredient, OrderResponse } from '../../services/types/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -27,12 +27,10 @@ const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  interface TIngredient extends Ingredient { };
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<TIngredient, unknown, { canDrop: boolean; dragItem: TIngredient; isHover: boolean }>({
+  const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<IIngredient, unknown, { canDrop: boolean; dragItem: IIngredient; isHover: boolean }>({
     accept: "items",
-    drop(item: TIngredient) {
+    drop(item: IIngredient) {
       dispatch(addIngredientToConstructor(item))
     },
     collect: (monitor: DropTargetMonitor) => ({
@@ -46,7 +44,7 @@ const BurgerConstructor: FC = () => {
     try {
       setIsLoading(true);
 
-      const ingredientIds = ingredientElement.map((ingredient: Ingredient) => ingredient._id);
+      const ingredientIds = ingredientElement.map((ingredient: IIngredient) => ingredient._id);
       const bunId = ingredientElementBun ? ingredientElementBun._id : '643d69a5c3f7b9001cfa093c';
 
       if (bunId) {
@@ -80,7 +78,7 @@ const BurgerConstructor: FC = () => {
   const totalPrice = useMemo(() => {
     const bunPrice = ingredientElementBun ? ingredientElementBun.price : 0;
 
-    const ingredientsPrice = ingredientElement.reduce((total: number, ingredient: Ingredient) => {
+    const ingredientsPrice = ingredientElement.reduce((total: number, ingredient: IIngredient) => {
       return total + ingredient.price;
     }, 0);
     return bunPrice + ingredientsPrice;

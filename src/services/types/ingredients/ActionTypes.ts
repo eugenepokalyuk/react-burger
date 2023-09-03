@@ -3,7 +3,7 @@ import {
     FETCH_INGREDIENTS_SUCCESS,
     FETCH_INGREDIENTS_FAILURE,
 } from "../../actions/ingredients";
-import { Ingredient, IIngredient } from "../types";
+import { IIngredient } from "../types";
 
 
 interface IIngredientsRequestAction {
@@ -13,7 +13,7 @@ interface IIngredientsRequestAction {
 
 interface IIngredientsSuccessAction {
     type: typeof FETCH_INGREDIENTS_SUCCESS,
-    payload: Ingredient
+    payload: IIngredient
 }
 
 interface IIngredientsFailureAction {

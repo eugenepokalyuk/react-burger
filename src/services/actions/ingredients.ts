@@ -1,6 +1,6 @@
 import { fetchIngredientsData } from '../../utils/api';
 import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from './burgerConstructor'
-import { Ingredient } from '../types/types';
+import { IIngredient } from '../types/types';
 
 export const FETCH_INGREDIENTS_REQUEST: 'FETCH_INGREDIENTS_REQUEST' = 'FETCH_INGREDIENTS_REQUEST';
 export const FETCH_INGREDIENTS_SUCCESS: 'FETCH_INGREDIENTS_SUCCESS' = 'FETCH_INGREDIENTS_SUCCESS';
@@ -17,7 +17,7 @@ export interface IFetchIngredientsRequestAction {
 
 export interface IFetchIngredientsSuccessAction {
     readonly type: typeof FETCH_INGREDIENTS_SUCCESS;
-    readonly payload: Ingredient[];
+    readonly payload: IIngredient[];
 }
 
 export interface IFetchIngredientsFailureAction {
@@ -29,7 +29,7 @@ export const fetchIngredientsRequest = (): IFetchIngredientsRequestAction => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-export const fetchIngredientsSuccess = (data: Ingredient[]): IFetchIngredientsSuccessAction => ({
+export const fetchIngredientsSuccess = (data: IIngredient[]): IFetchIngredientsSuccessAction => ({
     type: FETCH_INGREDIENTS_SUCCESS,
     payload: data,
 });
