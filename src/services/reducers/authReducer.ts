@@ -4,6 +4,7 @@ import {
   USER_STATEMENT,
   GET_USER_SUCCESS,
   CHECK_USER_FAILURE,
+  CLEAR_USER_CREDS
 } from "../actions/authActions";
 import { ActionTypes } from "../types/auth/ActionTypes";
 import { IAuthState, RootState } from "../types/types";
@@ -46,6 +47,11 @@ export const authReducer = (state = initialState, action: ActionTypes) => {
         user: action.payload,
         error: null,
       };
+    case CLEAR_USER_CREDS:
+      return {
+        ...state,
+        user: null
+      }
     default:
       return state;
   }
