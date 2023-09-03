@@ -108,13 +108,13 @@ const BurgerConstructor: FC = () => {
   }, [ingredientElement, ingredientElementBun]);
 
   return (
-    <section className={`${styles.container} mt-25`}>
+    <section className={`${styles.container} ${styles.flexCenter}`}>
       <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
         <div className={styles.flexContainer}>
           <ConstructorIngredients items={ingredientElement} />
         </div>
 
-        <div className={`${styles.infoContainer} mt-10`}>
+        <div className={`${styles.infoContainer}`}>
           <div className={`${styles.infoContainerItem} mr-10`}>
             <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
             <CurrencyIcon type="primary" />
@@ -153,7 +153,7 @@ const BurgerConstructor: FC = () => {
         <Modal onClose={closeModal}>
           <div className={styles.modalContent}>
             <h1 className="text text_type_main-large mb-8">Оформляем заказ</h1>
-            <p className="text text_type_main-medium mb-8">
+            <p className="text text_type_main-medium text_color_inactive mb-8">
               Подождите пожалуйста, примерное время ожидание 15 сек.
             </p>
             <FontAwesomeIcon
@@ -171,7 +171,7 @@ const BurgerConstructor: FC = () => {
           {orderId ? (
             <OrderDetails orderId={orderId} />
           ) : (
-            <p>Ошибка при создании заказа. Попробуйте еще раз.</p>
+            <p className="text text_type_main-medium text_color_inactive">Ошибка при создании заказа. Попробуйте еще раз.</p>
           )}
         </Modal>
       )}
