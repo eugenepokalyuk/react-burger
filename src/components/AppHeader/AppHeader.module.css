@@ -7,7 +7,6 @@
 
 .logo {
   display: flex;
-  left: 40%;
 }
 
 .header {
@@ -19,15 +18,6 @@
   font-size: 36px;
   line-height: 1.15;
   font-weight: 500;
-}
-
-.list {
-  display: flex;
-  align-items: center;
-}
-
-.list li>a {
-  display: flex;
 }
 
 .nav {
@@ -68,4 +58,20 @@
 
 .activeNavLink {
   color: white;
+}
+
+.w1n3 {
+  width: 33%;
+}
+.flexCenter {
+  display: flex;
+  justify-content: center;
+}
+.flexEnd {
+  display: flex;
+  justify-content: flex-end;
+}
+.flexStart {
+  display: flex;
+  justify-content: flex-start;
 }
