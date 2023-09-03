@@ -5,10 +5,7 @@ import OrderFeedItem from "../../components/OrderFeedItem/OrderFeedItem";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import {
-  WS_AUTH_CONNECTION_CLOSED,
   WS_AUTH_CONNECTION_START,
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
 } from "../../services/actions/WSActions";
 
 export const ProfileFeed: FC = () => {

@@ -1,4 +1,3 @@
-// import { RootState } from "../utils/types";
 import { IWSActions } from "./actions/WSActions";
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { Dispatch } from "redux";

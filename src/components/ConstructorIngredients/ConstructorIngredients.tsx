@@ -17,10 +17,10 @@ import {
   DropTargetProps,
   ConstructorIngredientsProps,
   renderBunType,
-  IConstructorState,
   RootState,
 } from "../../services/types/types";
 import { Identifier } from "dnd-core";
+import { v4 as uuidv4 } from "uuid";
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   const [{ isDragging }, drag] = useDrag({
@@ -96,9 +96,8 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
           <ConstructorElement
             type={type}
             isLocked={true}
-            text={`${ingredientElementBun.name} (${
-              type === "top" ? "верх" : "низ"
-            })`}
+            text={`${ingredientElementBun.name} (${type === "top" ? "верх" : "низ"
+              })`}
             price={ingredientElementBun.price}
             thumbnail={ingredientElementBun.image || ""}
             extraClass={styles.constructorElement}
@@ -146,7 +145,7 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
     return nonBunIngredients.map((item, index) => (
-      <div key={item.uniqueId} className={`${styles.dragableItem} mr-4`}>
+      <div key={uuidv4()} className={`${styles.dragableItem} mr-4`}>
         <DropTarget
           id={item._id}
           index={index}

@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { IIngredient } from '../types/types';
 
 export const FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST: 'FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST' = 'FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST';
@@ -21,10 +20,6 @@ export type TBurgerConstructor =
   | IRemoveIngredientFromConstructorAction
   | IUpdateIngredientCountAction;
 
-// export interface IFetchConstructorIngredientsRequestAction {
-//   readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST;
-// }
-
 export interface IFetchConstructorIngredientsSuccessAction {
   readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS;
   readonly payload: string[];
@@ -34,11 +29,6 @@ export interface IFetchConstructorIngredientsFailureAction {
   readonly type: typeof FETCH_CONSTRUCTOR_INGREDIENTS_ERROR;
   readonly payload: string;
 }
-
-// export interface IAddIngredientToConstructorAction {
-//   readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
-//   readonly payload: object;
-// }
 
 export interface IClearIngredientsInConstructorAction {
   readonly type: typeof CLEAR_INGREDIENTS_IN_CONSTRUCTOR;
@@ -58,11 +48,6 @@ export interface IUpdateIngredientCountAction {
 }
 
 // Генераторы экшенов
-
-// export const fetchConstructorIngredientsRequest = (): IFetchConstructorIngredientsRequestAction => ({
-//   type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
-// });
-
 export const fetchConstructorIngredientsSuccess = (ingredients: string[]): IFetchConstructorIngredientsSuccessAction => ({
   type: FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS,
   payload: ingredients,
@@ -90,7 +75,12 @@ export const updateIngredientCount = (ingredientId: string, count: number): IUpd
   }
 });
 
+// Define the action types
 enum ActionTypes {
+  FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST",
+  FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS",
+  FETCH_INGREDIENTS_FAILURE = "FETCH_INGREDIENTS_FAILURE",
+  FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST = "FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST",
   ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR",
 }
 
@@ -103,14 +93,6 @@ export const addIngredientToConstructor = (ingredient: IIngredient): IAddIngredi
   type: ActionTypes.ADD_INGREDIENT_TO_CONSTRUCTOR,
   payload: ingredient,
 });
-
-// Define the action types
-enum ActionTypes {
-  FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST",
-  FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS",
-  FETCH_INGREDIENTS_FAILURE = "FETCH_INGREDIENTS_FAILURE",
-  FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST = "FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST",
-}
 
 // Define the action interfaces
 interface IFetchIngredientsRequestAction {

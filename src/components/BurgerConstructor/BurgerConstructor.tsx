@@ -37,6 +37,7 @@ const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<
     IIngredient,
     unknown,

@@ -7,7 +7,7 @@ import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import OrderFeedStat from '../../components/OrderFeedStat/OrderFeedStat';
 
 export const OrderFeed: FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [, setIsModalOpen] = useState<boolean>(false);
     const { orders } = useAppSelector(store => (store.wsReducer));
     const location = useLocation();
 

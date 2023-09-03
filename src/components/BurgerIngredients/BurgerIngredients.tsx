@@ -25,7 +25,6 @@ const BurgerIngredients: FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const constructorIngredients = useAppSelector(selectConstructorIngredients);
-
   const selectedBun = useAppSelector(
     (store) => store.constructorIngredients.bun
   );
@@ -62,7 +61,6 @@ const BurgerIngredients: FC = () => {
         // Обработка ошибки
       }
     };
-
     getIngredientsData();
 
     dispatch(fetchIngredientsRequest());
