@@ -1,3 +1,14 @@
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+    min-height: 436px;
+
+    gap: 16px;
+    padding: 16px;
+}
+
 .flexContainer div>svg {
     margin-right: 8px;
     cursor: grab;
@@ -19,15 +30,6 @@
     height: 33px;
 }
 
-.flexContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-
-    min-height: 436px;
-}
-
 .dropIndicator {
     scale: 0.95;
 }
@@ -43,4 +45,11 @@ button {
 
 .faSpinner {
     color: #801AB2;
+}
+
+.flexCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
