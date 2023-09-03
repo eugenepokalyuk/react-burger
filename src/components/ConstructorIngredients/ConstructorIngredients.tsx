@@ -32,7 +32,7 @@ const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   });
 
   return (
-    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }} className={`${styles.card}`}>
       {children}
     </div>
   );
@@ -146,7 +146,7 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
 
     return nonBunIngredients.map((item, index: number) => (
-      <div key={index} className={`${styles.dragableItem} mr-4`}>
+      <div key={index} className={`${styles.dragableItem}`}>
         <DropTarget
           id={uuidv4()}
           index={index}
@@ -173,10 +173,9 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
       {ingredientElementBun === undefined ? (
         <>
           {renderBun(undefined)}
-
           <div className={`${styles.scrollable} ${styles.itemWidth}`}>
             <div className={styles.scrollableContentWrapper}>
-              <div className={styles.scrollableContent}>
+              <div className={`${styles.scrollableContent} ${styles.ingredientWrapper}`}>
                 {renderIngredients()}
               </div>
             </div>
