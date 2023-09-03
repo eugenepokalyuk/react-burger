@@ -62,8 +62,7 @@ export function getIngredients() {
 
         fetchIngredientsData()
             .then((res) => {
-                // todo: в диспатч должен передавать {type: ACTION_NAME}
-                dispatch(res.data && fetchIngredientsSuccess(res.data));
+                dispatch(fetchIngredientsSuccess(res.data));
                 dispatch({
                     type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
                 });
