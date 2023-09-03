@@ -4,8 +4,6 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import styles from './ForgotPasswordPage.module.css';
 import { resetPassword } from '../../utils/api';
 
-// Нужно ли здесь указывать FC? 
-// Если да, то почему?
 export const ForgotPasswordPage: FC = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();

@@ -144,15 +144,16 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
 
   const renderIngredients = () => {
     const nonBunIngredients = items.filter((item) => item.type !== BUN_TYPE);
+
     return nonBunIngredients.map((item, index: number) => (
-      <div key={item.uniqueId} className={`${styles.dragableItem} mr-4`}>
+      <div key={index} className={`${styles.dragableItem} mr-4`}>
         <DropTarget
-          id={item._id}
+          id={uuidv4()}
           index={index}
           itemType={item.type}
           onMove={handleMove}
         >
-          <DragHandle id={item._id} index={index}>
+          <DragHandle id={uuidv4()} index={index}>
             <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}

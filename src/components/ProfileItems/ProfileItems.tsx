@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { useEffect } from "react";
 import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START } from "../../services/actions/WSActions";
 import styles from "./ProfileItems.module.css";
-import { v4 as uuidv4 } from "uuid";
 import OrderFeedItem from "../OrderFeedItem/OrderFeedItem";
 
 export const ProfileItems = () => {

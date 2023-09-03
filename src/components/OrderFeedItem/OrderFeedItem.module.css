@@ -6,16 +6,16 @@
     transition: 0.5s;
 }
 
+.orderCard:hover {
+    cursor: pointer;
+    scale: 0.95;
+}
+
 .orderItem {
     transition: 0.5s;
 }
 
 .orderItem:hover {
-    scale: 0.95;
-}
-
-.orderCard:hover {
-    cursor: pointer;
     scale: 0.95;
 }
 

@@ -119,6 +119,7 @@ const BurgerConstructor: FC = () => {
             <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
+
           {AuthUser ? (
             <Button
               htmlType="button"

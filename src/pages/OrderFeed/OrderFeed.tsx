@@ -1,19 +1,33 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from './OrderFeed.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks/hooks';
 import OrderFeedItem from '../../components/OrderFeedItem/OrderFeedItem';
 import OrderFeedStat from '../../components/OrderFeedStat/OrderFeedStat';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/WSActions';
+import { selectUserCredentials } from '../../services/reducers/authReducer';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const OrderFeed: FC = () => {
     const dispatch = useAppDispatch();
     const [, setIsModalOpen] = useState<boolean>(false);
     const orders = useAppSelector(store => store.wsReducer.orders)
     const location = useLocation();
+    const [loading, isLoading] = useState<boolean>(Boolean);
+    const { user: AuthUser } = useAppSelector(selectUserCredentials);
+    const navigate = useNavigate();
+
+    const handleAuthClick = async () => {
+        navigate("/login", { replace: true });
+    };
+
+    const handleOrderClick = async () => {
+        navigate("/", { replace: true });
+    };
 
     useEffect(() => {
+        isLoading(true);
         dispatch({ type: WS_CONNECTION_START, payload: '/all' });
         return () => { dispatch({ type: WS_CONNECTION_CLOSED }); }
     }, [dispatch]);
@@ -24,16 +38,46 @@ export const OrderFeed: FC = () => {
             <div className={styles.wrapper}>
 
                 <div className={`${styles.w100} ${styles.scrollable}`}>
-                    {orders.map((order) => (
-                        <OrderFeedItem
-                            key={uuidv4()}
-                            order={order}
-                            showStatus={false}
-                            parentURL={location}
-                            state={{ background: location }}
-                            setIsModalOpen={setIsModalOpen}
-                        />
-                    ))}
+
+                    {loading
+                        ? orders.map((order) => (
+                            <OrderFeedItem
+                                key={uuidv4()}
+                                order={order}
+                                showStatus={false}
+                                parentURL={location}
+                                state={{ background: location }}
+                                setIsModalOpen={setIsModalOpen}
+                            />
+                        ))
+                        : <div>
+                            <div className={`${styles.orderFeedEmptyItem} mb-8`}>
+                                <h2 className='mb-4'>Заказов нет!</h2>
+                                <p>Но вы всегда можете создать новый!</p>
+                            </div>
+                            <div className={`${styles.orderFeedEmptyButton}`}>
+                                {AuthUser ? (
+                                    <Button
+                                        htmlType="button"
+                                        type="primary"
+                                        size="large"
+                                        onClick={handleOrderClick}
+                                    >
+                                        Собрать бургер
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        htmlType="button"
+                                        type="primary"
+                                        size="large"
+                                        onClick={handleAuthClick}
+                                        disabled={false}
+                                    >
+                                        Авторизация
+                                    </Button>
+                                )}
+                            </div>
+                        </div>}
                 </div>
 
                 <div className={styles.w100}>

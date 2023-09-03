@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import { useAppSelector } from "../../services/hooks/hooks";
 
 import { ProtectedRouteProps, RootState } from "../../services/types/types";

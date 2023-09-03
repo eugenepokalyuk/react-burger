@@ -1,13 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styles from './OrderFeedStat.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 import { TWSOrder } from '../../services/types/types';
-import { v4 as uuidv4 } from 'uuid';
 
 const OrderFeedStat: FC = () => {
     const orders = useAppSelector(store => (store.wsReducer.orders));
     const total = useAppSelector(store => (store.wsReducer.total));
     const totalToday = useAppSelector(store => (store.wsReducer.totalToday));
+
+    const pendingOrders = useMemo(
+        () =>
+            orders.filter((order: TWSOrder) => order.status === 'pending'),
+        [orders]
+    );
 
     return (
         <>
@@ -16,22 +21,24 @@ const OrderFeedStat: FC = () => {
                     <h1 className='text text_type_main-medium mb-6'>Готовы:</h1>
                     <ul className={`${styles.orderList}`}>
                         {orders.slice(0, 20).map((order: TWSOrder, index: number) => (
-                            order.status === "done" ? (
+                            order.status === "done" && (
                                 <li key={index}
                                     className={`${styles.orderItem} text text_type_digits-default mb-2`}>
                                     {order.number}
                                 </li>
-                            ) : <p className='text text_type_main-small'>Все заказы выполнены!</p>
+                            )
                         ))}
                     </ul>
                 </div>
 
                 <div className={styles.w50}>
                     <h1 className='text text_type_main-medium mb-6'>В работе:</h1>
-                    {orders.length > 0 ? (
-                        orders.slice(0, 50).map((order: TWSOrder, index: number) => (
-                            order.status !== "done"
-                                ? (
+                    {pendingOrders.length > 0 ? (
+                        orders.slice(0, 50).map(
+                            (order: TWSOrder, index: number) =>
+                            (
+                                order.status !== "done"
+                                && (
                                     <li
                                         key={index}
                                         className={`${styles.orderItem} ${styles.colorWhite} text text_type_digits-default mb-2`}
@@ -39,11 +46,32 @@ const OrderFeedStat: FC = () => {
                                         {order.number}
                                     </li>
                                 )
-                                : null
-                        ))
+                            )
+                        )
                     ) : (
                         <p className="text text_type_main-small">Все текущие заказы готовы!</p>
                     )}
+                    {/* {
+                        orders.length > 0
+                            ? (
+                                orders.slice(0, 50).map(
+                                    (order: TWSOrder, index: number) =>
+                                    (
+                                        order.status !== "done"
+                                        && (
+                                            <li
+                                                key={index}
+                                                className={`${styles.orderItem} ${styles.colorWhite} text text_type_digits-default mb-2`}
+                                            >
+                                                {order.number}
+                                            </li>
+                                        )
+                                    )
+                                )
+                            ) : (
+                                <p className="text text_type_main-small">Все текущие заказы готовы!</p>
+                            )
+                    } */}
                 </div>
             </div>
 

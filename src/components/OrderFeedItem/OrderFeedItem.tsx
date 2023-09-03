@@ -14,8 +14,6 @@ import {
     addViewedOrder,
     clearViewedOrder,
 } from "../../services/actions/viewedFeedOrder";
-import { v4 as uuidv4 } from "uuid";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/actions/WSActions";
 
 interface Props {
     order: TWSOrder;
@@ -74,7 +72,6 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
         }
     };
 
-    // можно попробовать useMemo
     const calculateOrderPrice = (orderIngredients: string[]) => {
         let totalPrice = 0;
 
@@ -120,7 +117,7 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
             to={`${order.number}`}
             state={{ background: location }}
             key={order._id}
-            className={`${styles.cardItem} ${styles.link} mb-5 mr-6`}
+            className={`${styles.link} mb-5 mr-6`}
             onClick={handleClick}
         >
             <div className={`${styles.orderCard} ${styles.Link}`}>

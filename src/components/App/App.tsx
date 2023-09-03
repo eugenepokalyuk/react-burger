@@ -6,22 +6,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import { FETCH_INGREDIENTS_SUCCESS, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_FAILURE } from '../../services/actions/ingredients'
 import { GET_USER_SUCCESS, CHECK_USER_FAILURE } from '../../services/actions/authActions'
 import { fetchIngredientsData, getUsers } from '../../utils/api';
-import {
-  DEFAULT_PATH,
-  LOGIN_PATH,
-  REGISTER_PATH,
-  FORGOT_PASSWORD_PATH,
-  RESET_PASSWORD_PATH,
-  PROFILE_PATH,
-  PROFILE_ORDERS_PATH,
-  PROFILE_ORDERS_ID_PATH,
-  FEED_PATH,
-  FEED_ID_PATH,
-  INGREDIENTS_PATH,
-  ERROR_PATH
-} from '../../utils/routePath';
-
-
+import { DEFAULT_PATH, LOGIN_PATH, REGISTER_PATH, FORGOT_PASSWORD_PATH, RESET_PASSWORD_PATH, PROFILE_PATH, PROFILE_ORDERS_PATH, PROFILE_ORDERS_ID_PATH, FEED_PATH, FEED_ID_PATH, INGREDIENTS_PATH, ERROR_PATH } from '../../utils/routePath';
 import { useAppDispatch } from '../../services/hooks/hooks';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/WSActions';
 import FeedItemDetails from '../OrderFeedItemDetails/OrderFeedItemDetails';
@@ -34,7 +19,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [loading, isLoading] = useState<boolean>(Boolean)
+  const [loading, isLoading] = useState<boolean>(Boolean);
   const background = location.state && location.state.background;
 
   const handleModalClose = () => {
@@ -47,7 +32,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_INGREDIENTS_REQUEST });
-    
+
     isLoading(true);
 
     fetchIngredientsData()
