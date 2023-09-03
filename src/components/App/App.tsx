@@ -141,7 +141,7 @@ const App = () => {
             path={FEED_ID_PATH}
             element={
               <Modal onClose={handleModalClose}>
-                <FeedItemDetails />
+                <FeedItemDetails isModal />
               </Modal>
             }
           />
@@ -150,7 +150,7 @@ const App = () => {
             path={PROFILE_ORDERS_ID_PATH}
             element={<ProtectedRoute auth={true} children={
               <Modal onClose={handleModalClose}>
-                <FeedItemDetails />
+                <FeedItemDetails isModal />
               </Modal>
             } />}
           />
