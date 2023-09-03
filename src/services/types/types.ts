@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import React, { ReactNode } from "react";
 import { ThunkMiddleware } from "redux-thunk";
 
 export type NutrientProperty =
@@ -28,6 +28,7 @@ export interface OrderResponse {
         number: string;
     };
 }
+
 export interface DragHandleProps {
     id: string;
     index: number;
@@ -64,7 +65,7 @@ export interface OrderDetailsProps {
 
 export interface ProtectedRouteProps {
     auth?: boolean;
-    children: JSX.Element; // Верно ли так помечать данный пропс?
+    children: JSX.Element;
 }
 
 export interface IViewedIngredientState {
