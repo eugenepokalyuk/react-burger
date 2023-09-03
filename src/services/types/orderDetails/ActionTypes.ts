@@ -8,9 +8,7 @@ import {
 
 interface IOrderRequestAction {
     type: typeof FETCH_ORDER_NUMBER_REQUEST;
-    // payload: TWSOrder
 }
-
 
 interface IOrderSuccessAction {
     type: typeof FETCH_ORDER_NUMBER_SUCCESS;
@@ -22,12 +20,10 @@ interface IOrderFailureAction {
     payload: null | unknown
 }
 
-
 interface IOrderUpdateAction {
     type: typeof UPDATE_ORDER_NUMBER;
     payload: string | null
 }
-
 
 export type ActionTypes =
     | IOrderRequestAction
