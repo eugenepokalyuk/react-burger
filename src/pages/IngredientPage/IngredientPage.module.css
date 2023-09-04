@@ -6,7 +6,8 @@
     background-repeat: no-repeat;
 }
 
-.error h1, p {
+.error-h1,
+.error-p {
     display: flex;
     justify-content: center;
 }

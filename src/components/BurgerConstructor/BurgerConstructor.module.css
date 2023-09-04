@@ -1,3 +1,14 @@
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+    min-height: 436px;
+
+    gap: 16px;
+    padding: 16px;
+}
+
 .flexContainer div>svg {
     margin-right: 8px;
     cursor: grab;
@@ -19,27 +30,26 @@
     height: 33px;
 }
 
-.flexContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-
-    min-height: 436px;
-    /* height: 50vh; */
-    /* border: 2px dashed blue; */
-    /* padding: 20px; */
-    /* background: hotpink; */
-}
-
 .dropIndicator {
     scale: 0.95;
-    /* border: 2px dashed blue; */
-    /* background: #ff69b410; */
-    /* background-color: lightblue; */
-    /* Дополнительные стили по вашему усмотрению */
 }
 
 button {
     cursor: crosshair;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.faSpinner {
+    color: #801AB2;
+}
+
+.flexCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

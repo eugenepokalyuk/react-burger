@@ -40,12 +40,11 @@
 }
 
 .scrollable {
-    max-height: 65vh;
+    max-height: 70vh;
     overflow: auto;
 }
 
 .scrollable {
-    /* scrollbar-color: #8685ad #2f2f37; */
     scrollbar-color: #8685ad #2f2f37;
 }
 
@@ -72,4 +71,8 @@
 
 .textLeft {
     text-align: left;
+}
+
+.faSpinner {
+    color: #801AB2;
 }

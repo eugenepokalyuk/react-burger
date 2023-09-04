@@ -8,6 +8,7 @@
 
 .scrollableContentWrapper {
     scrollbar-color: #8685ad #2f2f37;
+
 }
 
 .scrollableContentWrapper::-webkit-scrollbar {
@@ -39,14 +40,22 @@
 
 .dragableItem {
     cursor: grab;
-
-    /* display: flex; */
     flex-direction: row;
     align-items: center;
     width: 100%;
 }
 
 .itemWidth {
-    background: transparent;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingredientWrapper {
     width: 100%;
 }

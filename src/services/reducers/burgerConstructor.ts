@@ -6,55 +6,21 @@ import {
   REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
   MOVE_INGREDIENT_IN_CONSTRUCTOR,
   SET_BUN,
-  CLEAR_INGREDIENTS_IN_CONSTRUCTOR,
+  CLEAR_INGREDIENTS_IN_CONSTRUCTOR
 } from '../actions/burgerConstructor';
+import { ActionTypes } from '../types/burgerConstructor/ActionTypes';
+import { IConstructorState } from '../types/types'
 
-import { Ingredient } from '../types';
-
-import { BurgerConstructorBun as Bun, BurgerConstructorState as State } from '../types'
-
-const initialState: State = {
+const initialState: IConstructorState = {
   ingredients: [],
   loading: false,
   error: null,
 };
 
-type Action =
-  | {
-    type:
-    | typeof FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST
-    | typeof FETCH_CONSTRUCTOR_INGREDIENTS_SUCCESS
-    | typeof FETCH_CONSTRUCTOR_INGREDIENTS_ERROR;
-    payload?: any;
-  }
-  | {
-    type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
-    // тут добавил в конце | any т.к. не понимаю как верно сделать
-    payload: Ingredient | Bun | any;
-  }
-  | {
-    type: typeof REMOVE_INGREDIENT_FROM_CONSTRUCTOR;
-    key: string;
-  }
-  | {
-    type: typeof MOVE_INGREDIENT_IN_CONSTRUCTOR;
-    payload: {
-      dragIndex: number;
-      hoverIndex: number;
-    };
-  }
-  | {
-    type: typeof SET_BUN;
-    payload: Bun;
-  }
-  | {
-    type: typeof CLEAR_INGREDIENTS_IN_CONSTRUCTOR;
-  }
-
 export const constructorIngredientsReducer = (
-  state: State = initialState,
-  action: Action
-): State => {
+  state: IConstructorState = initialState,
+  action: ActionTypes
+): IConstructorState => {
   switch (action.type) {
     case FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST:
       return {
@@ -112,11 +78,11 @@ export const constructorIngredientsReducer = (
           image: action.payload.image_large,
         },
       };
-      case CLEAR_INGREDIENTS_IN_CONSTRUCTOR:
-        return {
-          ...state,
-          ingredients: [],
-        };
+    case CLEAR_INGREDIENTS_IN_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [],
+      };
     default:
       return state;
   }

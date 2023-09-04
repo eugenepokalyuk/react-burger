@@ -1,35 +1,12 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/index';
+import thunk from "redux-thunk";
+import { socketMiddleware } from './ws';
+import { wsActions, wsAuthActions } from './actions/WSActions';
 
-import { RootState, AppThunk } from './types';
-
-const initialState: RootState = {
-  constructorIngredients: {
-    ingredients: [],
-    loading: false,
-    error: null,
-  },
-  viewedIngredient: {
-    viewedIngredient: null,
-  },
-  ingredients: {
-    ingredients: [],
-    loading: false,
-    error: null,
-  },
-  order: {
-    orderNumber: null,
-    loading: false,
-    error: null,
-  },
-};
-
+const wsUrl: string = 'wss://norma.nomoreparties.space/orders';
 export const store = createStore(
   rootReducer,
-  initialState,
-  composeWithDevTools(
-    applyMiddleware<AppThunk>(thunkMiddleware)
-  )
+  composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions), socketMiddleware(wsUrl, wsAuthActions)))
 );

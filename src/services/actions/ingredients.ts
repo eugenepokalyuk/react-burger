@@ -1,42 +1,74 @@
-import { fetchIngredientsData } from '../../utils/api';
-import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from './burgerConstructor'
-import { Ingredient } from '../types';
+import { fetchIngredientsData } from "../../utils/api";
+import { FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST } from "./burgerConstructor";
+import { IIngredient } from "../types/types";
+import { useAppDispatch } from "../hooks/hooks";
 
-export const FETCH_INGREDIENTS_REQUEST = 'FETCH_INGREDIENTS_REQUEST' as const;
-export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS' as const;
-export const FETCH_INGREDIENTS_FAILURE = 'FETCH_INGREDIENTS_FAILURE' as const;
+export const FETCH_INGREDIENTS_REQUEST: "FETCH_INGREDIENTS_REQUEST" =
+    "FETCH_INGREDIENTS_REQUEST";
+export const FETCH_INGREDIENTS_SUCCESS: "FETCH_INGREDIENTS_SUCCESS" =
+    "FETCH_INGREDIENTS_SUCCESS";
+export const FETCH_INGREDIENTS_FAILURE: "FETCH_INGREDIENTS_FAILURE" =
+    "FETCH_INGREDIENTS_FAILURE";
 
-export const fetchIngredientsRequest = () => ({
+export type TIngredients =
+    | IFetchIngredientsRequestAction
+    | IFetchIngredientsSuccessAction
+    | IFetchIngredientsFailureAction;
+
+export interface IFetchIngredientsRequestAction {
+    readonly type: typeof FETCH_INGREDIENTS_REQUEST;
+}
+
+export interface IFetchIngredientsSuccessAction {
+    readonly type: typeof FETCH_INGREDIENTS_SUCCESS;
+    readonly payload: IIngredient[];
+}
+
+export interface IFetchIngredientsFailureAction {
+    readonly type: typeof FETCH_INGREDIENTS_FAILURE;
+    readonly payload: string;
+}
+
+export const fetchIngredientsRequest = (): IFetchIngredientsRequestAction => ({
     type: FETCH_INGREDIENTS_REQUEST,
 });
 
-export const fetchIngredientsSuccess = (data: Ingredient[]) => ({
-    type: FETCH_INGREDIENTS_SUCCESS,
+enum ActionTypes {
+    FETCH_INGREDIENTS_REQUEST = "FETCH_INGREDIENTS_REQUEST",
+    FETCH_INGREDIENTS_SUCCESS = "FETCH_INGREDIENTS_SUCCESS",
+    FETCH_INGREDIENTS_FAILURE = "FETCH_INGREDIENTS_FAILURE",
+    FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST = "FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST",
+}
+
+export const fetchIngredientsSuccess = (
+    data: IIngredient[]
+): IFetchIngredientsSuccessAction => ({
+    type: ActionTypes.FETCH_INGREDIENTS_SUCCESS,
     payload: data,
 });
 
-export const fetchIngredientsFailure = (error: any) => ({
+export const fetchIngredientsFailure = (
+    error: string
+): IFetchIngredientsFailureAction => ({
     type: FETCH_INGREDIENTS_FAILURE,
     payload: error,
 });
 
 export function getIngredients() {
-    return function (dispatch: any) {
+    return function (dispatch: ReturnType<typeof useAppDispatch>) {
         dispatch({
             type: FETCH_INGREDIENTS_REQUEST,
         });
 
         fetchIngredientsData()
             .then((res) => {
-                dispatch(fetchIngredientsSuccess(res.data)); // Добавлено передача данных в экшен
+                dispatch(fetchIngredientsSuccess(res.data));
                 dispatch({
                     type: FETCH_CONSTRUCTOR_INGREDIENTS_REQUEST,
                 });
             })
-            .catch((e) =>
-                dispatch({
-                    type: FETCH_INGREDIENTS_FAILURE,
-                })
+            .catch((error) =>
+                dispatch(fetchIngredientsFailure(error))
             );
     };
 }

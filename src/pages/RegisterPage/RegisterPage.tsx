@@ -23,7 +23,7 @@ export const RegisterPage: FC = () => {
             .then(res => {
                 loginUser(email, password)
                     .then(res => {
-                        dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
+                        // dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
                         dispatch({
                             type: USER_STATEMENT,
                             payload: {
@@ -37,7 +37,7 @@ export const RegisterPage: FC = () => {
                         navigate('/', { replace: true });
                     })
                     .catch(error => {
-                        dispatch({ type: 'REGISTER_FAILURE' });
+                        // dispatch({ type: 'REGISTER_FAILURE' });
                         setError('Ой, произошла ошибка!');
                     });
             })

@@ -11,28 +11,12 @@
     text-align: center;
 }
 
-.historyItem {
-    display: flex;
-    flex-direction: column;
-    background-color: #1C1C21;
-    border-radius: 40px;
-    width: 844px;
-    height: 198px;
-    text-align: left;
-    align-items:flex-start;
-}
-
-.contentHeight {
-    height: 90vh;
-}
-
 .link {
     color: inherit;
-    /* color: var(--color-title); */
 }
 
 .container {
-    max-width: 100%;
+    max-width: 320px;
 }
 
 .listLinks {
@@ -56,6 +40,9 @@
     color: white;
 }
 
+.contentHeight {
+    height: 340px;
+}
 
 .text_align_buttons {
     display: flex;

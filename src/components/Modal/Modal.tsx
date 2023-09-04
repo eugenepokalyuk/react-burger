@@ -3,7 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Modal.module.css';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
-import { ModalProps } from '../../services/types'
+import { ModalProps } from '../../services/types/types'
 
 const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
   const onCloseCallback = useCallback(onClose, [onClose]);

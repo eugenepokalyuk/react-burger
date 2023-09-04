@@ -1,12 +1,12 @@
 .modal {
-    max-width: 720px;
+    min-width: 720px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     display: flex;
     align-items: center;
-    height: 100%;
     z-index: 1056;
 }
 

@@ -19,7 +19,7 @@ export const LoginPage: FC = () => {
         e.preventDefault();
         loginUser(email, password)
             .then(res => {
-                dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
+                // dispatch({ type: 'REGISTER_SUCCESS', payload: res.user });
                 dispatch({
                     type: USER_STATEMENT,
                     payload: {
@@ -33,13 +33,12 @@ export const LoginPage: FC = () => {
                 navigate('/', { replace: true });
             })
             .catch(error => {
-                dispatch({ type: 'REGISTER_FAILURE' });
+                // dispatch({ type: 'REGISTER_FAILURE' });
                 setError('Ой, произошла ошибка!');
             });
     };
 
     return (
-
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <form onSubmit={handleSubmit} className={styles.content}>

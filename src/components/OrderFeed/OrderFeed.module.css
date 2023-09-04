@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1240px;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.scrollable {
+    max-height: 75vh;
+    overflow: auto;
+    scrollbar-color: #8685ad #2f2f37;
+    padding-right: 8px;
+}
+
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #8685ad;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #2f2f37;
+}
+
+.orderFeedEmptyItem {
+    background: #1C1C21;
+    padding: calc(6*4px);
+    border-radius: 40px;
+    transition: 0.5s;
+}
+
+.orderFeedEmptyButton {
+    display: flex;
+    justify-content: flex-end;
+}
