@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from 'react';
+import { useEffect, FC } from 'react';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 import styles from './OrderDetails.module.css';
 import { useAppDispatch } from '../../services/hooks/hooks';

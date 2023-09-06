@@ -6,6 +6,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { v4 as uuidv4 } from "uuid";
 import { FC, useEffect, useState } from "react";
 import { fetchOrderData } from "../../utils/api";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   isModal?: boolean
@@ -45,10 +46,12 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
 
   const toggleTitleNumber = !isModal ? styles.textAlignLeft : styles.mAuto;
 
+  console.log('orderData', orderData)
+
   return (
     <>
-      {orderData && (
-        <section className={`${styles.container} ${!isModal && styles.positionFixed}`}>
+      <section className={`${styles.container} ${!isModal && styles.positionFixed}`}>
+        {orderData ? (
           <div
             className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
           >
@@ -122,8 +125,20 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
               </li>
             </ul>
           </div>
-        </section>
-      )}
+        ) : (
+          <div
+            className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
+          >
+            <h2 className={`${toggleTitleNumber} text text_type_main-large`}>Ошибка!</h2>
+            <p className={`text text_type_main-medium mt-10 mb-3`}>
+              Данного заказа не существует
+            </p>
+            <p className={`text text_type_main-medium mb-3`}>
+              Можете перейти на <NavLink to="/" className={`${styles.orderTitleDone}`}>главную страницу</NavLink>
+            </p>
+          </div>
+        )}
+      </section>
     </>
   );
 };

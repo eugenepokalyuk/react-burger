@@ -108,9 +108,9 @@ const BurgerConstructor: FC = () => {
   }, [ingredientElement, ingredientElementBun]);
 
   return (
-    <section className={`${styles.container} ${styles.flexCenter}`}>
+    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} mb-5 mt-10`}>
       <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
-        <div className={styles.flexContainer}>
+        <div className={`${styles.flexContainer} mb-5 mt-10`}>
           <ConstructorIngredients items={ingredientElement} />
         </div>
 
