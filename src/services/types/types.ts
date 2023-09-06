@@ -138,7 +138,6 @@ export interface OrderData {
 }
 
 export interface IIngredient {
-    uniqueId: null | undefined;
     _id: string;
     name: string;
     type: string;
@@ -151,6 +150,7 @@ export interface IIngredient {
     image_mobile: string;
     image_large: string;
     __v: number;
+    uniqueId?: null | undefined;
 }
 
 export type TOrdersState = {
