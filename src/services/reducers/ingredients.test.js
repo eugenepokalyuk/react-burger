@@ -5,7 +5,7 @@ import {
 } from "../actions/ingredients";
 import { ingredientsReducer } from "./ingredients";
 
-const mockIngredients = [
+const mockData = [
     {
         "_id": "643d69a5c3f7b9001cfa0949",
         "name": "Мини-салат Экзо-Плантаго",
@@ -49,32 +49,33 @@ describe("ingredients reducer test 👇", () => {
         expect(state).toEqual({
             ...initialState,
             loading: true,
-            error: null
         });
+        expect(state.loading).toBe(true);
     });
 
     it("should handle FETCH_INGREDIENTS_SUCCESS", () => {
-        const action = { type: FETCH_INGREDIENTS_SUCCESS, payload: mockIngredients };
+        const action = { type: FETCH_INGREDIENTS_SUCCESS, payload: mockData };
         const state = ingredientsReducer(initialState, action);
 
         expect(state).toEqual({
             ...initialState,
             ingredients: action.payload,
-            loading: true,
-            error: null
+            loading: false,
         });
+        expect(state.loading).toBe(false);
     });
 
     it("should handle FETCH_INGREDIENTS_FAILURE", () => {
         const error = new Error("Test error message");
-        const action = { type: FETCH_INGREDIENTS_FAILURE, payload: error };
+        const action = { type: FETCH_INGREDIENTS_FAILURE, payload: error.message };
         const state = ingredientsReducer(initialState, action);
 
         expect(state).toEqual({
             ...initialState,
-            loading: true,
-            error: null
+            loading: false,
+            error: error.message
         });
+        expect(state.loading).toBe(false);
     });
 
     it("should return the initial state for unknown action", () => {
