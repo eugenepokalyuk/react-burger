@@ -53,7 +53,7 @@ export const LoginPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputEmail} mb-6`}
                     />
 
                     <Input
@@ -66,7 +66,7 @@ export const LoginPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputPwd} mb-6`}
                     />
 
                     {error && (

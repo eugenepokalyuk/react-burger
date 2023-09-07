@@ -32,7 +32,8 @@
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,8 @@
     "@types/react-dom": "^18.2.7",
     "@types/uuid": "^9.0.2",
     "babel-plugin-react-css-modules": "^5.2.6",
+    "cypress": "^13.1.0",
+    "eslint-plugin-cypress": "^2.14.0",
     "fetch-mock": "^9.11.0",
     "gh-pages": "^5.0.0",
     "jest": "^27.5.1",

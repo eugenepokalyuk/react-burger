@@ -29,7 +29,6 @@ export const fetchOrderData = (number: string | undefined) => {
 export const createOrder = (orderData: { ingredients: string[]; }) => {
   const endpoint = '/orders';
   const token: string = localStorage.getItem("accessToken") || "";
-
   return request(endpoint, {
     method: 'POST',
     headers: {

@@ -35,7 +35,7 @@ const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
           <div className={`${header ? styles.modalHeader : `${styles.modalNoHeader} mt-5 mb-5`} d-flex`}>
             {header && <span className='text text_type_main-large'>{header}</span>}
             {onClose && (
-              <span className='ml-auto'>
+              <span className={`${styles.closeIcon} ml-auto`}>
                 <CloseIcon type='primary' onClick={onClose} />
               </span>
             )}
