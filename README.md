@@ -1,4 +1,4 @@
-# > Спринт VI. Покрытие приложения тестами
+# Каноническая работа Stellar Burger
 
 [Перейти на сайт](https://eugenepokalyuk.github.io/react-burger/)
 
