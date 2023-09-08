@@ -30,12 +30,12 @@ const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className={styles.modal}>
+      <div className={styles.modal} data-cy="modalContainer">
         <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10 text-center`} onKeyDown={onKeyDown}>
           <div className={`${header ? styles.modalHeader : `${styles.modalNoHeader} mt-5 mb-5`} d-flex`}>
             {header && <span className='text text_type_main-large'>{header}</span>}
             {onClose && (
-              <span className={`${styles.closeIcon} ml-auto`}>
+              <span className={`${styles.closeIcon} ml-auto`} data-cy="modalCloseIcon">
                 <CloseIcon type='primary' onClick={onClose} />
               </span>
             )}

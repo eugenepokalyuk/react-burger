@@ -18,7 +18,6 @@ import { fetchConstructorIngredientsRequest } from "../../services/actions/burge
 import { selectConstructorIngredients } from "../../services/selectors/selectors";
 import { v4 as uuidv4 } from "uuid";
 import { IIngredient, NutrientProperty } from "../../services/types/types";
-import data from "../../utils/data.json"
 const BurgerIngredients: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ const BurgerIngredients: FC = () => {
 
     const getIngredientsData = async () => {
       try {
-        // const data = await fetchIngredientsData();
+        const data = await fetchIngredientsData();
         setIngredientsData(data);
       } catch (error) {
         // Обработка ошибки

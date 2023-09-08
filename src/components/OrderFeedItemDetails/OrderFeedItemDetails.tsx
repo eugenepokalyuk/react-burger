@@ -46,8 +46,6 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
 
   const toggleTitleNumber = !isModal ? styles.textAlignLeft : styles.mAuto;
 
-  console.log('orderData', orderData)
-
   return (
     <>
       <section className={`${styles.container} ${!isModal && styles.positionFixed}`}>

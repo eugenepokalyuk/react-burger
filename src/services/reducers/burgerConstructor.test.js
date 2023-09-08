@@ -43,35 +43,6 @@ let ingredientArray = [{
   image_large: 'https://code.s3.yandex.net/react/code/sauce-04-large.png',
   __v: 0
 }];
-let ingredient = {
-  _id: '643d69a5c3f7b9001cfa0943',
-  name: 'Соус фирменный Space Sauce',
-  type: 'sauce',
-  proteins: 50,
-  fat: 22,
-  carbohydrates: 11,
-  calories: 14,
-  price: 80,
-  image: 'https://code.s3.yandex.net/react/code/sauce-04.png',
-  image_mobile: 'https://code.s3.yandex.net/react/code/sauce-04-mobile.png',
-  image_large: 'https://code.s3.yandex.net/react/code/sauce-04-large.png',
-  __v: 0
-};
-let bun = {
-  "_id": "60666c42cc7b410027a1a9b1",
-  "name": "Краторная булка N-200i",
-  "type": "bun",
-  "proteins": 80,
-  "fat": 24,
-  "carbohydrates": 53,
-  "calories": 420,
-  "price": 1255,
-  "image": "https://code.s3.yandex.net/react/code/bun-02.png",
-  "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-  "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-  "__v": 0
-};
-
 
 describe("viewed ingredients reducer test 👇", () => {
   it("should handle REFRESH_TOKEN_SUCCESS", () => {
@@ -133,14 +104,23 @@ describe("viewed ingredients reducer test 👇", () => {
       ingredients: [...initialState.ingredients, nonBunIngredient],
     });
   });
-  it("should handle REMOVE_INGREDIENT_FROM_CONSTRUCTOR", () => {
-    const action = { type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR, payload: [] };
+  it('should handle REMOVE_INGREDIENT_FROM_CONSTRUCTOR when it exists', () => {
+    const initialState = { ingredients: [{ _id: 1 }, { _id: 2 }, { _id: 3 }] }; // Пример начального состояния
+    const action = {
+      type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+      key: 2,
+    };
     const state = constructorIngredientsReducer(initialState, action);
-
-    expect(state).toEqual({
-      ...initialState,
-      ingredients: []
-    });
+    expect(state.ingredients).toEqual([{ _id: 1 }, { _id: 3 }]);
+  });
+  it('should not handle REMOVE_INGREDIENT_FROM_CONSTRUCTOR when it does not exist', () => {
+    const initialState = { ingredients: [{ _id: 1 }, { _id: 3 }] }; // Пример начального состояния
+    const action = {
+      type: REMOVE_INGREDIENT_FROM_CONSTRUCTOR,
+      key: 2,
+    };
+    const state = constructorIngredientsReducer(initialState, action);
+    expect(state.ingredients).toEqual(initialState.ingredients);
   });
   it("should handle MOVE_INGREDIENT_IN_CONSTRUCTOR", () => {
     const dragIndex = 0;
@@ -161,6 +141,22 @@ describe("viewed ingredients reducer test 👇", () => {
     expect(state).toEqual({
       ...initialState,
       ingredients: [],
+    });
+  });
+  it('should handle SET_BUN action is dispatched', () => {
+    const initialState = { bun: null }; // Пример начального состояния
+    const bunPayload = {
+      name: 'Bun Name',
+      image_large: 'bun_large_image.jpg',
+    };
+    const action = {
+      type: SET_BUN,
+      payload: bunPayload,
+    };
+    const state = constructorIngredientsReducer(initialState, action);
+    expect(state.bun).toEqual({
+      ...bunPayload,
+      image: bunPayload.image_large,
     });
   });
   it("should return the initial state for unknown action", () => {

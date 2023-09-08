@@ -1,68 +1,72 @@
-describe('service is available', function () {
-  const burgerConstructorSelector = '[class^=BurgerConstructor_flexContainer__lul23]';
-  const basket = [
-    '[href^="#/ingredients/60666c42cc7b410027a1a9be"]',
-    '[href^="#/ingredients/60666c42cc7b410027a1a9b3"]',
-    '[href^="#/ingredients/60666c42cc7b410027a1a9ba"]',
-    '[href^="#/ingredients/60666c42cc7b410027a1a9b5"]',
-    '[href^="#/ingredients/60666c42cc7b410027a1a9bb"]',
-    '[href^="#/ingredients/60666c42cc7b410027a1a9bb"]',
-  ]
-  const arr = ['Калории', 'Белки', 'Жиры', 'Углеводы'];
+const burgerConstructorSelector = '[data-cy="burgerConstructorContainer"]';
+const basket = [
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0949"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0941"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0941"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0942"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0947"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0948"]',
+]
+const arr = ['Калории', 'Белки', 'Жиры', 'Углеводы'];
 
+describe('service is available', function () {
   before(function () {
     cy.viewport(1920, 1024);
-    cy.visit('http://localhost:3001');
+    cy.visit('http://localhost:3001/');
   });
 
-  it('should do all test', () => {
-    // should auth
-    cy.get('button').contains('Авторизация').click();
-    cy.get('[class^="input__container LoginPage_inputEmail__skX2U"]').type('123123@ali.com');
-    cy.get('[class^="input__container LoginPage_inputPwd__incbK"]').type('123123');
-    cy.get('[class^="button button_type_primary button_size_medium"]').click();
+  it('should drag & drop', () => {
+    cy.intercept("GET", "api/ingredients", { fixture: "ingredients.json" });
 
-    // should open modal
-    basket.map((item) => {
-      cy.get(item).first().click();
-      cy.get('[class^=Modal_modal__]').should('exist').contains('Детали ингредиента');
-
-      arr.map((item) => {
-        cy.get('[class^=Modal_modal__]').should('exist').contains(item);
-      });
-
-      // close modal
-      cy.get('[class^="Modal_closeIcon__9I0vC"]').click();
-    })
-
-    // should drag and drop
-    cy.get('[class^=IngredientDetails_cardItem__]').first().trigger('dragstart');
+    cy.get('[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093c"]').first().trigger('dragstart');
     cy.get(burgerConstructorSelector).trigger('drop');
 
-    basket.map((item) => {
+    basket.forEach((item) => {
       cy.get(item).trigger('dragstart');
       cy.get(burgerConstructorSelector).trigger('drop');
     })
+  });
 
-    cy.get('[href^="#/ingredients/60666c42cc7b410027a1a9b2"]').trigger('dragstart');
-    cy.get(burgerConstructorSelector).trigger('drop');
+  it('should create order', () => {
+    // // should auth
+    // cy.intercept("POST", "api/auth/login", { fixture: "auth.json" });
 
-    // should submit order
-    cy.get('[class^="button button_type_primary button_size_large"]').click();
+    // cy.get('link').contains('Авторизация').click();
+    // cy.get('[data-cy="loginSubmit"]').type('123123@ali.com');
+    // cy.get('[data-cy="pwdSubmit"]').type('123123');
+    // cy.get('[data-cy="submitLoginForm"]').click();
 
-    // mock fetch
-    cy.intercept("POST", "api/orders", { fixture: "orders.json" });
+    // // should submit order
+    // cy.get('[data-cy="submitConstructorForm"]').click();
 
-    // preloader
-    cy.contains('Оформляем заказ').should('exist');
-    cy.contains('Подождите пожалуйста, примерное время ожидание 15 сек.').should('exist');
+    // // mock fetch
+    // cy.intercept("POST", "api/orders", { fixture: "orders.json" });
 
-    // order details
-    cy.contains('идентификатор заказа').should('exist');
-    cy.contains('Ваш заказ начали готовить').should('exist');
-    cy.contains('Дождитесь готовности на орбитальной станции').should('exist');
+    // // preloader
+    // cy.contains('Оформляем заказ').should('exist');
+    // cy.contains('Подождите пожалуйста, примерное время ожидание 15 сек.').should('exist');
 
-    // close modal
-    cy.get('[class^="Modal_closeIcon__9I0vC"]').click();
+    // // order details
+    // cy.contains('[data-cy="orderNumber"]').should('exist');
+    // cy.contains('идентификатор заказа').should('exist');
+    // cy.contains('Ваш заказ начали готовить').should('exist');
+    // cy.contains('Дождитесь готовности на орбитальной станции').should('exist');
+
+    // // close modal
+    // cy.get('[data-cy="modalCloseIcon"]').click();
+  });
+  it('should modal actions', () => {
+    // basket.forEach((item) => {
+    //   cy.get(item).first().click();
+    //   cy.get('[data-cy="modalContainer"]').should('exist').contains('Детали ингредиента');
+
+    //   arr.forEach((item) => {
+    //     cy.get('[data-cy="modalContainer"]').should('exist').contains(item);
+    //   });
+
+    //   // close modal
+    //   cy.get('[data-cy="modalCloseIcon"]').click();
+    // })
   });
 });

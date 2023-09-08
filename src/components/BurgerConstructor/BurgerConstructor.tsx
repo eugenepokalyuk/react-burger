@@ -109,7 +109,7 @@ const BurgerConstructor: FC = () => {
   return (
     <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} mb-5 mt-10`}>
       <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
-        <div className={`${styles.flexContainer} mb-5 mt-10`}>
+        <div className={`${styles.flexContainer} mb-5 mt-10`} data-cy="burgerConstructorContainer">
           <ConstructorIngredients items={ingredientElement} />
         </div>
 
@@ -131,6 +131,7 @@ const BurgerConstructor: FC = () => {
                   ? true
                   : false
               }
+              data-cy="submitConstructorForm"
             >
               Оформить заказ
             </Button>

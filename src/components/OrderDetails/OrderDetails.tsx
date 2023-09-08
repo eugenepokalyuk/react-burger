@@ -16,7 +16,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderId }) => {
 
   return (
     <>
-      <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`}>
+      <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`} data-cy="orderNumber">
         {orderId}
       </h2>
       <p className='text text_type_main-medium'>идентификатор заказа</p>
