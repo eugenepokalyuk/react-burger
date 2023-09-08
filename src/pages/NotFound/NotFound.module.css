@@ -1,5 +1,5 @@
 .wrapper {
-    background-image: url("../../images/PageNotFound.png");
+    background-image: url("../../images/PageNotFound.webp");
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -15,9 +15,11 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - var(--container-padding) * 2);
+
 }
 
 .content {
+    align-items: center;
     text-align: center;
 }
 

@@ -1,0 +1,11 @@
+.orderFeedEmptyItem {
+    background: #1C1C21;
+    padding: calc(6*4px);
+    border-radius: 40px;
+    transition: 0.5s;
+}
+
+.orderFeedEmptyButton {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START } from "../../services/actions/WSActions";
 import styles from "./ProfileItems.module.css";
 import OrderFeedItem from "../OrderFeedItem/OrderFeedItem";
+import { OrderNotFound } from "../OrderNotFound/OrderNotFound";
 
 export const ProfileItems = () => {
     const dispatch = useAppDispatch();
@@ -30,16 +31,22 @@ export const ProfileItems = () => {
     return (
         <div className={`${styles.content} ${styles.contentHeight}`}>
             <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
-                {userOrders && userOrders.map((order, index: number) => (
-                    <OrderFeedItem
-                        key={index}
-                        order={order}
-                        showStatus={true}
-                        parentURL={location}
-                        state={undefined}
-                        setIsModalOpen={undefined}
-                    />
-                ))}
+                {userOrders
+                    ? userOrders.map((order, index: number) => (
+                        <OrderFeedItem
+                            key={index}
+                            order={order}
+                            showStatus={true}
+                            parentURL={location}
+                            state={undefined}
+                            setIsModalOpen={undefined}
+                        />
+                    )) : (
+                        <div className={`${styles.errorContainer}`}>
+                            <OrderNotFound />
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

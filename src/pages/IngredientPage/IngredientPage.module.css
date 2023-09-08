@@ -1,9 +1,18 @@
 .error {
-    background-image: url("../../images/IngredientNotFound.png");
+    background-image: url("../../images/IngredientNotFound.webp");
     width: 100vw;
     height: 90vh;
     background-size: cover;
     background-repeat: no-repeat;
+    /* background: ; */
+
+    background-color: rgba(0, 0, 0, .5);
+    background-blend-mode: multiply;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .error-h1,

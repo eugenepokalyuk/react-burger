@@ -31,3 +31,7 @@
     align-items: center;
     justify-content: flex-end;
 }
+
+.closeIcon:hover {
+    cursor: pointer;
+}

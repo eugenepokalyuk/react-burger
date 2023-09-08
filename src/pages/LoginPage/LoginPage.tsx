@@ -53,7 +53,8 @@ export const LoginPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputEmail} mb-6`}
+                        data-cy="loginSubmit"
                     />
 
                     <Input
@@ -66,7 +67,8 @@ export const LoginPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputPwd} mb-6`}
+                        data-cy="pwdSubmit"
                     />
 
                     {error && (
@@ -75,7 +77,7 @@ export const LoginPage: FC = () => {
                         </p>
                     )}
 
-                    <Button htmlType="submit" type="primary" size="medium" extraClass='mb-20'>
+                    <Button htmlType="submit" type="primary" size="medium" extraClass='mb-20' data-cy="submitLoginForm">
                         Войти
                     </Button>
 

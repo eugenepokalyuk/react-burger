@@ -33,9 +33,6 @@ export const ProfileNav: FC = () => {
     const handleLogout = (e: MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
 
-        console.log("getUserRefreshToken", getUserRefreshToken);
-        console.log("localStorage.getItem", localStorage.getItem("refreshToken"));
-
         let refreshToken = getUserRefreshToken
             ? getUserRefreshToken
             : localStorage.getItem("refreshToken");

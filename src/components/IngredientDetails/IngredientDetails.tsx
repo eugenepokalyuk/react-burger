@@ -44,6 +44,7 @@ const IngredientItem: FC<IngredientItemProps> = ({
       className={`${styles.cardItem} mb-5 mr-6`}
       ref={dragTarget}
       onClick={handleClick}
+      data-cy={`dragableIngredients-${ingredient._id}`}
     >
       <Counter count={getIngredientCount(ingredient)} size="default" />
       <img src={ingredient.image} alt={ingredient.name} />

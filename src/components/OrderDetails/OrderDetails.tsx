@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from 'react';
+import { useEffect, FC } from 'react';
 import CheckMarkIconImage from '../../images/CheckMarkIcon.png';
 import styles from './OrderDetails.module.css';
 import { useAppDispatch } from '../../services/hooks/hooks';
@@ -16,7 +16,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ orderId }) => {
 
   return (
     <>
-      <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`}>
+      <h2 className={`${styles.textShadows} text text_type_digits-large mb-8`} data-cy="orderNumber">
         {orderId}
       </h2>
       <p className='text text_type_main-medium'>идентификатор заказа</p>

@@ -18,3 +18,8 @@
     color: #E52B1A;
     text-align: center;
 }
+
+.inputEmail,
+.inputPwd {
+    cursor: text;
+}

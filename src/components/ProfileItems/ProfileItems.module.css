@@ -29,3 +29,10 @@
 .scrollable::-webkit-scrollbar-track {
     background: #2f2f37;
 }
+
+.errorContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}

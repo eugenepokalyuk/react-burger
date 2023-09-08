@@ -37,7 +37,6 @@ const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ canDrop, dragItem, isHover }, dropTarget] = useDrop<
     IIngredient,
     unknown,
@@ -108,9 +107,9 @@ const BurgerConstructor: FC = () => {
   }, [ingredientElement, ingredientElementBun]);
 
   return (
-    <section className={`${styles.container} ${styles.flexCenter}`}>
+    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} mb-5 mt-10`}>
       <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
-        <div className={styles.flexContainer}>
+        <div className={`${styles.flexContainer} mb-5 mt-10`} data-cy="burgerConstructorContainer">
           <ConstructorIngredients items={ingredientElement} />
         </div>
 
@@ -132,6 +131,7 @@ const BurgerConstructor: FC = () => {
                   ? true
                   : false
               }
+              data-cy="submitConstructorForm"
             >
               Оформить заказ
             </Button>
