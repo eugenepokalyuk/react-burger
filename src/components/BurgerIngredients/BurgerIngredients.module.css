@@ -123,6 +123,9 @@
     .ingredientImage img {
         width: 100%;
     }
+    .nutrientContainer {
+        gap: 8px;
+    }
 }
 
 @media screen and (max-width: 375px) {
@@ -170,5 +173,8 @@
 
     .ingredientImage img {
         width: 100%;
+    }
+    .nutrientContainer {
+        gap: 8px;
     }
 }

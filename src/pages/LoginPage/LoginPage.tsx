@@ -39,10 +39,6 @@ export const LoginPage: FC = () => {
             });
     };
 
-    const isDesktop = useMediaQuery({ minWidth: 961 });
-    const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
-    const isMobile = useMediaQuery({ maxWidth: 375 });
-
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>

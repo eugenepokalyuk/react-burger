@@ -66,7 +66,6 @@ const IngredientItem: FC<IngredientItemProps> = ({
               <CurrencyIcon type="primary" />
             </div>
             <p className="text text_type_main-default">{ingredient.name}</p>
-            {/* onClick={handleAddToConstructor(ingredient)} */}
           </Link>
         </>}
 
@@ -89,7 +88,6 @@ const IngredientItem: FC<IngredientItemProps> = ({
                 <CurrencyIcon type="primary" />
               </div>
               <p className="text text_type_main-default">{ingredient.name}</p>
-              {/* onClick={handleAddToConstructor(ingredient)} */}
             </Link>
             {isMobile || isTablet && (<button className={`${styles.IngredientItemButton} text text_type_main-default`} onClick={handleAddToConstructor}>Добавить</button>)}
           </div>

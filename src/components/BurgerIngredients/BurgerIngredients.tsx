@@ -164,164 +164,47 @@ const BurgerIngredients: FC = () => {
   };
 
   return (
-    <section className={styles.container}>
-      {isDesktop && (
-        <>
-          <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
+    <>
+      <section className={styles.container}>
+        {isDesktop && (
+          <>
+            <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
 
-          <div className={styles.container_flex}>
-            <Tab
-              value="Булки"
-              active={activeTab === "Булки"}
-              onClick={() => handleTabClick("Булки", bunRef)}
-              data-tab="Булки"
-            >
-              Булки
-            </Tab>
-            <Tab
-              value="Соусы"
-              active={activeTab === "Соусы"}
-              onClick={() => handleTabClick("Соусы", saucesRef)}
-              data-tab="Соусы"
-            >
-              Соусы
-            </Tab>
-            <Tab
-              value="Начинки"
-              active={activeTab === "Начинки"}
-              onClick={() => handleTabClick("Начинки", mainsRef)}
-              data-tab="Начинки"
-            >
-              Начинки
-            </Tab>
-          </div>
+            <div className={styles.container_flex}>
+              <Tab
+                value="Булки"
+                active={activeTab === "Булки"}
+                onClick={() => handleTabClick("Булки", bunRef)}
+                data-tab="Булки"
+              >
+                Булки
+              </Tab>
+              <Tab
+                value="Соусы"
+                active={activeTab === "Соусы"}
+                onClick={() => handleTabClick("Соусы", saucesRef)}
+                data-tab="Соусы"
+              >
+                Соусы
+              </Tab>
+              <Tab
+                value="Начинки"
+                active={activeTab === "Начинки"}
+                onClick={() => handleTabClick("Начинки", mainsRef)}
+                data-tab="Начинки"
+              >
+                Начинки
+              </Tab>
+            </div>
 
-          <div className={`${styles.scrollable} mt-10`}>
-            <h2
-              className="text text_type_main-medium mb-6"
-              ref={bunRef}
-              data-tab="Булки"
-            >
-              Булки
-            </h2>
-            {filteredBuns.map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={() => getIngredientCount(ingredient)}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-                onClick={() => handleIngredientClick(ingredient._id)}
-              />
-            ))}
-
-            <h2
-              className="text text_type_main-medium mb-6 mt-10"
-              ref={saucesRef}
-              data-tab="Соусы"
-            >
-              Соусы
-            </h2>
-            {filteredSauces.map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={getIngredientCount}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-                onClick={() => handleIngredientClick(ingredient._id)}
-              />
-            ))}
-
-            <h2
-              className="text text_type_main-medium mb-6 mt-10"
-              ref={mainsRef}
-              data-tab="Начинки"
-            >
-              Начинки
-            </h2>
-            {filteredMains.map((ingredient) => (
-              <IngredientItem
-                key={ingredient._id}
-                ingredient={ingredient}
-                getIngredientCount={getIngredientCount}
-                setIsModalOpen={setIsModalOpen}
-                setSelectedIngredient={setSelectedIngredient}
-                onClick={() => handleIngredientClick(ingredient._id)}
-              />
-            ))}
-          </div>
-
-          {isModalOpen && selectedIngredient && (
-            <Modal onClose={closeModal} header="Детали ингредиента">
-              <div className="mb-4 mt-4">
-                <img
-                  src={selectedIngredient.image_large}
-                  alt={selectedIngredient.name}
-                />
-              </div>
-              <div>
-                <p className="text text_type_main-medium mb-8">
-                  {selectedIngredient.name}
-                </p>
-                <div className={`${styles.flex} text_color_inactive`}>
-                  {nutrientLabels.map((nutrient) => (
-                    <div key={uuidv4()}>
-                      <p className="text text_type_main-default text_color_inactive">
-                        {nutrient.label}
-                      </p>
-                      <p className="text text_type_main-default text_color_inactive">
-                        {selectedIngredient[nutrient.value as keyof IIngredient]}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Modal>
-          )}
-        </>
-      )}
-      {(isMobile || isTablet) && (
-        <>
-          <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
-          <div className={styles.container_flex}>
-            <Tab
-              value="Булки"
-              active={activeTab === "Булки"}
-              onClick={() => handleTabClick("Булки", bunRef)}
-              data-tab="Булки"
-            >
-              Булки
-            </Tab>
-            <Tab
-              value="Соусы"
-              active={activeTab === "Соусы"}
-              onClick={() => handleTabClick("Соусы", saucesRef)}
-              data-tab="Соусы"
-            >
-              Соусы
-            </Tab>
-            <Tab
-              value="Начинки"
-              active={activeTab === "Начинки"}
-              onClick={() => handleTabClick("Начинки", mainsRef)}
-              data-tab="Начинки"
-            >
-              Начинки
-            </Tab>
-          </div>
-
-          {/*  */}
-          <div className={`${styles.scrollable} mt-10`}>
-            <h2
-              className="text text_type_main-medium mb-6 ml-2"
-              ref={bunRef}
-              data-tab="Булки"
-            >
-              Булки
-            </h2>
-
-            <div className={`${styles.ingredientsList}`}>
+            <div className={`${styles.scrollable} mt-10`}>
+              <h2
+                className="text text_type_main-medium mb-6"
+                ref={bunRef}
+                data-tab="Булки"
+              >
+                Булки
+              </h2>
               {filteredBuns.map((ingredient) => (
                 <IngredientItem
                   key={ingredient._id}
@@ -332,17 +215,14 @@ const BurgerIngredients: FC = () => {
                   onClick={() => handleIngredientClick(ingredient._id)}
                 />
               ))}
-            </div>
 
-            <h2
-              className="text text_type_main-medium mb-6 mt-10 ml-2"
-              ref={saucesRef}
-              data-tab="Соусы"
-            >
-              Соусы
-            </h2>
-
-            <div className={`${styles.ingredientsList}`}>
+              <h2
+                className="text text_type_main-medium mb-6 mt-10"
+                ref={saucesRef}
+                data-tab="Соусы"
+              >
+                Соусы
+              </h2>
               {filteredSauces.map((ingredient) => (
                 <IngredientItem
                   key={ingredient._id}
@@ -353,17 +233,14 @@ const BurgerIngredients: FC = () => {
                   onClick={() => handleIngredientClick(ingredient._id)}
                 />
               ))}
-            </div>
 
-            <h2
-              className="text text_type_main-medium mb-6 mt-10 ml-2"
-              ref={mainsRef}
-              data-tab="Начинки"
-            >
-              Начинки
-            </h2>
-
-            <div className={`${styles.ingredientsList}`}>
+              <h2
+                className="text text_type_main-medium mb-6 mt-10"
+                ref={mainsRef}
+                data-tab="Начинки"
+              >
+                Начинки
+              </h2>
               {filteredMains.map((ingredient) => (
                 <IngredientItem
                   key={ingredient._id}
@@ -375,37 +252,136 @@ const BurgerIngredients: FC = () => {
                 />
               ))}
             </div>
+          </>
+        )}
+
+
+        {(isMobile || isTablet) && (
+          <>
+            <h1 className="text text_type_main-large mb-5 mt-10">Соберите бургер</h1>
+            <div className={styles.container_flex}>
+              <Tab
+                value="Булки"
+                active={activeTab === "Булки"}
+                onClick={() => handleTabClick("Булки", bunRef)}
+                data-tab="Булки"
+              >
+                Булки
+              </Tab>
+              <Tab
+                value="Соусы"
+                active={activeTab === "Соусы"}
+                onClick={() => handleTabClick("Соусы", saucesRef)}
+                data-tab="Соусы"
+              >
+                Соусы
+              </Tab>
+              <Tab
+                value="Начинки"
+                active={activeTab === "Начинки"}
+                onClick={() => handleTabClick("Начинки", mainsRef)}
+                data-tab="Начинки"
+              >
+                Начинки
+              </Tab>
+            </div>
+
+            <div className={`${styles.scrollable} mt-10`}>
+              <h2
+                className="text text_type_main-medium mb-6 ml-2"
+                ref={bunRef}
+                data-tab="Булки"
+              >
+                Булки
+              </h2>
+
+              <div className={`${styles.ingredientsList}`}>
+                {filteredBuns.map((ingredient) => (
+                  <IngredientItem
+                    key={ingredient._id}
+                    ingredient={ingredient}
+                    getIngredientCount={() => getIngredientCount(ingredient)}
+                    setIsModalOpen={setIsModalOpen}
+                    setSelectedIngredient={setSelectedIngredient}
+                    onClick={() => handleIngredientClick(ingredient._id)}
+                  />
+                ))}
+              </div>
+
+              <h2
+                className="text text_type_main-medium mb-6 mt-10 ml-2"
+                ref={saucesRef}
+                data-tab="Соусы"
+              >
+                Соусы
+              </h2>
+
+              <div className={`${styles.ingredientsList}`}>
+                {filteredSauces.map((ingredient) => (
+                  <IngredientItem
+                    key={ingredient._id}
+                    ingredient={ingredient}
+                    getIngredientCount={getIngredientCount}
+                    setIsModalOpen={setIsModalOpen}
+                    setSelectedIngredient={setSelectedIngredient}
+                    onClick={() => handleIngredientClick(ingredient._id)}
+                  />
+                ))}
+              </div>
+
+              <h2
+                className="text text_type_main-medium mb-6 mt-10 ml-2"
+                ref={mainsRef}
+                data-tab="Начинки"
+              >
+                Начинки
+              </h2>
+
+              <div className={`${styles.ingredientsList}`}>
+                {filteredMains.map((ingredient) => (
+                  <IngredientItem
+                    key={ingredient._id}
+                    ingredient={ingredient}
+                    getIngredientCount={getIngredientCount}
+                    setIsModalOpen={setIsModalOpen}
+                    setSelectedIngredient={setSelectedIngredient}
+                    onClick={() => handleIngredientClick(ingredient._id)}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+      </section>
+      {/* {isModalOpen && selectedIngredient && (
+        <Modal onClose={closeModal} header="Детали ингредиента">
+          <div className={`${styles.ingredientImage}`}>
+            <img
+              src={selectedIngredient.image_large}
+              alt={selectedIngredient.name}
+            />
           </div>
-          {isModalOpen && selectedIngredient && (
-            <Modal onClose={closeModal} header="Детали ингредиента">
-              <div className={`${styles.ingredientImage}`}>
-                <img
-                  src={selectedIngredient.image_large}
-                  alt={selectedIngredient.name}
-                />
-              </div>
-              <div>
-                <p className="text text_type_main-medium">
-                  {selectedIngredient.name}
-                </p>
-                <div className={`${styles.flex} text_color_inactive`}>
-                  {nutrientLabels.map((nutrient) => (
-                    <div key={uuidv4()}>
-                      <p className="text text_type_main-default text_color_inactive">
-                        {nutrient.label}
-                      </p>
-                      <p className="text text_type_main-default text_color_inactive">
-                        {selectedIngredient[nutrient.value as keyof IIngredient]}
-                      </p>
-                    </div>
-                  ))}
+          <div>
+            <p className="text text_type_main-medium">
+              {selectedIngredient.name}
+            </p>
+            <div className={`${styles.flex} text_color_inactive`}>
+              {nutrientLabels.map((nutrient) => (
+                <div key={uuidv4()}>
+                  <p className="text text_type_main-default text_color_inactive">
+                    {nutrient.label}
+                  </p>
+                  <p className={`${styles.nutrientContainer} text text_type_main-default text_color_inactive`}>
+                    {selectedIngredient[nutrient.value as keyof IIngredient]}
+                  </p>
                 </div>
-              </div>
-            </Modal>
-          )}
-        </>
-      )}
-    </section>
+              ))}
+            </div>
+          </div>
+        </Modal>
+      )} */}
+    </>
   );
 };
 export default BurgerIngredients;

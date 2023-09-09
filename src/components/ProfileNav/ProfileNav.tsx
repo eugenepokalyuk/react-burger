@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { RootState } from "../../services/types/types";
 import { clearUser } from "../../services/actions/authActions";
 import { useMediaQuery } from "react-responsive";
+import { isDesktop } from "react-device-detect";
 
 export const ProfileNav: FC = () => {
     const location = useLocation();
@@ -49,14 +50,10 @@ export const ProfileNav: FC = () => {
             });
     };
 
-    const isDesktop = useMediaQuery({ minWidth: 961 });
-    const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
-    const isMobile = useMediaQuery({ maxWidth: 375 });
-
     return (
         <div className={`${styles.container} mr-15`}>
             <ul
-                className={`mb-20 text text_type_main-medium text_color_inactive ${styles.listLinks}`}
+                className={`${isDesktop && `mb-20`} text text_type_main-medium text_color_inactive ${styles.listLinks}`}
             >
                 <NavLink
                     to="/profile"
@@ -89,10 +86,20 @@ export const ProfileNav: FC = () => {
                     </li>
                 </NavLink>
             </ul>
-
-            <p className="text text_type_main-small text_color_inactive">
-                В этом разделе вы можете изменить свои персональные данные
-            </p>
+            {location.pathname === "/profile"
+                &&
+                (
+                    <p className="text text_type_main-small text_color_inactive">
+                        В этом разделе вы можете изменить свои персональные данные
+                    </p>
+                )}
+            {location.pathname === "/profile/orders"
+                &&
+                (
+                    <p className="text text_type_main-small text_color_inactive">
+                        В этом разделе вы можете просмотреть свои заказы
+                    </p>
+                )}
         </div>
     );
 }

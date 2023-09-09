@@ -132,7 +132,9 @@ const App = () => {
               <Route
                 path={INGREDIENTS_PATH}
                 element={
-                  <IngredientPage />
+                  <Modal onClose={handleModalClose}>
+                    <IngredientPage />
+                  </Modal>
                 }
               />
 
