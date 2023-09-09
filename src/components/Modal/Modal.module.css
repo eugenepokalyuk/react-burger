@@ -1,5 +1,4 @@
 .modal {
-    min-width: 720px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -8,30 +7,55 @@
     display: flex;
     align-items: center;
     z-index: 1056;
+
+    /* min-width: 720px; */
 }
 
 .modalContent {
     position: relative;
     border-radius: 40px;
     background: #1C1C21;
-    width: 100%;
     text-align: center;
+
+    /* width: 100%; */
 }
 
 .modalHeader {
-    min-width: 640px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    /* min-width: 640px; */
 }
 
 .modalNoHeader {
-    min-width: 640px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    /* min-width: 640px; */
 }
 
 .closeIcon:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 960px) {
+    .modal {
+        width: 80%;
+    }
+
+    .modalContent {
+        min-width: 100%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .modal {
+        width: 80%;
+    }
+
+    .modalContent {
+        min-width: 100%;
+    }
 }

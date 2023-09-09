@@ -46,3 +46,48 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.container_flex {
+    display: flex;
+    width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_flex {
+        display: flex;
+    }
+
+    .scrollable {
+        height: 80vh;
+        max-height: 80vh;
+    }
+    .textCenter {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container_flex {
+        display: flex;
+        position: fixed;
+        top: 10%;
+    }
+
+    .scrollable {
+        height: 80vh;
+        max-height: 80vh
+    }
+    .textCenter {
+        text-align: center;
+    }
+}

@@ -48,3 +48,29 @@
     display: flex;
     justify-content: right;
 }
+
+
+
+@media screen and (max-width: 960px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .content div {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .content {
+        width: 100%;
+    }
+}

@@ -4,3 +4,25 @@
     max-width: 1240px;
     justify-content: space-around;
 }
+
+/* container */
+
+@media screen and (max-width: 960px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: 1240px;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: 1240px;
+        justify-content: space-around;
+    }
+}

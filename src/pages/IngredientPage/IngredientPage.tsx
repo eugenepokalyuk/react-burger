@@ -4,14 +4,17 @@ import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../services/hooks/hooks";
 import { RootState } from "../../services/types/types";
 import { v4 as uuidv4 } from "uuid";
+import { useMediaQuery } from "react-responsive";
+
 export const IngredientPage: FC = () => {
     const { id } = useParams();
-    const { ingredients } = useAppSelector(
-        (state: RootState) => state.ingredients
-    );
-    const selectedIngredient = ingredients.find(
-        (item: { _id: string | undefined }) => item._id === id
-    );
+    const { ingredients } = useAppSelector((state: RootState) => state.ingredients);
+
+    const isDesktop = useMediaQuery({ minWidth: 961 });
+    const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
+    const isMobile = useMediaQuery({ maxWidth: 375 });
+
+    const selectedIngredient = ingredients.find((item: { _id: string | undefined }) => item._id === id);
 
     const nutrientLabels = [
         { label: "Калории, ккал", value: "calories" },

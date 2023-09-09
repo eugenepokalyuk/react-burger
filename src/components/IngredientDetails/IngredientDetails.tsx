@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, MouseEventHandler } from "react";
 import {
   Counter,
   CurrencyIcon,
@@ -9,10 +9,12 @@ import {
   addViewedIngredient,
   clearViewedIngredient,
 } from "../../services/actions/currentIngredient";
-import { IngredientItemProps } from "../../services/types/types";
+import { IIngredient, IngredientItemProps } from "../../services/types/types";
 import { useDrag } from "react-dnd";
 import { TCurrentIngredient } from '../../services/actions/currentIngredient'
 import { Link, useLocation } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { addIngredientToConstructor } from "../../services/actions/burgerConstructor";
 
 const IngredientItem: FC<IngredientItemProps> = ({
   ingredient,
@@ -36,24 +38,63 @@ const IngredientItem: FC<IngredientItemProps> = ({
     item: ingredient,
   });
 
+  const isDesktop = useMediaQuery({ minWidth: 961 });
+  const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
+  const isMobile = useMediaQuery({ maxWidth: 375 });
+
+  const handleAddToConstructor = () => {
+    dispatch(addIngredientToConstructor(ingredient));
+  }
+
   return (
-    <Link
-      to={`/ingredients/${ingredient._id}`}
-      state={{ background: location }}
-      key={ingredient._id}
-      className={`${styles.cardItem} mb-5 mr-6`}
-      ref={dragTarget}
-      onClick={handleClick}
-      data-cy={`dragableIngredients-${ingredient._id}`}
-    >
-      <Counter count={getIngredientCount(ingredient)} size="default" />
-      <img src={ingredient.image} alt={ingredient.name} />
-      <div className="p-1">
-        <p className="text text_type_digits-default m-1">{ingredient.price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p className="text text_type_main-default">{ingredient.name}</p>
-    </Link>
+    <>
+      {isDesktop &&
+        <>
+          <Link
+            to={`/ingredients/${ingredient._id}`}
+            state={{ background: location }}
+            key={ingredient._id}
+            className={`${styles.cardItem} mb-5 mr-6`}
+            ref={dragTarget}
+            onClick={handleClick}
+            data-cy={`dragableIngredients-${ingredient._id}`}
+          >
+            <Counter count={getIngredientCount(ingredient)} size="default" />
+            <img src={ingredient.image} alt={ingredient.name} />
+            <div className="p-1">
+              <p className="text text_type_digits-default m-1">{ingredient.price}</p>
+              <CurrencyIcon type="primary" />
+            </div>
+            <p className="text text_type_main-default">{ingredient.name}</p>
+            {/* onClick={handleAddToConstructor(ingredient)} */}
+          </Link>
+        </>}
+
+      {isMobile || isTablet &&
+        <>
+          <div className={styles.ingredientMobileContainer}>
+            <Link
+              to={`/ingredients/${ingredient._id}`}
+              state={{ background: location }}
+              key={ingredient._id}
+              className={`${styles.cardItem} mb-5 mr-6`}
+              ref={dragTarget}
+              onClick={handleClick}
+              data-cy={`dragableIngredients-${ingredient._id}`}
+            >
+              <Counter count={getIngredientCount(ingredient)} size="default" />
+              <img src={ingredient.image} alt={ingredient.name} />
+              <div className="p-1">
+                <p className="text text_type_digits-default m-1">{ingredient.price}</p>
+                <CurrencyIcon type="primary" />
+              </div>
+              <p className="text text_type_main-default">{ingredient.name}</p>
+              {/* onClick={handleAddToConstructor(ingredient)} */}
+            </Link>
+            {isMobile || isTablet && (<button className={`${styles.IngredientItemButton} text text_type_main-default`} onClick={handleAddToConstructor}>Добавить</button>)}
+          </div>
+        </>}
+    </>
   );
 };
 

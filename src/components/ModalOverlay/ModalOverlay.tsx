@@ -7,7 +7,6 @@ const ModalOverlay: FC<ModalOverlayProps> = ({ onClose }) => {
   const handleOverlayClick = () => {
     onClose();
   };
-
   return <div className={styles.overlay} onClick={handleOverlayClick}></div>;
 };
 

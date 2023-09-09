@@ -5,6 +5,7 @@ import { logoutUser } from "../../utils/api";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { RootState } from "../../services/types/types";
 import { clearUser } from "../../services/actions/authActions";
+import { useMediaQuery } from "react-responsive";
 
 export const ProfileNav: FC = () => {
     const location = useLocation();
@@ -47,6 +48,10 @@ export const ProfileNav: FC = () => {
                 setError("Ой, произошла ошибка!");
             });
     };
+
+    const isDesktop = useMediaQuery({ minWidth: 961 });
+    const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
+    const isMobile = useMediaQuery({ maxWidth: 375 });
 
     return (
         <div className={`${styles.container} mr-15`}>
