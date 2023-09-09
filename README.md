@@ -15,8 +15,8 @@
 
 ## Скриншоты приложения
 <div>
-  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/main.png?raw=true" width="30%">
-  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/modal.png?raw=true" width="30%">
-  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/profileFeed.png?raw=true" width="30%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/main.png?raw=true" width="32%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/modal.png?raw=true" width="32%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/profileFeed.png?raw=true" width="32%">
   <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/mainFeed.png?raw=true" width="100%">
 </div>
