@@ -18,8 +18,8 @@ const AppHeader: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isDesktop = useMediaQuery({ minWidth: 961 });
-  const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
-  const isMobile = useMediaQuery({ maxWidth: 375 });
+  const isTablet = useMediaQuery({ minWidth: 451, maxWidth: 960 });
+  const isMobile = useMediaQuery({ maxWidth: 450 });
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -87,7 +87,49 @@ const AppHeader: FC = () => {
         </nav>
       )}
 
-      {(isMobile || isTablet) && (
+      {isTablet && (
+        <nav className={styles.nav}>
+          <ul className={`${styles.list} ${styles.width100n3} ${styles.flexStart}`}>
+
+            <li>
+              <NavLink to='/' className={link}>
+                <BurgerIcon type={homeRoute ? "primary" : "secondary"} />
+              </NavLink>
+            </li>
+
+            <li className='ml-2'>
+              <NavLink to='/feed' className={link}>
+                <ListIcon type={feedRoute ? "primary" : "secondary"} />
+              </NavLink>
+            </li>
+
+          </ul>
+
+          <div className={`${styles.logo} ${styles.width100n3} ${styles.flexCenter}`}>
+            <NavLink to='/' >
+              <Logo />
+            </NavLink>
+          </div>
+
+          <ul className={`${styles.list} ${styles.width100n3} ${styles.flexEnd}`}>
+            {user
+              ? <li>
+                <NavLink to='/profile' className={link}>
+                  <ProfileIcon type={profileRoute ? "primary" : "secondary"} />
+                </NavLink>
+              </li>
+
+              : <li>
+                <NavLink to='/login' className={link}>
+                  <ProfileIcon type={loginRoute ? "primary" : "secondary"} />
+                </NavLink>
+              </li>
+            }
+          </ul>
+        </nav>
+      )}
+
+      {(isMobile) && (
         <nav className={styles.nav}>
           <NavLink to='/'>
             <img src={mobileLogo} alt="Logo" />

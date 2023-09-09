@@ -78,10 +78,6 @@
   display: flex;
   justify-content: flex-start;
 }
-
-/* desktop */
-@media screen and (max-width: 1600px) {}
-
 /* tablet */
 @media screen and (max-width: 960px) {
   .menuIconBar {
@@ -128,7 +124,7 @@
 }
 
 /* mobile */
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 450px) {
   .menuIconBar {
     color: #ccc;
   }

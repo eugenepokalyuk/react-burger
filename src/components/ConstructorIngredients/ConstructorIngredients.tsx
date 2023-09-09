@@ -94,8 +94,9 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
       <div className={`${styles.bunItem}`}>
         <div className="mr-4">
           <p className={`text text_type_main-medium ml-10`}>
-            {isDesktop &&
-              "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа"
+            {isDesktop
+              ? 'Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа'
+              : 'Пожалуйста, добавьте сюда булку и ингредиенты для создания заказа'
             }
           </p>
         </div>
@@ -204,7 +205,6 @@ const ConstructorIngredients: FC<ConstructorIngredientsProps> = ({ items }) => {
           onMove={handleMove}
         >
           <DragHandle id={uuidv4()} index={index}>
-
             <DragIcon type="primary" />
             <div className={`${styles.cardMobileContainer} ml-2 mr-2`}>
               <img src={item.image} alt="" />

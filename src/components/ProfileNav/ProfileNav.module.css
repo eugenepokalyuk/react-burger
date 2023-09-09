@@ -84,3 +84,9 @@
 .scrollable::-webkit-scrollbar-track {
     background: #2f2f37;
 }
+
+@media screen and (max-width: 960px) {
+    .container {
+        padding: 16px;
+    }
+}

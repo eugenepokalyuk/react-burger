@@ -5,7 +5,6 @@ import { logoutUser } from "../../utils/api";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { RootState } from "../../services/types/types";
 import { clearUser } from "../../services/actions/authActions";
-import { useMediaQuery } from "react-responsive";
 import { isDesktop } from "react-device-detect";
 
 export const ProfileNav: FC = () => {

@@ -20,6 +20,7 @@
 
 .infoContainerItem {
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -69,6 +70,14 @@ button {
         align-items: center;
         background: #1C1C21;
     }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .mb25 {
+        margin-bottom: 100px;
+    }
 }
 
 @media screen and (max-width: 375px) {
@@ -83,5 +92,13 @@ button {
         justify-content: center;
         align-items: center;
         background: #1C1C21;
+    }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .mb25 {
+        margin-bottom: 100px;
     }
 }

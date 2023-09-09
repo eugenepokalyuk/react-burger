@@ -354,33 +354,6 @@ const BurgerIngredients: FC = () => {
         )}
 
       </section>
-      {/* {isModalOpen && selectedIngredient && (
-        <Modal onClose={closeModal} header="Детали ингредиента">
-          <div className={`${styles.ingredientImage}`}>
-            <img
-              src={selectedIngredient.image_large}
-              alt={selectedIngredient.name}
-            />
-          </div>
-          <div>
-            <p className="text text_type_main-medium">
-              {selectedIngredient.name}
-            </p>
-            <div className={`${styles.flex} text_color_inactive`}>
-              {nutrientLabels.map((nutrient) => (
-                <div key={uuidv4()}>
-                  <p className="text text_type_main-default text_color_inactive">
-                    {nutrient.label}
-                  </p>
-                  <p className={`${styles.nutrientContainer} text text_type_main-default text_color_inactive`}>
-                    {selectedIngredient[nutrient.value as keyof IIngredient]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Modal>
-      )} */}
     </>
   );
 };

@@ -107,7 +107,7 @@ const BurgerConstructor: FC = () => {
   }, [ingredientElement, ingredientElementBun]);
 
   return (
-    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} mb-5 mt-10`}>
+    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} ${styles.mb25} mb-5 mt-10`}>
       {isDesktop && (
         <>
           <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
@@ -116,7 +116,7 @@ const BurgerConstructor: FC = () => {
             </div>
 
             <div className={`${styles.infoContainer}`}>
-              <div className={`${styles.infoContainerItem} mr-10`}>
+              <div className={`${styles.infoContainerItem} mr-2`}>
                 <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
                 <CurrencyIcon type="primary" />
               </div>
@@ -180,10 +180,10 @@ const BurgerConstructor: FC = () => {
       )}
       {isMobile || isTablet && (
         <>
-          <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
-            {/* <div className={`${styles.flexContainer} mb-5 mt-10`} data-cy="burgerConstructorContainer"> */}
-            <ConstructorIngredients items={ingredientElement} />
-            {/* </div> */}
+          <div ref={dropTarget} className={`${styles.w100} ${isHover && styles.dropIndicator}`}>
+            <div data-cy="burgerConstructorContainer" className="burgerConstructorContainer">
+              <ConstructorIngredients items={ingredientElement} />
+            </div>
 
             <div className={`${styles.infoContainer}`}>
               <div className={`${styles.infoContainerItem} mr-10`}>

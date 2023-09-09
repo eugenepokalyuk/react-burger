@@ -76,7 +76,7 @@ export const OrderFeed: FC = () => {
 
             {isMobile || isTablet && (
                 <>
-                    <div>
+                    <div className={`${styles.cardContainer}`}>
                         <h1 className={`${styles.textCenter} text text_type_main-large mb-5 mt-10`}>Лента заказов</h1>
                         <div className={styles.wrapper}>
                             <div className={styles.container_flex}>
