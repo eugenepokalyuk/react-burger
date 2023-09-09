@@ -12,3 +12,11 @@
 
 ## Модуль 3. Протокол WebSocket и деплой приложения
 Реализовали соединение с сервером в режиме реального времени с использованием протокола WebSocket. Применили разные подходы (Jest, Cypress) к тестированию, использовали автоматизированное тестирование приложения.
+
+## Скриншоты приложения
+<div>
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/main.png?raw=true" width="33%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/modal.png?raw=true" width="33%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/profileFeed.png?raw=true" width="33%">
+  <img src="https://github.com/eugenepokalyuk/react-burger/blob/sprint-7/step-1/public/images/mainFeed.png?raw=true" width="100%">
+</div>
