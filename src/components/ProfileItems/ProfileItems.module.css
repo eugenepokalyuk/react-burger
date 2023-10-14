@@ -36,3 +36,9 @@
     align-items: center;
     height: 70vh;
 }
+
+@media screen and (max-width: 960px) {
+    .container {
+        padding: 16px;
+    }
+}

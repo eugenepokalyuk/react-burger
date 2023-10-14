@@ -36,7 +36,7 @@ export const ForgotPasswordPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputEmail} mb-6`}
                     />
 
                     {error && (

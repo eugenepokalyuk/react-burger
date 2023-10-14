@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../services/hooks/hooks';
 import styles from './LoginPage.module.css';
 import { loginUser } from '../../utils/api';
 import { USER_STATEMENT } from '../../services/actions/authActions'
+import { useMediaQuery } from 'react-responsive';
 
 export const LoginPage: FC = () => {
     const [email, setEmail] = useState('');
@@ -43,7 +44,6 @@ export const LoginPage: FC = () => {
             <div className={styles.container}>
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className='text text_type_main-medium mb-6 mt-10'>Вход</h1>
-
                     <Input
                         type={'text'}
                         placeholder={'E-mail'}

@@ -14,9 +14,7 @@ type Props = {
 
 const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
   const { number } = useParams<{ number: string }>();
-  const { ingredients } = useAppSelector(
-    (store: RootState) => store.ingredients
-  );
+  const { ingredients } = useAppSelector((store: RootState) => store.ingredients);
   const [orderData, setOrderData] = useState<TWSOrder | null>(null);
   useEffect(() => {
     const getOrderData = async () => {
@@ -50,9 +48,8 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
     <>
       <section className={`${styles.container} ${!isModal && styles.positionFixed}`}>
         {orderData ? (
-          <div
-            className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
-          >
+          <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
+            <h1 className="text text_type_main-large mb-10">Детали заказа</h1>
             <h2 className={`${toggleTitleNumber} text text_type_digits-default`}>#{orderData?.number}</h2>
             <p className={`text text_type_main-medium mt-10 mb-3`}>
               {orderData?.name}
@@ -109,9 +106,7 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
               ))}
             </ul>
 
-            <ul
-              className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.w100}`}
-            >
+            <ul className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.w100}`}>
               <li className="text text_type_main-default text_color_inactive">
                 {formattedDate}
               </li>
@@ -124,9 +119,7 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
             </ul>
           </div>
         ) : (
-          <div
-            className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}
-          >
+          <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
             <h2 className={`${toggleTitleNumber} text text_type_main-large`}>Ошибка!</h2>
             <p className={`text text_type_main-medium mt-10 mb-3`}>
               Данного заказа не существует

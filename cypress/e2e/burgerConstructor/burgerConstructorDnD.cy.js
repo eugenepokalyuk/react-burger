@@ -1,12 +1,12 @@
 const burgerConstructorSelector = '[data-cy="burgerConstructorContainer"]';
 const basket = [
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0949"]',
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0941"]',
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0941"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093d"]',
   '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0942"]',
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0947"]',
-  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa0948"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
+  '[data-cy="dragableIngredients-643d69a5c3f7b9001cfa093e"]',
 ]
 const arr = ['Калории', 'Белки', 'Жиры', 'Углеводы'];
 describe('service is available', function () {

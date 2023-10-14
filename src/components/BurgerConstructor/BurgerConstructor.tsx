@@ -19,18 +19,19 @@ import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { IIngredient, OrderResponse } from "../../services/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useMediaQuery } from "react-responsive";
 
 const BurgerConstructor: FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const { user: AuthUser } = useAppSelector(selectUserCredentials);
   const [orderId, setOrderId] = useState<string | null>(null);
 
-  const ingredientElement = useAppSelector(
-    (store) => store.constructorIngredients.ingredients
-  );
-  const ingredientElementBun = useAppSelector(
-    (store) => store.constructorIngredients.bun
-  );
+  const isDesktop = useMediaQuery({ minWidth: 961 });
+  const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
+  const isMobile = useMediaQuery({ maxWidth: 375 });
+
+  const ingredientElement = useAppSelector((store) => store.constructorIngredients.ingredients);
+  const ingredientElementBun = useAppSelector((store) => store.constructorIngredients.bun);
 
   const dispatch = useAppDispatch();
   const [, setBurgerIngredients] = useState<string[]>([]);
@@ -44,6 +45,7 @@ const BurgerConstructor: FC = () => {
   >({
     accept: "items",
     drop(item: IIngredient) {
+      console.log(item)
       dispatch(addIngredientToConstructor(item));
     },
     collect: (monitor: DropTargetMonitor) => ({
@@ -56,17 +58,15 @@ const BurgerConstructor: FC = () => {
   const handleOrderClick = async () => {
     try {
       setIsLoading(true);
-
       const ingredientIds = ingredientElement.map(
         (ingredient: IIngredient) => ingredient._id
       );
+
       const bunId = ingredientElementBun
         ? ingredientElementBun._id
         : "643d69a5c3f7b9001cfa093c";
 
-      if (bunId) {
-        ingredientIds.push(bunId);
-      }
+      bunId && ingredientIds.push(bunId);
 
       const response: OrderResponse = await createOrder({
         ingredients: ingredientIds,
@@ -107,73 +107,146 @@ const BurgerConstructor: FC = () => {
   }, [ingredientElement, ingredientElementBun]);
 
   return (
-    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} mb-5 mt-10`}>
-      <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
-        <div className={`${styles.flexContainer} mb-5 mt-10`} data-cy="burgerConstructorContainer">
-          <ConstructorIngredients items={ingredientElement} />
-        </div>
+    <section className={`${styles.container} ${styles.flexCenter} ${styles.h100} ${styles.mb25} mb-5 mt-10`}>
+      {isDesktop && (
+        <>
+          <div ref={dropTarget} className={`${isHover && styles.dropIndicator}`}>
+            <div className={`${styles.flexContainer} mb-5 mt-10`} data-cy="burgerConstructorContainer">
+              <ConstructorIngredients items={ingredientElement} />
+            </div>
 
-        <div className={`${styles.infoContainer}`}>
-          <div className={`${styles.infoContainerItem} mr-10`}>
-            <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
-            <CurrencyIcon type="primary" />
+            <div className={`${styles.infoContainer}`}>
+              <div className={`${styles.infoContainerItem} mr-2`}>
+                <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
+                <CurrencyIcon type="primary" />
+              </div>
+
+              {AuthUser ? (
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="large"
+                  onClick={handleOrderClick}
+                  disabled={
+                    ingredientElement === undefined ||
+                      ingredientElementBun === undefined
+                      ? true
+                      : false
+                  }
+                  data-cy="submitConstructorForm"
+                >
+                  Оформить заказ
+                </Button>
+              ) : (
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="large"
+                  onClick={handleAuthClick}
+                  disabled={false}
+                >
+                  Авторизация
+                </Button>
+              )}
+            </div>
           </div>
-
-          {AuthUser ? (
-            <Button
-              htmlType="button"
-              type="primary"
-              size="large"
-              onClick={handleOrderClick}
-              disabled={
-                ingredientElement === undefined ||
-                  ingredientElementBun === undefined
-                  ? true
-                  : false
-              }
-              data-cy="submitConstructorForm"
-            >
-              Оформить заказ
-            </Button>
-          ) : (
-            <Button
-              htmlType="button"
-              type="primary"
-              size="large"
-              onClick={handleAuthClick}
-              disabled={false}
-            >
-              Авторизация
-            </Button>
+          {isLoading && (
+            <Modal onClose={closeModal}>
+              <div className={styles.modalContent}>
+                <h1 className="text text_type_main-large mb-8">Оформляем заказ</h1>
+                <p className="text text_type_main-medium text_color_inactive mb-8">
+                  Подождите пожалуйста, примерное время ожидание 15 сек.
+                </p>
+                <FontAwesomeIcon
+                  icon={faSpinner}
+                  spin
+                  size="5x"
+                  className={`${styles.faSpinner}`}
+                />
+              </div>
+            </Modal>
           )}
-        </div>
-      </div>
 
-      {isLoading && (
-        <Modal onClose={closeModal}>
-          <div className={styles.modalContent}>
-            <h1 className="text text_type_main-large mb-8">Оформляем заказ</h1>
-            <p className="text text_type_main-medium text_color_inactive mb-8">
-              Подождите пожалуйста, примерное время ожидание 15 сек.
-            </p>
-            <FontAwesomeIcon
-              icon={faSpinner}
-              spin
-              size="5x"
-              className={`${styles.faSpinner}`}
-            />
-          </div>
-        </Modal>
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              {orderId ? (
+                <OrderDetails orderId={orderId} />
+              ) : (
+                <p className="text text_type_main-medium text_color_inactive">Ошибка при создании заказа. Попробуйте еще раз.</p>
+              )}
+            </Modal>
+          )}
+        </>
       )}
+      {isMobile || isTablet && (
+        <>
+          <div ref={dropTarget} className={`${styles.w100} ${isHover && styles.dropIndicator}`}>
+            <div data-cy="burgerConstructorContainer" className="burgerConstructorContainer">
+              <ConstructorIngredients items={ingredientElement} />
+            </div>
 
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          {orderId ? (
-            <OrderDetails orderId={orderId} />
-          ) : (
-            <p className="text text_type_main-medium text_color_inactive">Ошибка при создании заказа. Попробуйте еще раз.</p>
+            <div className={`${styles.infoContainer}`}>
+              <div className={`${styles.infoContainerItem} mr-10`}>
+                <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
+                <CurrencyIcon type="primary" />
+              </div>
+
+              {AuthUser ? (
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="large"
+                  onClick={handleOrderClick}
+                  disabled={
+                    ingredientElement === undefined ||
+                      ingredientElementBun === undefined
+                      ? true
+                      : false
+                  }
+                  data-cy="submitConstructorForm"
+                >
+                  Оформить заказ
+                </Button>
+              ) : (
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="large"
+                  onClick={handleAuthClick}
+                  disabled={false}
+                >
+                  Авторизация
+                </Button>
+              )}
+            </div>
+          </div>
+          {isLoading && (
+            <Modal onClose={closeModal}>
+              <div className={styles.modalContent}>
+                <h1 className="text text_type_main-large mb-8">Оформляем заказ</h1>
+                <p className="text text_type_main-medium text_color_inactive mb-8">
+                  Подождите пожалуйста, примерное время ожидание 15 сек.
+                </p>
+                <FontAwesomeIcon
+                  icon={faSpinner}
+                  spin
+                  size="5x"
+                  className={`${styles.faSpinner}`}
+                />
+              </div>
+            </Modal>
           )}
-        </Modal>
+
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              {orderId ? (
+                <OrderDetails orderId={orderId} />
+              ) : (
+                <p className="text text_type_main-medium text_color_inactive">Ошибка при создании заказа. Попробуйте еще раз.</p>
+              )}
+            </Modal>
+          )}
+        </>
       )}
     </section>
   );

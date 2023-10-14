@@ -95,19 +95,14 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
             onClick={handleClick}
         >
             <div className={`${styles.orderCard} ${styles.Link}`}>
-                <div
-                    className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem} mb-6`}
-                >
+                <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem} mb-6`}>
                     <p className="text text_type_digits-default">#{order.number}</p>
                     <p className="text text_type_main-default text_color_inactive">
                         {formattedDate}
                     </p>
                 </div>
 
-                <div
-                    className={`${styles.flex} ${styles.cardItem} ${showStatus ? "mb-2" : "mb-6"
-                        }`}
-                >
+                <div className={`${styles.flex} ${styles.cardItem} ${showStatus ? "mb-2" : "mb-6"}`}>
                     <p className="text text_type_main-medium mb-2">{order.name}</p>
                 </div>
 
@@ -133,9 +128,7 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                     </div>
                 )}
 
-                <div
-                    className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem}`}
-                >
+                <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem}`}>
                     <ul className={styles.ingredientList}>
                         {data?.slice(0, 6).map((item, index: number) => (
                             <li key={index} className={`${styles.orderItem}`}>
@@ -155,9 +148,7 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                         ))}
                     </ul>
 
-                    <div
-                        className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter}`}
-                    >
+                    <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter}`}>
                         <p className="text text_type_digits-default mr-2">
                             {calculateOrderPrice(order.ingredients)}
                         </p>
