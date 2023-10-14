@@ -119,3 +119,17 @@
     width: 100%;
     margin-right: calc(4*6px);
 }
+
+
+
+@media screen and (max-width: 960px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .container {
+        width: 100%;
+    }
+}

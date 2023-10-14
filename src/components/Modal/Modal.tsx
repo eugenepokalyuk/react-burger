@@ -4,9 +4,14 @@ import styles from './Modal.module.css';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { ModalProps } from '../../services/types/types'
+import { useMediaQuery } from 'react-responsive';
 
 const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
   const onCloseCallback = useCallback(onClose, [onClose]);
+
+  const isDesktop = useMediaQuery({ minWidth: 961 });
+  const isTablet = useMediaQuery({ minWidth: 376, maxWidth: 960 });
+  const isMobile = useMediaQuery({ maxWidth: 375 });
 
   const onKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === 'Escape') {
@@ -30,20 +35,42 @@ const Modal: FC<ModalProps> = ({ children, header, onClose }) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className={styles.modal} data-cy="modalContainer">
-        <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10 text-center`} onKeyDown={onKeyDown}>
-          <div className={`${header ? styles.modalHeader : `${styles.modalNoHeader} mt-5 mb-5`} d-flex`}>
-            {header && <span className='text text_type_main-large'>{header}</span>}
-            {onClose && (
-              <span className={`${styles.closeIcon} ml-auto`} data-cy="modalCloseIcon">
-                <CloseIcon type='primary' onClick={onClose} />
-              </span>
-            )}
+      {isDesktop && (
+        <>
+          <div className={styles.modal} data-cy="modalContainer">
+            <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10 text-center`} onKeyDown={onKeyDown}>
+              <div className={`${header ? styles.modalHeader : `${styles.modalNoHeader} mt-5 mb-5`} d-flex`}>
+                {header && <span className='text text_type_main-large'>{header}</span>}
+                {onClose && (
+                  <span className={`${styles.closeIcon} ml-auto`} data-cy="modalCloseIcon">
+                    <CloseIcon type='primary' onClick={onClose} />
+                  </span>
+                )}
+              </div>
+              {children}
+            </div>
           </div>
-          {children}
-        </div>
-      </div>
-      <ModalOverlay onClose={onClose} />
+          <ModalOverlay onClose={onClose} />
+        </>
+      )}
+      {isMobile || isTablet && (
+        <>
+          <div className={styles.modal} data-cy="modalContainer">
+            <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10 text-center`} onKeyDown={onKeyDown}>
+              <div className={`${header ? styles.modalHeader : `${styles.modalNoHeader} mt-5 mb-5`} d-flex`}>
+                {header && <span className='text text_type_main-medium'>{header}</span>}
+                {onClose && (
+                  <span className={`${styles.closeIcon} ml-auto`} data-cy="modalCloseIcon">
+                    <CloseIcon type='primary' onClick={onClose} />
+                  </span>
+                )}
+              </div>
+              {children}
+            </div>
+          </div>
+          <ModalOverlay onClose={onClose} />
+        </>
+      )}
     </>,
     document.getElementById('root') as HTMLElement
   );

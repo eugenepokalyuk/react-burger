@@ -61,7 +61,7 @@ export const RegisterPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputName} `}
                     />
 
                     <Input
@@ -73,7 +73,7 @@ export const RegisterPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputEmail}`}
                     />
 
                     <Input
@@ -86,7 +86,7 @@ export const RegisterPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputPwd}`}
                     />
 
                     {error && (

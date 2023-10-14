@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage, ProfileFeed, IngredientPage, NotFound, OrderFeed } from '../../pages';
@@ -27,7 +27,7 @@ const App = () => {
   };
 
   const closeModal = () => {
-    // navigate(-1);
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -63,7 +63,6 @@ const App = () => {
   return (
     <>
       <AppHeader />
-
       {loading ?
         <>
           <Routes location={background || location}>
@@ -133,7 +132,9 @@ const App = () => {
               <Route
                 path={INGREDIENTS_PATH}
                 element={
-                  <IngredientPage />
+                  <Modal onClose={handleModalClose}>
+                    <IngredientPage />
+                  </Modal>
                 }
               />
 

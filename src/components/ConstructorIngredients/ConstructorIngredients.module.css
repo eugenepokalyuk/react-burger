@@ -59,3 +59,38 @@
 .ingredientWrapper {
     width: 100%;
 }
+
+@media screen and (max-width: 960px) {
+    .dragableItem {
+        padding: calc(2 * 4px) 0px;
+    }
+
+    .cardMobileContainer {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+
+        background: #1c1c21;
+        border-radius: 40px;
+        padding: 16px;
+    }
+
+    .cardMobileContainer img {
+        /* width: 52px; */
+        height: 40px;
+    }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .flexMobileItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 4px 0px;
+    }
+}
+
+@media screen and (max-width: 375px) {}

@@ -47,7 +47,7 @@ export const ResetPasswordPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputPwd} mb-6`}
                     />
 
                     <Input
@@ -59,7 +59,7 @@ export const ResetPasswordPage: FC = () => {
                         error={false}
                         errorText={'Ошибка'}
                         size={'default'}
-                        extraClass='mb-6'
+                        extraClass={`${styles.inputText} mb-6`}
                     />
 
                     {error && (

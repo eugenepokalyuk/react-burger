@@ -13,8 +13,7 @@ const OrderFeedStat: FC<Props> = ({ isEmpty }) => {
     const totalToday = useAppSelector(store => (store.wsReducer.totalToday));
 
     const pendingOrders = useMemo(
-        () =>
-            orders.filter((order: TWSOrder) => order.status === 'pending'),
+        () => orders.filter((order: TWSOrder) => order.status === 'pending'),
         [orders]
     );
 

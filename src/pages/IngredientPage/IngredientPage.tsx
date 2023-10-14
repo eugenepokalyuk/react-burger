@@ -4,14 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../services/hooks/hooks";
 import { RootState } from "../../services/types/types";
 import { v4 as uuidv4 } from "uuid";
+import { useMediaQuery } from "react-responsive";
+
 export const IngredientPage: FC = () => {
     const { id } = useParams();
-    const { ingredients } = useAppSelector(
-        (state: RootState) => state.ingredients
-    );
-    const selectedIngredient = ingredients.find(
-        (item: { _id: string | undefined }) => item._id === id
-    );
+    const { ingredients } = useAppSelector((state: RootState) => state.ingredients);
+
+    const selectedIngredient = ingredients.find((item: { _id: string | undefined }) => item._id === id);
 
     const nutrientLabels = [
         { label: "Калории, ккал", value: "calories" },
@@ -43,7 +42,7 @@ export const IngredientPage: FC = () => {
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.content}>
-                    <h1 className="text text_type_main-large mb-6 mt-10">
+                    <h1 className="text text_type_main-large mb-6">
                         Детали ингредиента
                     </h1>
 
@@ -54,7 +53,7 @@ export const IngredientPage: FC = () => {
                         />
                     </div>
 
-                    <div>
+                    <div className={`${styles.flexContainer}`}>
                         <p className="text text_type_main-medium mb-8">
                             {selectedIngredient.name}
                         </p>

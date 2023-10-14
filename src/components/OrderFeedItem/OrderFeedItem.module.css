@@ -88,3 +88,27 @@
 .link {
     color: inherit;
 }
+
+@media screen and (max-width: 960px) {
+    .ingredientList li {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        margin-left: -20px;
+        background-color: #131316;
+        border: 3px solid #7920bd;
+        border-radius: 100%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .ingredientList li {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        margin-left: -20px;
+        background-color: #131316;
+        border: 3px solid #7920bd;
+        border-radius: 100%;
+    }
+}

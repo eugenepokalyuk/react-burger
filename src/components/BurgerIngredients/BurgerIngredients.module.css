@@ -76,3 +76,105 @@
 .faSpinner {
     color: #801AB2;
 }
+
+@media screen and (max-width: 960px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .container_flex {
+        width: 100%;
+    }
+
+    .container_flex div {
+        width: 33%;
+        min-width: 33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cardItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ingredientsList {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        padding: calc(4 * 4px);
+    }
+
+    .scrollable {
+        width: 100%;
+    }
+
+    .ingredientImage {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .ingredientImage img {
+        width: 100%;
+    }
+    .nutrientContainer {
+        gap: 8px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .container_flex {
+        width: 100%;
+    }
+
+    .container_flex div {
+        width: 33%;
+        min-width: 33%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cardItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ingredientsList {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        padding: calc(4 * 4px);
+    }
+
+    .scrollable {
+        width: 100%;
+    }
+
+    .ingredientImage {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .ingredientImage img {
+        width: 100%;
+    }
+    .nutrientContainer {
+        gap: 8px;
+    }
+}
