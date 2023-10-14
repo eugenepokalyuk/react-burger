@@ -4,7 +4,7 @@ import { NavLink, useMatch } from 'react-router-dom';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useMediaQuery } from "react-responsive";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import mobileLogo from '../../images/MobileLogo.png'
 
 const AppHeader: FC = () => {

@@ -25,10 +25,6 @@ import {
 import { Identifier } from "dnd-core";
 import { v4 as uuidv4 } from "uuid";
 import { useMediaQuery } from "react-responsive";
-import { SwipeRow } from 'react-native-swipe-list-view'
-import { Text, TouchableOpacity, View, Image } from 'react-native'
-import { useSwipeable } from "react-swipeable";
-import { config } from "process";
 
 const DragHandle: FC<DragHandleProps> = ({ id, index, children }) => {
   const [{ isDragging }, drag] = useDrag({

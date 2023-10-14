@@ -9,14 +9,12 @@ import React, {
 import styles from "./BurgerIngredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientItem from "../IngredientDetails/IngredientDetails";
-import Modal from "../Modal/Modal";
 import { fetchIngredientsData } from "../../utils/api";
 import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchIngredientsRequest } from "../../services/actions/ingredients";
 import { fetchConstructorIngredientsRequest } from "../../services/actions/burgerConstructor";
 import { selectConstructorIngredients } from "../../services/selectors/selectors";
-import { v4 as uuidv4 } from "uuid";
 import { IIngredient, NutrientProperty } from "../../services/types/types";
 import { useMediaQuery } from "react-responsive";
 const BurgerIngredients: FC = () => {
