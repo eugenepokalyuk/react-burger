@@ -78,6 +78,7 @@
   display: flex;
   justify-content: flex-start;
 }
+
 /* tablet */
 @media screen and (max-width: 960px) {
   .menuIconBar {
