@@ -28,13 +28,10 @@
     .container {
         max-width: 100%;
     }
-
     .content {
         padding: 0px 8px;
     }
-
-    .inputEmail,
-    .inputPwd {
+    .inputEmail, .inputPwd {
         display: flex;
         width: 100%;
     }
@@ -44,13 +41,10 @@
     .container {
         max-width: 100%;
     }
-
     .content {
         padding: 0px 8px;
     }
-
-    .inputEmail,
-    .inputPwd {
+    .inputEmail, .inputPwd {
         display: flex;
         width: 100%;
     }

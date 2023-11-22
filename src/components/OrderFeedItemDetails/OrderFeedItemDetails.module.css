@@ -120,9 +120,7 @@
     margin-right: calc(4*6px);
 }
 
-.faSpinner {
-    color: #801AB2;
-}
+
 
 @media screen and (max-width: 960px) {
     .container {
