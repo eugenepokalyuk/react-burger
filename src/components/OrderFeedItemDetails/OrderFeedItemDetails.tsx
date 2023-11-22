@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { FC, useEffect, useState } from "react";
 import { fetchOrderData } from "../../utils/api";
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   isModal?: boolean
@@ -119,16 +121,30 @@ const OrderFeedItemDetails: FC<Props> = ({ isModal }) => {
             </ul>
           </div>
         ) : (
-          <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
-            <h2 className={`${toggleTitleNumber} text text_type_main-large`}>Ошибка!</h2>
-            <p className={`text text_type_main-medium mt-10 mb-3`}>
-              Данного заказа не существует
+          // <div className={`${styles.wrapper} ${styles.flex} ${styles.flexColumn}`}>
+          //   <h2 className={`${toggleTitleNumber} text text_type_main-large`}>Ошибка!</h2>
+          //   <p className={`text text_type_main-medium mt-10 mb-3`}>
+          //     Данного заказа не существует
+          //   </p>
+          //   <p className={`text text_type_main-medium mb-3`}>
+          //     Можете перейти на <NavLink to="/" className={`${styles.orderTitleDone}`}>главную страницу</NavLink>
+          //   </p>
+          // </div>
+          <div className={`${styles.flex} ${styles.flexColumn}`}>
+            <p className="text text_type_main-medium text_color_inactive mb-8">
+              Пожалуйста подождите
             </p>
-            <p className={`text text_type_main-medium mb-3`}>
-              Можете перейти на <NavLink to="/" className={`${styles.orderTitleDone}`}>главную страницу</NavLink>
-            </p>
+            <div className={`${styles.flex} ${styles.flexContentCenter} text_color_inactive`}>
+              <FontAwesomeIcon
+                icon={faSpinner}
+                spin
+                size="5x"
+                className={`${styles.faSpinner}`}
+              />
+            </div>
           </div>
-        )}
+        )
+        }
       </section>
     </>
   );
