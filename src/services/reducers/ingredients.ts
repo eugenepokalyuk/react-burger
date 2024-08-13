@@ -1,24 +1,20 @@
-import {
-    FETCH_INGREDIENTS_REQUEST,
-    FETCH_INGREDIENTS_SUCCESS,
-    FETCH_INGREDIENTS_FAILURE,
-} from "../actions/ingredients";
-import { ActionTypes } from "../types/ingredients/ActionTypes";
+import {FETCH_INGREDIENTS_FAILURE, FETCH_INGREDIENTS_REQUEST, FETCH_INGREDIENTS_SUCCESS,} from "../actions/ingredients";
+import {ActionTypes} from "../types/ingredients/ActionTypes";
 
-import { IIngredientsState, RootState } from "../types/types";
+import {IIngredientsState, RootState} from "../types/types";
 
-const initialState: IIngredientsState = {
+const initialState:IIngredientsState = {
     ingredients: [],
     loading: false,
     error: null,
 };
 
-export const selectLoading = (state: RootState) => state.ingredients.loading;
-export const selectError = (state: RootState) => state.ingredients.error;
+export const selectLoading = (state:RootState) => state.ingredients.loading;
+export const selectError = (state:RootState) => state.ingredients.error;
 
 export const ingredientsReducer = (
     state = initialState,
-    action: ActionTypes
+    action:ActionTypes
 ) => {
     switch (action.type) {
         case FETCH_INGREDIENTS_REQUEST:
@@ -27,6 +23,7 @@ export const ingredientsReducer = (
                 loading: true,
                 error: null,
             };
+
         case FETCH_INGREDIENTS_SUCCESS:
             return {
                 ...state,
@@ -34,12 +31,14 @@ export const ingredientsReducer = (
                 loading: false,
                 error: null,
             };
+
         case FETCH_INGREDIENTS_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload,
             };
+
         default:
             return state;
     }

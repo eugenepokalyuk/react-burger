@@ -23,9 +23,11 @@
     .container {
         max-width: 100%;
     }
+
     .content {
         padding: 0px 8px;
     }
+
     .inputEmail, .inputPwd, .inputText, .inputName {
         display: flex;
         width: 100%;
@@ -37,9 +39,11 @@
     .container {
         max-width: 100%;
     }
+
     .content {
         padding: 0px 8px;
     }
+
     .inputEmail, .inputPwd, .inputText, .inputName {
         display: flex;
         width: 100%;

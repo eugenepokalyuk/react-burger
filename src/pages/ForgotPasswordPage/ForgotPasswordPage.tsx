@@ -1,21 +1,27 @@
-import React, { useState, FormEvent, FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './ForgotPasswordPage.module.css';
-import { resetPassword } from '../../utils/api';
+import React, {FC, FormEvent, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
-export const ForgotPasswordPage: FC = () => {
+import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './ForgotPasswordPage.module.css';
+import {resetPassword} from '../../utils/api';
+
+export const ForgotPasswordPage:FC = () => {
     const [email, setEmail] = useState('');
+
     const navigate = useNavigate();
+
     const [error, setError] = useState('');
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         resetPassword(email)
             .then(res => {
                 localStorage.setItem('passwordResetDone', 'true');
                 navigate('/reset-password', { replace: true });
             })
+
             .catch(error => {
                 setError('Ой, произошла ошибка!');
             });
@@ -53,7 +59,6 @@ export const ForgotPasswordPage: FC = () => {
                         <span className="text_color_inactive">Вспомнили пароль?</span>
                         <Link to='/login' className={styles.link}> Войти</Link>
                     </div>
-
                 </form>
             </div>
         </div>

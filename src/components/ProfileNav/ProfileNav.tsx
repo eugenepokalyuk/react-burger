@@ -1,37 +1,43 @@
-import { FC, MouseEvent, useState } from "react";
-import styles from "./ProfileNav.module.css";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { logoutUser } from "../../utils/api";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
-import { RootState } from "../../services/types/types";
-import { clearUser } from "../../services/actions/authActions";
-import { isDesktop } from "react-device-detect";
+import {FC, MouseEvent, useState} from "react";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {isDesktop} from "react-device-detect";
 
-export const ProfileNav: FC = () => {
+import styles from "./ProfileNav.module.css";
+import {logoutUser} from "../../utils/api";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
+import {RootState} from "../../services/types/types";
+import {clearUser} from "../../services/actions/authActions";
+
+export const ProfileNav:FC = () => {
     const location = useLocation();
+
     const navigate = useNavigate();
+
     const dispatch = useAppDispatch();
 
     const [, setError] = useState<string>("");
 
     const getUserRefreshToken = useAppSelector(
-        (store: RootState) => store.auth.user?.refreshToken
+        (store:RootState) => store.auth.user?.refreshToken
     );
 
-    const clx = (classes: (string | { [key: string]: boolean })[]): string => {
+    const clx = (classes:(string|{ [key:string]:boolean })[]):string => {
         const classList = classes.flatMap((item) => {
             if (typeof item === "string") {
                 return item;
             }
+
             const getClassArray = Object.length > 0 && Object.entries(item)
                 .filter(([_, value]) => value)
                 .map(([key, _]) => key);
+
             return getClassArray;
         });
+
         return classList.join(" ");
     }
 
-    const handleLogout = (e: MouseEvent<HTMLAnchorElement>) => {
+    const handleLogout = (e:MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
 
         let refreshToken = getUserRefreshToken
@@ -39,11 +45,14 @@ export const ProfileNav: FC = () => {
             : localStorage.getItem("refreshToken");
 
         dispatch(clearUser());
+
         localStorage.clear();
+
         logoutUser(refreshToken || "")
             .then((res) => {
                 navigate("/login", { replace: true });
             })
+
             .catch((error) => {
                 setError("Ой, произошла ошибка!");
             });
@@ -86,15 +95,13 @@ export const ProfileNav: FC = () => {
                 </NavLink>
             </ul>
             {location.pathname === "/profile"
-                &&
-                (
+                && (
                     <p className="text text_type_main-small text_color_inactive">
                         В этом разделе вы можете изменить свои персональные данные
                     </p>
                 )}
             {location.pathname === "/profile/orders"
-                &&
-                (
+                && (
                     <p className="text text_type_main-small text_color_inactive">
                         В этом разделе вы можете просмотреть свои заказы
                     </p>

@@ -1,58 +1,57 @@
-import React, {
-    Dispatch,
-    FC,
-    SetStateAction,
-    useEffect,
-    useState,
-} from "react";
+import React, {Dispatch, FC, SetStateAction, useEffect, useState,} from "react";
+import {Link, Location, useLocation} from "react-router-dom";
+
+import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+
 import styles from "./OrderFeedItem.module.css";
-import { IIngredient, RootState, TWSOrder } from "../../services/types/types";
-import { useAppDispatch, useAppSelector, useFormattedDate } from "../../services/hooks/hooks";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Location, useLocation } from "react-router-dom";
-import {
-    addViewedOrder,
-    clearViewedOrder,
-} from "../../services/actions/viewedFeedOrder";
+import {IIngredient, RootState, TWSOrder} from "../../services/types/types";
+import {useAppDispatch, useAppSelector, useFormattedDate} from "../../services/hooks/hooks";
+import {addViewedOrder, clearViewedOrder,} from "../../services/actions/viewedFeedOrder";
 
 interface Props {
-    order: TWSOrder;
-    showStatus: boolean;
-    parentURL: Location;
-    state?: { background: Location };
-    setIsModalOpen: Dispatch<SetStateAction<boolean>> | boolean | undefined;
+    order:TWSOrder;
+    showStatus:boolean;
+    parentURL:Location;
+    state?:{ background:Location };
+    setIsModalOpen:Dispatch<SetStateAction<boolean>>|boolean|undefined;
 }
 
-const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
+const OrderFeedItem:FC<Props> = ({ order, showStatus }) => {
     const { ingredients } = useAppSelector(
-        (state: RootState) => state.ingredients
+        (state:RootState) => state.ingredients
     );
+
     const [data, setData] = useState<IIngredient[]>([]);
+
     const location = useLocation();
+
     const dispatch = useAppDispatch();
-    const [, setSelectedOrder] = useState<TWSOrder | null>(null);
+
+    const [, setSelectedOrder] = useState<TWSOrder|null>(null);
 
     useEffect(() => {
         if (order && order.ingredients) {
-            const items: IIngredient[] = order.ingredients.map(
+            const items:IIngredient[] = order.ingredients.map(
                 (item) =>
                     ingredients.find(
-                        (newIngredient: { _id: string }) => newIngredient._id === item
+                        (newIngredient:{ _id:string }) => newIngredient._id === item
                     ) as IIngredient
             );
+
             setData(items);
         }
     }, [ingredients, order]);
 
-    const formattedDate: string = useFormattedDate(order?.createdAt);
+    const formattedDate:string = useFormattedDate(order?.createdAt);
 
-    const calculateOrderPrice = (orderIngredients: string[]) => {
+    const calculateOrderPrice = (orderIngredients:string[]) => {
         let totalPrice = 0;
 
         orderIngredients.forEach((ingredientId) => {
             const ingredient = ingredients.find(
-                (ing: { _id: string }) => ing._id === ingredientId
+                (ing:{ _id:string }) => ing._id === ingredientId
             );
+
             if (ingredient) {
                 totalPrice += ingredient.price;
             }
@@ -61,8 +60,9 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
         return totalPrice;
     };
 
-    const getOrderStatus = (orderStatus: string) => {
+    const getOrderStatus = (orderStatus:string) => {
         let orderTextStatus = "";
+
         switch (orderStatus) {
             case "done":
                 orderTextStatus = "Выполнен";
@@ -77,12 +77,15 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                 orderTextStatus = "Новый статус?";
                 break;
         }
+
         return orderTextStatus;
     };
 
     const handleClick = () => {
         dispatch(clearViewedOrder());
+
         dispatch(addViewedOrder(order));
+
         setSelectedOrder(order);
     };
 
@@ -95,8 +98,10 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
             onClick={handleClick}
         >
             <div className={`${styles.orderCard} ${styles.Link}`}>
-                <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem} mb-6`}>
+                <div
+                    className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem} mb-6`}>
                     <p className="text text_type_digits-default">#{order.number}</p>
+
                     <p className="text text_type_main-default text_color_inactive">
                         {formattedDate}
                     </p>
@@ -128,9 +133,10 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                     </div>
                 )}
 
-                <div className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem}`}>
+                <div
+                    className={`${styles.flex} ${styles.flexContentBetween} ${styles.flexAlignCenter} ${styles.cardItem}`}>
                     <ul className={styles.ingredientList}>
-                        {data?.slice(0, 6).map((item, index: number) => (
+                        {data?.slice(0, 6).map((item, index:number) => (
                             <li key={index} className={`${styles.orderItem}`}>
                                 <img
                                     className={styles.image}
@@ -152,7 +158,8 @@ const OrderFeedItem: FC<Props> = ({ order, showStatus }) => {
                         <p className="text text_type_digits-default mr-2">
                             {calculateOrderPrice(order.ingredients)}
                         </p>
-                        <CurrencyIcon type="primary" />
+
+                        <CurrencyIcon type="primary"/>
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ export type TIngredientCounter =
 
 export interface IUpdateIngredientCountAction {
     readonly type: typeof UPDATE_INGREDIENT_COUNT;
+
     readonly payload: {
         ingredientId: string, count: number
     }

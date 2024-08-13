@@ -1,8 +1,8 @@
 .orderCard {
     background: #1C1C21;
-    padding: calc(6*4px);
+    padding: calc(6 * 4px);
     border-radius: 40px;
-    margin-top: calc(4*4px);
+    margin-top: calc(4 * 4px);
     transition: 0.5s;
 }
 

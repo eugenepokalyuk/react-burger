@@ -7,7 +7,7 @@
     padding: 16px;
 }
 
-.flexContainer div>svg {
+.flexContainer div > svg {
     margin-right: 8px;
     cursor: grab;
 }

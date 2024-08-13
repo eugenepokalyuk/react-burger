@@ -5,6 +5,7 @@ import { ProfileDetails } from "../../components/ProfileDetails/ProfileDetails";
 export const ProfilePage = () => (
   <div className={styles.wrapper}>
     <ProfileNav />
-    <ProfileDetails />
+
+      <ProfileDetails />
   </div>
 )

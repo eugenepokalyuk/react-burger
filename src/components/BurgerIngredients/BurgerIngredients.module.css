@@ -18,7 +18,7 @@
     transition: 0.5s;
 }
 
-.cardItem>div {
+.cardItem > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,6 +123,7 @@
     .ingredientImage img {
         width: 100%;
     }
+
     .nutrientContainer {
         gap: 8px;
     }
@@ -174,6 +175,7 @@
     .ingredientImage img {
         width: 100%;
     }
+
     .nutrientContainer {
         gap: 8px;
     }

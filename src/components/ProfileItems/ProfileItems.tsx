@@ -1,18 +1,22 @@
-import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../services/hooks/hooks";
-import { useEffect } from "react";
-import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START } from "../../services/actions/WSActions";
+import {useEffect} from "react";
+import {useLocation} from "react-router-dom";
+
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import styles from "./ProfileItems.module.css";
+import {WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START} from "../../services/actions/WSActions";
 import OrderFeedItem from "../OrderFeedItem/OrderFeedItem";
-import { OrderNotFound } from "../OrderNotFound/OrderNotFound";
+import {OrderNotFound} from "../OrderNotFound/OrderNotFound";
 
 export const ProfileItems = () => {
     const dispatch = useAppDispatch();
+
     const { userOrders } = useAppSelector((store) => store.wsReducer);
+
     const location = useLocation();
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
+
         const cleanedToken = token?.replace("Bearer ", "");
 
         dispatch({
@@ -32,7 +36,7 @@ export const ProfileItems = () => {
         <div className={`${styles.content} ${styles.contentHeight}`}>
             <div className={`${styles.w100} ${styles.scrollable} mt-15`}>
                 {userOrders
-                    ? userOrders.map((order, index: number) => (
+                    ? userOrders.map((order, index:number) => (
                         <OrderFeedItem
                             key={index}
                             order={order}
@@ -43,7 +47,7 @@ export const ProfileItems = () => {
                         />
                     )) : (
                         <div className={`${styles.errorContainer}`}>
-                            <OrderNotFound />
+                            <OrderNotFound/>
                         </div>
                     )
                 }

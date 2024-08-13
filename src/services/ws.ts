@@ -1,17 +1,20 @@
-import { IWSActions } from "./actions/WSActions";
-import type { Middleware, MiddlewareAPI } from 'redux';
-import { Dispatch } from "redux";
-import { TWSActions, TWSAuthActions } from "./actions/WSActions";
-import { AppThunk } from './types/types';
+import type {Middleware, MiddlewareAPI} from 'redux';
+import {Dispatch} from "redux";
 
-export const socketMiddleware = (wsUrl: string, wsActions: IWSActions): Middleware => {
-    return (store: MiddlewareAPI<Dispatch, AppThunk>) => {
-        let socket: WebSocket | null = null;
+import {IWSActions, TWSActions, TWSAuthActions} from "./actions/WSActions";
+import {AppThunk} from './types/types';
+
+export const socketMiddleware = (wsUrl:string, wsActions:IWSActions):Middleware => {
+    return (store:MiddlewareAPI<Dispatch, AppThunk>) => {
+        let socket:WebSocket|null = null;
+
         let isConnectionOpen = false;
 
-        return next => (action: TWSActions | TWSAuthActions) => {
+        return next => (action:TWSActions|TWSAuthActions) => {
             const { dispatch } = store;
+
             const { type, payload } = action;
+
             const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
             if (type === wsInit) {

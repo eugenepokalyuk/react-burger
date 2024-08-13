@@ -13,7 +13,7 @@
     transition: 0.5s;
 }
 
-.cardItem>div {
+.cardItem > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +50,7 @@
         color: #4C4CFF;
         padding: 10px 4px;
     }
+
     .ingredientMobileContainer {
         text-align: center;
     }
@@ -71,6 +72,7 @@
         color: #4C4CFF;
         padding: 10px 4px;
     }
+
     .ingredientMobileContainer {
         text-align: center;
     }

@@ -1,13 +1,18 @@
-import React, { useState, useEffect, FormEvent, FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './ResetPasswordPage.module.css';
-import { sendPassword } from '../../utils/api';
+import React, {FC, FormEvent, useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
-export const ResetPasswordPage: FC = () => {
+import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './ResetPasswordPage.module.css';
+import {sendPassword} from '../../utils/api';
+
+export const ResetPasswordPage:FC = () => {
     const [name, setName] = useState('');
+
     const [password, setPassword] = useState('');
+
     const navigate = useNavigate();
+
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -20,8 +25,9 @@ export const ResetPasswordPage: FC = () => {
         localStorage.removeItem('passwordResetDone');
     }, [navigate]);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         sendPassword(password, name)
             .then(res => {
                 navigate('/login', { replace: true });
@@ -63,7 +69,7 @@ export const ResetPasswordPage: FC = () => {
                     />
 
                     {error && (
-                        <p className={`${styles.errorMessage} text text_type_main-default mb-4`} >
+                        <p className={`${styles.errorMessage} text text_type_main-default mb-4`}>
                             {error}
                         </p>
                     )}
@@ -76,7 +82,6 @@ export const ResetPasswordPage: FC = () => {
                         <span className="text_color_inactive">Вспомнили пароль?</span>
                         <Link to='/login' className={styles.link}> Войти</Link>
                     </div>
-
                 </form>
             </div>
         </div>

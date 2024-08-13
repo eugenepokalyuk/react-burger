@@ -1,45 +1,45 @@
 import {
-    GET_USER_SUCCESS,
     CHECK_USER_FAILURE,
-    REFRESH_TOKEN_SUCCESS,
+    CLEAR_USER_CREDS,
+    GET_USER_SUCCESS,
     REFRESH_TOKEN_FAILURE,
-    USER_STATEMENT,
-    CLEAR_USER_CREDS
+    REFRESH_TOKEN_SUCCESS,
+    USER_STATEMENT
 } from '../../actions/authActions'
-import { TUser } from '../types';
+import {TUser} from '../types';
 
 interface IGetUserSuccessAction {
-    type: typeof GET_USER_SUCCESS;
-    payload: TUser
+    type:typeof GET_USER_SUCCESS;
+    payload:TUser
 }
 
 interface ICheckUserFailureAction {
-    type: typeof CHECK_USER_FAILURE;
-    payload: null | unknown
+    type:typeof CHECK_USER_FAILURE;
+    payload:null|unknown
 }
 
 interface IRefreshTokenSuccessAction {
-    type: typeof REFRESH_TOKEN_SUCCESS;
+    type:typeof REFRESH_TOKEN_SUCCESS;
 }
 
 interface IRefreshTokenFailureAction {
-    type: typeof REFRESH_TOKEN_FAILURE;
-    payload: null | unknown
+    type:typeof REFRESH_TOKEN_FAILURE;
+    payload:null|unknown
 }
 
 interface IUserStatementAction {
-    type: typeof USER_STATEMENT;
-    payload: TUser
+    type:typeof USER_STATEMENT;
+    payload:TUser
 }
 
 interface IClearUserCredsAction {
-    type: typeof CLEAR_USER_CREDS;
+    type:typeof CLEAR_USER_CREDS;
 }
 
 export type ActionTypes =
-    | IGetUserSuccessAction
-    | ICheckUserFailureAction
-    | IRefreshTokenSuccessAction
-    | IRefreshTokenFailureAction
-    | IUserStatementAction
-    | IClearUserCredsAction;
+    |IGetUserSuccessAction
+    |ICheckUserFailureAction
+    |IRefreshTokenSuccessAction
+    |IRefreshTokenFailureAction
+    |IUserStatementAction
+    |IClearUserCredsAction;

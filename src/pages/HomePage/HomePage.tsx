@@ -3,8 +3,9 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import styles from "./HomePage.module.css";
 
 export const HomePage = () => (
-  <main className={styles.container}>
-    <BurgerIngredients />
-    <BurgerConstructor />
-  </main>
+    <main className={styles.container}>
+        <BurgerIngredients/>
+
+        <BurgerConstructor/>
+    </main>
 );
